@@ -19,7 +19,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class AuthenticationServiceImpl implements AuthenticationService {
+public class AuthenticationServiceImpl {
 
     private final AppUserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -34,6 +34,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             AppUser user = AppUser.builder()
                     .firstName(request.getFirstName())
                     .lastName(request.getLastName())
+                    .imageUrl(null)
                     .email(request.getEmail())
                     .password(passwordEncoder.encode(request.getPassword()))
                     .role(Role.valueOf(request.getRole()))
@@ -50,7 +51,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                     user.getEmail(),
                     jwtToken,
                     true
-                    //            "Bearer " + spotifyService.getAccessToken()
             );
 
             return response;
@@ -79,7 +79,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 user.getEmail(),
                 jwtToken,
                 true
-                // "Bearer " + spotifyService.getAccessToken()
         );
 
         return response;

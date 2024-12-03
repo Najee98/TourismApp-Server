@@ -70,6 +70,7 @@ public class AppUser implements UserDetails {
         return true;
     }
 
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Reservation> reservations = new ArrayList<Reservation>();
 

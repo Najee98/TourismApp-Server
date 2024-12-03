@@ -1,6 +1,6 @@
 package com.spu.TourismApp.Controllers;
 
-import com.spu.TourismApp.Services.AuthenticationService;
+import com.spu.TourismApp.Services.AuthenticationServiceImpl;
 import com.spu.TourismApp.Services.UserService;
 import com.spu.TourismApp.Shared.Dto.Authentication.AuthenticationRequest;
 import com.spu.TourismApp.Shared.Dto.Authentication.AuthenticationResponse;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthenticationController {
 
-    private final AuthenticationService authenticationService;
+    private final AuthenticationServiceImpl authenticationService;
     private final UserService userService;
 
     @PostMapping("/register")
