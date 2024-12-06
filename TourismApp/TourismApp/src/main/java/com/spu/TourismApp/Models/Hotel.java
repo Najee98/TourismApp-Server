@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "hotels")
-public class Hotel extends TouristAttraction{
+public class Hotel{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

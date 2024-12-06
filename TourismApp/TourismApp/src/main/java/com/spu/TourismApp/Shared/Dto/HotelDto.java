@@ -1,7 +1,10 @@
 package com.spu.TourismApp.Shared.Dto;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
+@Data
 public class HotelDto extends CreateTouristAttractionDto implements Serializable {
 
     private Integer id;

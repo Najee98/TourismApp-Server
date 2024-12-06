@@ -17,7 +17,6 @@ public interface TouristAttractionRepository extends JpaRepository<TouristAttrac
             "ta.name," +
             "ta.address," +
             "ta.phone," +
-            "ta.type," +
             "ta.imageUrl) " +
             "from TouristAttraction ta ")
     List<TouristAttractionDto> findAllAttractions();
@@ -27,7 +26,6 @@ public interface TouristAttractionRepository extends JpaRepository<TouristAttrac
             "ta.name," +
             "ta.address," +
             "ta.phone," +
-            "ta.type," +
             "ta.imageUrl) " +
             "from TouristAttraction ta " +
             "where ta.id = :id")
