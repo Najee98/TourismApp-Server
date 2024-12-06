@@ -38,7 +38,6 @@ public class TouristAttractionServiceImpl implements TouristAttractionService{
         attraction.setAddress(request.getAddress());
         attraction.setPhone(request.getPhone());
         attraction.setImageUrl(request.getImageUrl());
-        attraction.setType(request.getType());
 
         attractionRepository.save(attraction);
     }
@@ -52,7 +51,6 @@ public class TouristAttractionServiceImpl implements TouristAttractionService{
         attraction.setAddress(request.getAddress());
         attraction.setPhone(request.getPhone());
         attraction.setImageUrl(request.getImageUrl());
-        attraction.setType(request.getType());
 
     }
 

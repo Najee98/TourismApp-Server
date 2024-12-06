@@ -17,9 +17,8 @@ public class TouristAttractionDto extends CreateTouristAttractionDto implements 
                                 String name,
                                 String address,
                                 String phone,
-                                TouristAttractionType type,
                                 String imageUrl) {
-        super(name, address, phone, type, imageUrl);
+        super(name, address, phone, imageUrl);
         this.id = id;
     }
 }

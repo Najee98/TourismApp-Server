@@ -32,6 +32,20 @@ public class Reservation {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
+            name = "reservation_restaurants",
+            joinColumns = @JoinColumn(name = "reservation_id"),
+            inverseJoinColumns = @JoinColumn(name = "restaurant_id"))
+    List<Restaurant> restaurants;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "reservations_hotels",
+            joinColumns = @JoinColumn(name = "reservation_id"),
+            inverseJoinColumns = @JoinColumn(name = "hotel_id"))
+    List<Hotel> hotels;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
             name = "reservation_agency",
             joinColumns = @JoinColumn(name = "reservation_id"),
             inverseJoinColumns = @JoinColumn(name = "agency_id"))

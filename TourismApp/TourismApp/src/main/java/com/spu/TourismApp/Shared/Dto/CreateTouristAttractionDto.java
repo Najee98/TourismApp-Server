@@ -15,6 +15,5 @@ public class CreateTouristAttractionDto implements Serializable {
     String name;
     String address;
     String phone;
-    TouristAttractionType type;
     String imageUrl;
 }

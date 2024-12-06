@@ -20,7 +20,7 @@ public class TouristAttraction {
     String name;
     String address;
     String phone;
-    TouristAttractionType type;
+//    TouristAttractionType type;
     String imageUrl;
 
     @ManyToMany(mappedBy = "attractions")
@@ -32,6 +32,6 @@ public class TouristAttraction {
         this.address = address;
         this.phone = phone;
         this.imageUrl = imageUrl;
-        this.type = TouristAttractionType.OTHER;
+//        this.type = TouristAttractionType.OTHER;
     }
 }

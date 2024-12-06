@@ -49,6 +49,7 @@ public class AuthenticationServiceImpl {
                     user.getFirstName(),
                     user.getLastName(),
                     user.getEmail(),
+                    user.getRole().toString(),
                     jwtToken,
                     true
             );
@@ -77,6 +78,7 @@ public class AuthenticationServiceImpl {
                 user.getFirstName(),
                 user.getLastName(),
                 user.getEmail(),
+                user.getRole().toString(),
                 jwtToken,
                 true
         );
