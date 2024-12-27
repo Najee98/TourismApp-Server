@@ -26,9 +26,9 @@ public class TouristAttractionController {
         return ResponseEntity.ok(attractionService.getAllTouristAttractions());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<TouristAttractionDto> getAttractionById(@PathVariable Integer id) {
-        return ResponseEntity.ok(attractionService.getTouristAttractionDetails(id));
+    @GetMapping("/{attractionId}")
+    public ResponseEntity<TouristAttractionDto> getAttractionById(@PathVariable Integer attractionId) {
+        return ResponseEntity.ok(attractionService.getTouristAttractionDetails(attractionId));
     }
 
     @PostMapping
