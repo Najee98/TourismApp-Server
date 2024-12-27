@@ -1,5 +1,7 @@
 package com.spu.TourismApp.Services;
 
+import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundException;
+import com.spu.TourismApp.Models.Restaurant;
 import com.spu.TourismApp.Repositories.RestaurantRepository;
 import com.spu.TourismApp.Shared.Dto.CreateTouristAttractionDto;
 import com.spu.TourismApp.Shared.Dto.RestaurantDto;
@@ -20,8 +22,14 @@ public class RestaurantServiceImpl implements RestaurantService{
     }
 
     @Override
-    public RestaurantDto getRestaurant(Integer id) {
+    public RestaurantDto getRestaurantDto(Integer id) {
         return null;
+    }
+
+    @Override
+    public Restaurant getRestaurant(Integer id){
+        return restaurantRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Restaurant with id: " + id + " not found"));
     }
 
     @Override

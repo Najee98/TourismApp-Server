@@ -5,12 +5,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 @Data
-//@AllArgsConstructor
-//@NoArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class CreateReservationDto implements Serializable {
 
+    Integer reservationUserId;
+    Integer reservationAgencyId;
+    List<Integer> touristAttractionIds;
+    List<Integer> restaurantIds;
+    List<Integer> hotelIds;
 
-
+    Date fromDate;
+    Date toDate;
 }

@@ -1,5 +1,6 @@
 package com.spu.TourismApp.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spu.TourismApp.Models.Utils.TouristAttractionType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,7 @@ public class Restaurant{
     String imageUrl;
     Integer availableTables;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "restaurants")
     List<Reservation> reservations;
 

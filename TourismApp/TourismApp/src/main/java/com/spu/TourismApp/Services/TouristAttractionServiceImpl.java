@@ -26,8 +26,14 @@ public class TouristAttractionServiceImpl implements TouristAttractionService{
     }
 
     @Override
-    public TouristAttractionDto getTouristAttraction(int id) {
+    public TouristAttractionDto getTouristAttractionDto(Integer id) {
         return attractionRepository.findAttractionById(id);
+    }
+
+    @Override
+    public TouristAttraction getTouristAttraction(Integer id) {
+        return attractionRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Tourist Attraction Not Found"));
     }
 
     @Override

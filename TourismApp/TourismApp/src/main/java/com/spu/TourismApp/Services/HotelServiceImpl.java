@@ -23,8 +23,14 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public HotelDto getHotel(Integer id) {
+    public HotelDto getHotelDto(Integer id) {
         return hotelRepository.findHotelById(id);
+    }
+
+    @Override
+    public Hotel getHotel(Integer id) {
+        return hotelRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Hotel with id: " + id + " not found"));
     }
 
     @Override

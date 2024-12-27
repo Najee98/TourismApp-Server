@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -20,6 +21,8 @@ public class Reservation {
     Integer id;
 
     ReservationType reservationType;
+    Date fromDate;
+    Date toDate;
 
     boolean agencyReservation;
 
