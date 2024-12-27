@@ -11,7 +11,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class CreateHotelDto extends CreateTouristAttractionDto implements Serializable {
 
-    private Integer id;
     private Integer availableRooms;
 
     public CreateHotelDto(String name, String description, String address, String phone, String imageUrl) {

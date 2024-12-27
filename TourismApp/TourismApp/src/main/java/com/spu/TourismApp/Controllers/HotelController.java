@@ -36,14 +36,14 @@ public class HotelController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> createHotel(@RequestBody HotelDto request) {
+    public ResponseEntity<Object> createHotel(@RequestBody CreateHotelDto request) {
         hotelService.createHotel(request);
         return new ResponseEntity<>("{ \"message\": \" Created successfully  \" }", HttpStatus.CREATED);
     }
 
-    @PutMapping("/{hotelId}")
-    public ResponseEntity<String> updateAttraction(@PathVariable Integer hotelId ,@RequestBody HotelDto request) {
-        hotelService.updateHotel(hotelId, request);
+    @PutMapping()
+    public ResponseEntity<String> updateAttraction(@RequestBody HotelDto request) {
+        hotelService.updateHotel(request);
         return new ResponseEntity<>("{ \"message\": \" Updated successfully  \" }", HttpStatus.NO_CONTENT);
     }
 

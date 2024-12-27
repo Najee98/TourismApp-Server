@@ -16,9 +16,9 @@ public interface HotelService {
 
     Hotel getHotel(Integer id);
 
-    Hotel createHotel(HotelDto request);
+    Hotel createHotel(CreateHotelDto request);
 
-    Hotel updateHotel(Integer id, HotelDto request);
+    Hotel updateHotel(HotelDto request);
 
     void deleteHotel(Integer id);
 }

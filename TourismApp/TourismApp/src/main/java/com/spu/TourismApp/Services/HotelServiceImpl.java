@@ -3,6 +3,7 @@ package com.spu.TourismApp.Services;
 import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundException;
 import com.spu.TourismApp.Models.Hotel;
 import com.spu.TourismApp.Repositories.HotelRepository;
+import com.spu.TourismApp.Shared.Dto.CreateHotelDto;
 import com.spu.TourismApp.Shared.Dto.HotelDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -53,18 +54,25 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public Hotel createHotel(HotelDto request) {
+    public Hotel createHotel(CreateHotelDto request) {
         Hotel hotel = new Hotel();
 
-        hotel = mapDtoToHotel(hotel, request);
+        hotel.setName(request.getName());
+        hotel.setAddress(request.getAddress());
+        hotel.setPhone(request.getPhone());
+        hotel.setDescription(request.getDescription());
+        hotel.setImageUrl(request.getImageUrl());
+        hotel.setAvailableRooms(request.getAvailableRooms());
+
+//        hotel = mapDtoToHotel(hotel, request);
 
         return hotelRepository.save(hotel);
     }
 
     @Override
-    public Hotel updateHotel(Integer id, HotelDto request) {
-        Hotel hotel = hotelRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Hotel with id: " + id + " not found."));
+    public Hotel updateHotel(HotelDto request) {
+        Hotel hotel = hotelRepository.findById(request.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Hotel with id: " + request.getId() + " not found."));
 
         hotel = mapDtoToHotel(hotel, request);
 
