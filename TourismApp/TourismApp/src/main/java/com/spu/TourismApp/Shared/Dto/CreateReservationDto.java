@@ -14,6 +14,7 @@ import java.util.List;
 public class CreateReservationDto implements Serializable {
 
     Integer reservationUserId;
+    //sent null in case of user reservation
     Integer reservationAgencyId;
     List<Integer> touristAttractionIds;
     List<Integer> restaurantIds;

@@ -101,6 +101,41 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public Reservation addReservationByAgency(CreateReservationDto request) {
-        return null;
+        Reservation reservation = new Reservation();
+
+        //If agency id is present -> true : else -> false
+        reservation.setAgencyReservation(request.getReservationAgencyId() != null);
+
+        AppUser user = userService.getUserById(request.getReservationUserId());
+        reservation.setUser(user);
+
+        List< TouristAttraction> attractions = new ArrayList<>();
+        for (Integer attractionId : request.getTouristAttractionIds()){
+            attractions.add(
+                    attractionService.getTouristAttraction(attractionId)
+            );
+        }
+        reservation.setAttractions(attractions);
+
+        List<Hotel> hotels = new ArrayList<>();
+        for (Integer hotelId : request.getHotelIds()){
+            hotels.add(
+                    hotelService.getHotel(hotelId)
+            );
+        }
+        reservation.setHotels(hotels);
+
+        List<Restaurant> restaurants = new ArrayList<>();
+        for (Integer restaurantId : request.getRestaurantIds()){
+            restaurants.add(
+                    restaurantService.getRestaurant(restaurantId)
+            );
+        }
+        reservation.setRestaurants(restaurants);
+
+        reservation.setFromDate(request.getFromDate());
+        reservation.setToDate(request.getToDate());
+
+        return reservationRepository.save(reservation);
     }
 }
