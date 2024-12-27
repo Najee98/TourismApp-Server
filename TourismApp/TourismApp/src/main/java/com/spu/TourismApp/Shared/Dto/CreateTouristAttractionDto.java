@@ -13,6 +13,7 @@ import java.io.Serializable;
 public class CreateTouristAttractionDto implements Serializable {
 
     String name;
+    String description;
     String address;
     String phone;
     String imageUrl;

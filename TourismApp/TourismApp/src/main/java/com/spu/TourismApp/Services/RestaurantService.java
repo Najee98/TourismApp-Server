@@ -11,7 +11,7 @@ public interface RestaurantService {
 
     List<RestaurantDto> getAllRestaurants();
 
-    RestaurantDto getRestaurantDto(Integer id);
+    RestaurantDto getRestaurantDetails(Integer id);
 
     Restaurant getRestaurant(Integer id);
 

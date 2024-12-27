@@ -28,7 +28,7 @@ public class TouristAttractionController {
 
     @GetMapping("/{id}")
     public ResponseEntity<TouristAttractionDto> getAttractionById(@PathVariable Integer id) {
-        return ResponseEntity.ok(attractionService.getTouristAttractionDto(id));
+        return ResponseEntity.ok(attractionService.getTouristAttractionDetails(id));
     }
 
     @PostMapping

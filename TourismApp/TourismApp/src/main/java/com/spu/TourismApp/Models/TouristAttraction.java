@@ -20,6 +20,7 @@ public class TouristAttraction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     String name;
+    String description;
     String address;
     String phone;
 //    TouristAttractionType type;

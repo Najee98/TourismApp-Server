@@ -3,11 +3,11 @@ package com.spu.TourismApp.Services;
 import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundException;
 import com.spu.TourismApp.Models.Hotel;
 import com.spu.TourismApp.Repositories.HotelRepository;
-import com.spu.TourismApp.Shared.Dto.CreateTouristAttractionDto;
 import com.spu.TourismApp.Shared.Dto.HotelDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,12 +19,31 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public List<HotelDto> getAllHotels() {
-        return hotelRepository.findAllHotels();
+        List<Hotel> hotels = hotelRepository.findAll();
+
+        List<HotelDto> response = new ArrayList<>();
+
+        for (Hotel hotel : hotels) {
+            HotelDto hotelDto = new HotelDto();
+
+            hotelDto = mapHotelToDto(hotel);
+
+            response.add(hotelDto);
+        }
+
+        return response;
     }
 
     @Override
-    public HotelDto getHotelDto(Integer id) {
-        return hotelRepository.findHotelById(id);
+    public HotelDto getHotelDetails(Integer id) {
+        Hotel hotel = hotelRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Hotel with id: " + id + " not found"));
+
+        HotelDto response = new HotelDto();
+
+        response = mapHotelToDto(hotel);
+
+        return response;
     }
 
     @Override
@@ -34,28 +53,22 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public void createHotel(CreateTouristAttractionDto request) {
+    public Hotel createHotel(HotelDto request) {
         Hotel hotel = new Hotel();
 
-        hotel.setName(request.getName());
-        hotel.setAddress(request.getAddress());
-        hotel.setPhone(request.getPhone());
-        hotel.setImageUrl(request.getImageUrl());
+        hotel = mapDtoToHotel(hotel, request);
 
-        hotelRepository.save(hotel);
+        return hotelRepository.save(hotel);
     }
 
     @Override
-    public void updateHotel(HotelDto request) {
-        Hotel hotel = hotelRepository.findById(request.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Hotel with id: " + request.getId() + " not found."));
+    public Hotel updateHotel(Integer id, HotelDto request) {
+        Hotel hotel = hotelRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Hotel with id: " + id + " not found."));
 
-        hotel.setName(request.getName());
-        hotel.setAddress(request.getAddress());
-        hotel.setPhone(request.getPhone());
-        hotel.setImageUrl(request.getImageUrl());
+        hotel = mapDtoToHotel(hotel, request);
 
-        hotelRepository.save(hotel);
+        return hotelRepository.save(hotel);
     }
 
     @Override
@@ -64,5 +77,31 @@ public class HotelServiceImpl implements HotelService {
                 .orElseThrow(() -> new ResourceNotFoundException("Hotel with id: " + id + " not found."));
 
         hotelRepository.delete(hotel);
+    }
+
+    private static Hotel mapDtoToHotel(Hotel hotel, HotelDto dto) {
+
+        hotel.setName(dto.getName());
+        hotel.setDescription(dto.getDescription());
+        hotel.setAddress(dto.getAddress());
+        hotel.setPhone(dto.getPhone());
+        hotel.setImageUrl(dto.getImageUrl());
+        hotel.setAvailableRooms(dto.getAvailableRooms());
+
+        return hotel;
+    }
+
+    private static HotelDto mapHotelToDto(Hotel hotel) {
+        HotelDto hotelDto = new HotelDto();
+
+        hotelDto.setId(hotel.getId());
+        hotelDto.setName(hotel.getName());
+        hotelDto.setDescription(hotel.getDescription());
+        hotelDto.setAddress(hotel.getAddress());
+        hotelDto.setPhone(hotel.getPhone());
+        hotelDto.setImageUrl(hotel.getImageUrl());
+        hotelDto.setAvailableRooms(hotel.getAvailableRooms());
+
+        return hotelDto;
     }
 }

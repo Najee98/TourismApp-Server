@@ -11,22 +11,22 @@ import java.util.List;
 
 public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
 
-    @Query("select new com.spu.TourismApp.Shared.Dto.RestaurantDto(" +
-            "r.id," +
-            "r.name," +
-            "r.address," +
-            "r.phone," +
-            "r.imageUrl) " +
-            "from Restaurant r ")
-    List<RestaurantDto> findAllRestaurants();
-
-    @Query("select new com.spu.TourismApp.Shared.Dto.RestaurantDto(" +
-            "r.id," +
-            "r.name," +
-            "r.address," +
-            "r.phone," +
-            "r.imageUrl) " +
-            "from Restaurant r " +
-            "where r.id = :id")
-    RestaurantDto findRestaurantById(@Param("id") int id);
+//    @Query("select new com.spu.TourismApp.Shared.Dto.RestaurantDto(" +
+//            "r.id," +
+//            "r.name," +
+//            "r.address," +
+//            "r.phone," +
+//            "r.imageUrl) " +
+//            "from Restaurant r ")
+//    List<RestaurantDto> findAllRestaurants();
+//
+//    @Query("select new com.spu.TourismApp.Shared.Dto.RestaurantDto(" +
+//            "r.id," +
+//            "r.name," +
+//            "r.address," +
+//            "r.phone," +
+//            "r.imageUrl) " +
+//            "from Restaurant r " +
+//            "where r.id = :id")
+//    RestaurantDto findRestaurantById(@Param("id") int id);
 }

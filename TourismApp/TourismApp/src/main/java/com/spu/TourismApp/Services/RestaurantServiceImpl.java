@@ -8,6 +8,7 @@ import com.spu.TourismApp.Shared.Dto.RestaurantDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,12 +19,31 @@ public class RestaurantServiceImpl implements RestaurantService{
 
     @Override
     public List<RestaurantDto> getAllRestaurants() {
-        return restaurantRepository.findAllRestaurants();
+        List<Restaurant> restaurants = restaurantRepository.findAll();
+
+        List<RestaurantDto> response = new ArrayList<>();
+
+        for (Restaurant restaurant : restaurants) {
+            RestaurantDto dto = new RestaurantDto();
+
+            dto = mapRestaurantToDto(restaurant);
+
+            response.add(dto);
+        }
+
+        return response;
     }
 
     @Override
-    public RestaurantDto getRestaurantDto(Integer id) {
-        return null;
+    public RestaurantDto getRestaurantDetails(Integer id) {
+        Restaurant restaurant = restaurantRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Restaurant not found"));
+
+        RestaurantDto response = new RestaurantDto();
+
+        response = mapRestaurantToDto(restaurant);
+
+        return response;
     }
 
     @Override
@@ -45,5 +65,33 @@ public class RestaurantServiceImpl implements RestaurantService{
     @Override
     public void deleteRestaurant(Integer id) {
 
+    }
+
+    private static Restaurant mapDtoToRestaurant(RestaurantDto dto) {
+        Restaurant restaurant = new Restaurant();
+
+        restaurant.setId(dto.getId());
+        restaurant.setName(dto.getName());
+        restaurant.setDescription(dto.getDescription());
+        restaurant.setAddress(dto.getAddress());
+        restaurant.setPhone(dto.getPhone());
+        restaurant.setImageUrl(restaurant.getImageUrl());
+        restaurant.setAvailableTables(dto.getAvailableTables());
+
+        return restaurant;
+    }
+
+    private static RestaurantDto mapRestaurantToDto(Restaurant restaurant) {
+        RestaurantDto dto = new RestaurantDto();
+
+        dto.setId(restaurant.getId());
+        dto.setName(restaurant.getName());
+        dto.setDescription(restaurant.getDescription());
+        dto.setAddress(restaurant.getAddress());
+        dto.setPhone(restaurant.getPhone());
+        dto.setImageUrl(restaurant.getImageUrl());
+        dto.setAvailableTables(restaurant.getAvailableTables());
+
+        return dto;
     }
 }

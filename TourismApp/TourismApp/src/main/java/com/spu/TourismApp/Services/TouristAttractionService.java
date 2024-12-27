@@ -10,7 +10,7 @@ public interface TouristAttractionService {
 
     List<TouristAttractionDto> getAllTouristAttractions();
 
-    TouristAttractionDto getTouristAttractionDto(Integer id);
+    TouristAttractionDto getTouristAttractionDetails(Integer id);
 
     TouristAttraction getTouristAttraction(Integer id);
 
@@ -18,5 +18,5 @@ public interface TouristAttractionService {
 
     void updateTouristAttraction(TouristAttractionDto request);
 
-    void deleteTouristAttraction(int id);
+    void deleteTouristAttraction(Integer id);
 }

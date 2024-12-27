@@ -11,22 +11,26 @@ import java.util.List;
 
 public interface HotelRepository extends JpaRepository<Hotel, Integer> {
 
-    @Query("select new com.spu.TourismApp.Shared.Dto.HotelDto(" +
-            "h.id," +
-            "h.name," +
-            "h.address," +
-            "h.phone," +
-            "h.imageUrl) " +
-            "from TouristAttraction h ")
-    List<HotelDto> findAllHotels();
-
-    @Query("select new com.spu.TourismApp.Shared.Dto.HotelDto(" +
-            "h.id," +
-            "h.name," +
-            "h.address," +
-            "h.phone," +
-            "h.imageUrl) " +
-            "from Hotel h " +
-            "where h.id = :id")
-    HotelDto findHotelById(@Param("id") int id);
+//    @Query("select new com.spu.TourismApp.Shared.Dto.HotelDto(" +
+//            "h.id," +
+//            "h.name," +
+//            "h.description, " +
+//            "h.address," +
+//            "h.phone," +
+//            "h.imageUrl," +
+//            "h.availableRooms) " +
+//            "from Hotel h ")
+//    List<HotelDto> findAllHotels();
+//
+//    @Query("select new com.spu.TourismApp.Shared.Dto.HotelDto(" +
+//            "h.id," +
+//            "h.name," +
+//            "h.description, " +
+//            "h.address," +
+//            "h.phone," +
+//            "h.imageUrl," +
+//            "h.availableRooms) " +
+//            "from Hotel h " +
+//            "where h.id = :id")
+//    HotelDto findHotelById(@Param("id") int id);
 }

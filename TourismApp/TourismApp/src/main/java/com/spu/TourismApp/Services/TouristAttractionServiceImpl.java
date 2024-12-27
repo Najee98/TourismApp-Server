@@ -8,6 +8,7 @@ import com.spu.TourismApp.Shared.Dto.TouristAttractionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,12 +23,31 @@ public class TouristAttractionServiceImpl implements TouristAttractionService{
 
     @Override
     public List<TouristAttractionDto> getAllTouristAttractions() {
-        return attractionRepository.findAllAttractions();
+        List<TouristAttraction> touristAttractions = attractionRepository.findAll();
+
+        List<TouristAttractionDto> response = new ArrayList<>();
+
+        for (TouristAttraction attraction : touristAttractions) {
+            TouristAttractionDto dto = new TouristAttractionDto();
+
+            dto = mapAttractionToDto(attraction);
+
+            response.add(dto);
+        }
+
+        return response;
     }
 
     @Override
-    public TouristAttractionDto getTouristAttractionDto(Integer id) {
-        return attractionRepository.findAttractionById(id);
+    public TouristAttractionDto getTouristAttractionDetails(Integer id) {
+        TouristAttraction attraction = attractionRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Attraction with id: " + id + " not found"));
+
+        TouristAttractionDto response = new TouristAttractionDto();
+
+        response = mapAttractionToDto(attraction);
+
+        return response;
     }
 
     @Override
@@ -61,10 +81,34 @@ public class TouristAttractionServiceImpl implements TouristAttractionService{
     }
 
     @Override
-    public void deleteTouristAttraction(int id) {
+    public void deleteTouristAttraction(Integer id) {
         TouristAttraction attraction = attractionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Tourist Attraction Not Found"));
 
         attractionRepository.delete(attraction);
+    }
+
+    private static TouristAttractionDto mapAttractionToDto(TouristAttraction attraction) {
+        TouristAttractionDto dto = new TouristAttractionDto();
+
+        dto.setId(attraction.getId());
+        dto.setName(attraction.getName());
+        dto.setDescription(attraction.getDescription());
+        dto.setAddress(attraction.getAddress());
+        dto.setPhone(attraction.getPhone());
+        dto.setImageUrl(attraction.getImageUrl());
+        return dto;
+    }
+
+    private static TouristAttraction mapDtoToAttraction(TouristAttractionDto dto) {
+        TouristAttraction attraction = new TouristAttraction();
+
+        attraction.setId(dto.getId());
+        attraction.setName(dto.getName());
+        attraction.setDescription(dto.getDescription());
+        attraction.setAddress(dto.getAddress());
+        attraction.setPhone(dto.getPhone());
+        attraction.setImageUrl(dto.getImageUrl());
+        return attraction;
     }
 }

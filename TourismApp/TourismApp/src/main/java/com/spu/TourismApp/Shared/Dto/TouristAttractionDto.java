@@ -15,10 +15,11 @@ public class TouristAttractionDto extends CreateTouristAttractionDto implements 
 
     public TouristAttractionDto(Integer id,
                                 String name,
+                                String description,
                                 String address,
                                 String phone,
                                 String imageUrl) {
-        super(name, address, phone, imageUrl);
+        super(name, description, address, phone, imageUrl);
         this.id = id;
     }
 }
