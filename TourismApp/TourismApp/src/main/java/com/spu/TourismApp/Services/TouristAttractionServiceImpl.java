@@ -78,6 +78,7 @@ public class TouristAttractionServiceImpl implements TouristAttractionService{
         attraction.setPhone(request.getPhone());
         attraction.setImageUrl(request.getImageUrl());
 
+        attractionRepository.save(attraction);
     }
 
     @Override
