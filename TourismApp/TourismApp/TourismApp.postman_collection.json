@@ -13,7 +13,13 @@
 					"name": "getAllAttractions",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNzMzMjQ2NDY4LCJpYXQiOjE3MzMyNDUwMjh9.ncMi0oqpmabbcJqDbalb3RjrMQctILC92uMTp3fhI8M",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/api/attractions",
 							"host": [
@@ -246,7 +252,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \" \",\r\n    \"password\": \" \"\r\n}",
+							"raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -274,7 +280,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"test user\",\r\n    \"lastName\": \"test last name\",\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"123456\",\r\n    \"role\": \"USER\"\r\n}",
+							"raw": "{\r\n    \"firstName\": \"test user 1\",\r\n    \"lastName\": \"test last name\",\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"123456\",\r\n    \"role\": \"USER\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -299,7 +305,148 @@
 		},
 		{
 			"name": "RestaurantAPIs",
-			"item": []
+			"item": [
+				{
+					"name": "getAllRestaurants",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNzM1NTIzNTg5LCJpYXQiOjE3MzU1MjIxNDl9.y4v_8giQlPntmjNwpPJRSfhbquVA9AM98MGiAr8YIck",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/restaurants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"restaurants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createRestaurant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNzM1NTI0MDYwLCJpYXQiOjE3MzU1MjI2MjB9.bqDZV6xwNUPu_Stl9lRqJOtGnQ4fjq1egVUAPPUsw6c",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"test\",\r\n    \"description\": \"test\",\r\n    \"address\": \"test\",\r\n    \"phone\": \"1234\",\r\n    \"imageUrl\": \"test\",\r\n    \"availableTables\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/restaurants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"restaurants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateRestaurant",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNzM1NTI0MDYwLCJpYXQiOjE3MzU1MjI2MjB9.bqDZV6xwNUPu_Stl9lRqJOtGnQ4fjq1egVUAPPUsw6c",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \" new test\",\r\n    \"description\": \"test\",\r\n    \"address\": \"test\",\r\n    \"phone\": \"1234\",\r\n    \"imageUrl\": \"test\",\r\n    \"availableTables\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/restaurants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"restaurants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRestaurantById",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNzM1NTI0MDYwLCJpYXQiOjE3MzU1MjI2MjB9.bqDZV6xwNUPu_Stl9lRqJOtGnQ4fjq1egVUAPPUsw6c",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/restaurants/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"restaurants",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteRestaurant",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNzM1NTI0MDYwLCJpYXQiOjE3MzU1MjI2MjB9.bqDZV6xwNUPu_Stl9lRqJOtGnQ4fjq1egVUAPPUsw6c",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/restaurants/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"restaurants",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "HotelAPIs",
@@ -311,7 +458,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "token",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNzM1MzM1MTg4LCJpYXQiOjE3MzUzMzM3NDh9.BehMOqf2zij9UrMAAWt82lb4WrZxvW61wtEZTAgyf9U",
 								"type": "text"
 							}
 						],
@@ -354,7 +501,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "token",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNzM1MzM1NTYyLCJpYXQiOjE3MzUzMzQxMjJ9.0DSfVOMYK_nZuREiqtTzFdNl30pe9Ib2IRFpPVoButM",
 								"type": "text"
 							}
 						],
@@ -387,7 +534,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "token",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNzM1MzM1Njc5LCJpYXQiOjE3MzUzMzQyMzl9.4pFxAZWKKV_dL7xWq_9NUrSjiauDQ6j-vfKWaGqak9o",
 								"type": "text"
 							}
 						],
@@ -420,7 +567,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "token",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNzM1MzM1Njc5LCJpYXQiOjE3MzUzMzQyMzl9.4pFxAZWKKV_dL7xWq_9NUrSjiauDQ6j-vfKWaGqak9o",
 								"type": "text"
 							}
 						],
