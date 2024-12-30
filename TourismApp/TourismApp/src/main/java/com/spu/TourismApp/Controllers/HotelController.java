@@ -42,13 +42,13 @@ public class HotelController {
     }
 
     @PutMapping()
-    public ResponseEntity<String> updateAttraction(@RequestBody HotelDto request) {
+    public ResponseEntity<String> updateHotel(@RequestBody HotelDto request) {
         hotelService.updateHotel(request);
         return new ResponseEntity<>("{ \"message\": \" Updated successfully  \" }", HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{hotelId}")
-    public ResponseEntity<String> deleteAttraction(@PathVariable Integer hotelId) {
+    public ResponseEntity<String> deleteHotel(@PathVariable Integer hotelId) {
         hotelService.deleteHotel(hotelId);
         return new ResponseEntity<>("{ \"message\": \" Deleted successfully  \" }", HttpStatus.NO_CONTENT);
     }

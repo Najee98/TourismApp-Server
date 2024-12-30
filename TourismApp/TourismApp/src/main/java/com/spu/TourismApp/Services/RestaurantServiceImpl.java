@@ -3,6 +3,7 @@ package com.spu.TourismApp.Services;
 import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundException;
 import com.spu.TourismApp.Models.Restaurant;
 import com.spu.TourismApp.Repositories.RestaurantRepository;
+import com.spu.TourismApp.Shared.Dto.CreateRestaurantDto;
 import com.spu.TourismApp.Shared.Dto.CreateTouristAttractionDto;
 import com.spu.TourismApp.Shared.Dto.RestaurantDto;
 import lombok.RequiredArgsConstructor;
@@ -53,18 +54,35 @@ public class RestaurantServiceImpl implements RestaurantService{
     }
 
     @Override
-    public void createRestaurant(CreateTouristAttractionDto request) {
+    public void createRestaurant(CreateRestaurantDto request) {
+        Restaurant restaurant = new Restaurant();
 
+        restaurant.setName(request.getName());
+        restaurant.setDescription(request.getDescription());
+        restaurant.setAddress(request.getAddress());
+        restaurant.setPhone(request.getPhone());
+        restaurant.setImageUrl(request.getImageUrl());
+        restaurant.setAvailableTables(request.getAvailableTables());
+
+        restaurantRepository.save(restaurant);
     }
 
     @Override
     public void updateRestaurant(RestaurantDto request) {
+        Restaurant restaurant = restaurantRepository.findById(request.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Restaurant with id: " + request.getId() + " not found"));
 
+        restaurant = mapDtoToRestaurant(request);
+
+        restaurantRepository.save(restaurant);
     }
 
     @Override
     public void deleteRestaurant(Integer id) {
+        Restaurant restaurant = restaurantRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Restaurant with id: " + id + " not found"));
 
+        restaurantRepository.delete(restaurant);
     }
 
     private static Restaurant mapDtoToRestaurant(RestaurantDto dto) {
