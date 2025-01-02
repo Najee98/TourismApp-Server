@@ -61,6 +61,7 @@ public class TouristAttractionServiceImpl implements TouristAttractionService{
         TouristAttraction attraction = new TouristAttraction();
 
         attraction.setName(request.getName());
+        attraction.setDescription(request.getDescription());
         attraction.setAddress(request.getAddress());
         attraction.setPhone(request.getPhone());
         attraction.setImageUrl(request.getImageUrl());
@@ -75,6 +76,7 @@ public class TouristAttractionServiceImpl implements TouristAttractionService{
 
         attraction.setName(request.getName());
         attraction.setAddress(request.getAddress());
+        attraction.setDescription(request.getDescription());
         attraction.setPhone(request.getPhone());
         attraction.setImageUrl(request.getImageUrl());
 
