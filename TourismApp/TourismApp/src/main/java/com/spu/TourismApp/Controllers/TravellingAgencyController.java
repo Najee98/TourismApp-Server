@@ -2,6 +2,7 @@ package com.spu.TourismApp.Controllers;
 
 import com.spu.TourismApp.Services.TravellingAgencyService;
 import com.spu.TourismApp.Shared.Dto.CreateTravellingAgencyDto;
+import com.spu.TourismApp.Shared.Dto.TouristAttractionDto;
 import com.spu.TourismApp.Shared.Dto.TravellingAgencyDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,11 @@ public class TravellingAgencyController {
     @GetMapping("/{id}")
     public ResponseEntity<TravellingAgencyDto> getAgencyById(@PathVariable Integer id) {
         return ResponseEntity.ok(agencyService.getTravellingAgency(id));
+    }
+
+    @GetMapping("/{id}/attractions")
+    public ResponseEntity<List<TouristAttractionDto>> getAllTravellingAgencies(@PathVariable Integer id) {
+        return new ResponseEntity<>(agencyService.getAgencyAttractions(id), HttpStatus.OK);
     }
 
     @PostMapping

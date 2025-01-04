@@ -29,4 +29,8 @@ public class TouristAttraction {
     @JsonIgnore
     @ManyToMany(mappedBy = "attractions")
     List<Reservation> reservations;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "attractions")
+    List<TravellingAgency> agencies;
 }
