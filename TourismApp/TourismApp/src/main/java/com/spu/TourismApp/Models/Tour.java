@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -23,11 +24,12 @@ public class Tour {
     @OneToMany(mappedBy = "tour", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Reservation> reservations;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "agency_tours",
-            joinColumns = @JoinColumn(name = "tour_id"),
-            inverseJoinColumns = @JoinColumn(name = "agency_id"))
-    List<TravellingAgency> agencies;
+    @ManyToOne
+    @JoinColumn(name = "agency_id", nullable = false)
+    TravellingAgency agency;
+
+    private Date startDate;
+
+    private Date endDate;
 
 }

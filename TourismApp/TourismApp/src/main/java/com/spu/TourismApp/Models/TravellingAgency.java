@@ -24,9 +24,6 @@ public class TravellingAgency {
     String imageUrl;
 
     @ManyToMany(mappedBy = "agencies")
-    List<Tour> tours;
-
-    @ManyToMany(mappedBy = "agencies")
     List<AppUser> subscribers;
 
 //    @ManyToMany(fetch = FetchType.EAGER)

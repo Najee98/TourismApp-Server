@@ -86,8 +86,7 @@ public class TravellingAgencyServiceImpl implements TravellingAgencyService {
                 dto.getAddress(),
                 dto.getPhone(),
                 dto.getImageUrl(),
-                null,  // Tours will not be set here
-                null // Attractions will not be set here
+                null // Agency users will not be set here
         );
     }
 }
