@@ -1,7 +1,9 @@
 package com.spu.TourismApp.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spu.TourismApp.Models.Utils.ReservationDetail;
 import com.spu.TourismApp.Models.Utils.ReservationType;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,18 +29,22 @@ public class Reservation {
     @Embedded
     ReservationDetail reservationDetail;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "hotel_id")
     Hotel hotel;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     Restaurant restaurant;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "attraction_id")
     TouristAttraction attraction;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "agency_id")
     TravellingAgency agency;
@@ -48,10 +54,12 @@ public class Reservation {
 
     boolean agencyReservation;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     AppUser user;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "tour_id")
     Tour tour;

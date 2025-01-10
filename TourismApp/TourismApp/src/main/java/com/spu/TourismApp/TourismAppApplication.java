@@ -17,20 +17,20 @@ public class TourismAppApplication {
 	}
 
 
-	@Bean
-	public CommandLineRunner commandLineRunner(
-			AuthenticationService service
-	){
-		return args -> {
-			var admin = RegisterRequest.builder()
-					.firstName("admin")
-					.lastName("admin")
-					.email("admin@admin.com")
-					.password("admin")
-					.role(ADMIN)
-					.build();
-
-			System.out.println("Access token: " + service.register(admin).getToken());
-		};
-	}
+//	@Bean
+//	public CommandLineRunner commandLineRunner(
+//			AuthenticationService service
+//	){
+//		return args -> {
+//			var admin = RegisterRequest.builder()
+//					.firstName("admin")
+//					.lastName("admin")
+//					.email("admin@admin.com")
+//					.password("admin")
+//					.role(ADMIN)
+//					.build();
+//
+//			System.out.println("Access token: " + service.register(admin).getToken());
+//		};
+//	}
 }

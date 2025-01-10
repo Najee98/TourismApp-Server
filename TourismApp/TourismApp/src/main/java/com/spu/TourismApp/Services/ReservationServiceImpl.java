@@ -1,5 +1,6 @@
 package com.spu.TourismApp.Services;
 
+import com.spu.TourismApp.ExceptionHandling.CustomExceptions.DuplicatedResourceException;
 import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundException;
 import com.spu.TourismApp.Models.*;
 import com.spu.TourismApp.Models.Utils.ReservationDetail;
@@ -73,77 +74,87 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public Reservation createReservationByUser(CreateReservationDto request) {
+    public Reservation createReservation(CreateReservationDto request) {
         Reservation reservation = new Reservation();
-        ReservationDetail details = new ReservationDetail(
-                request.getHotelRoomNumber(),
-                request.getRestaurantTableNumber()
-        );
 
-        //If agency id is present -> true : else -> false
-        reservation.setAgencyReservation(request.getAgencyId() != null);
 
-        AppUser user = userService.getUserById(request.getReservationUserId());
-        reservation.setUser(user);
+        boolean validReservation = isReservationValid(request);
 
-        reservation.setReservationType(request.getReservationType());
-
-        switch (request.getReservationType()) {
-            case HotelReservation -> reservation.setHotel(
-                    hotelService.getHotel(request.getHotelId())
+        if (validReservation) {
+            ReservationDetail details = new ReservationDetail(
+                    request.getHotelRoomNumber(),
+                    request.getRestaurantTableNumber()
             );
-            case RestaurantReservation -> reservation.setRestaurant(
-                    restaurantService.getRestaurant(request.getRestaurantId())
-            );
-            case ATTRACTION_Reservation -> reservation.setAttraction(
-                    attractionService.getTouristAttraction(request.getAttractionId())
-            );
+
+            //If agency id is present -> true : else -> false
+            reservation.setAgencyReservation(request.getAgencyId() != null);
+
+            AppUser user = userService.getUserById(request.getReservationUserId());
+            reservation.setUser(user);
+
+            reservation.setReservationType(request.getReservationType());
+
+            switch (request.getReservationType()) {
+                case HOTEL_RESERVATION -> reservation.setHotel(
+                        hotelService.getHotel(request.getHotelId())
+                );
+                case RESTAURANT_RESERVATION -> reservation.setRestaurant(
+                        restaurantService.getRestaurant(request.getRestaurantId())
+                );
+                case ATTRACTION_RESERVATION -> reservation.setAttraction(
+                        attractionService.getTouristAttraction(request.getAttractionId())
+                );
+            }
+
+            reservation.setReservationDetail(details);
+
+            reservation.setFromDate(request.getFromDate());
+            reservation.setToDate(request.getToDate());
+
+            return reservationRepository.save(reservation);
+
+        }else{
+            throw new DuplicatedResourceException("Reservation already exists within this period of time.");
         }
 
-        reservation.setReservationDetail(details);
-
-        reservation.setFromDate(request.getFromDate());
-        reservation.setToDate(request.getToDate());
-
-        return reservationRepository.save(reservation);
     }
 
-    @Override
-    public Reservation createReservationByAgency(CreateReservationDto request) {
-        Reservation reservation = new Reservation();
-        ReservationDetail details = new ReservationDetail(
-                request.getHotelRoomNumber(),
-                request.getRestaurantTableNumber()
-        );
-
-        //If agency id is present -> true : else -> false
-        reservation.setAgencyReservation(request.getAgencyId() != null);
-
-        AppUser user = userService.getUserById(request.getReservationUserId());
-        reservation.setUser(user);
-
-        reservation.setReservationType(request.getReservationType());
-
-
-        switch (request.getReservationType()) {
-            case HotelReservation -> reservation.setHotel(
-                    hotelService.getHotel(request.getHotelId())
-            );
-            case RestaurantReservation -> reservation.setRestaurant(
-                    restaurantService.getRestaurant(request.getRestaurantId())
-            );
-            case ATTRACTION_Reservation -> reservation.setAttraction(
-                    attractionService.getTouristAttraction(request.getAttractionId())
-            );
-        }
-
-        reservation.setReservationDetail(details);
-
-        reservation.setFromDate(request.getFromDate());
-        reservation.setToDate(request.getToDate());
-
-        return reservationRepository.save(reservation);
-    }
+//    @Override
+//    public Reservation createReservationByAgency(CreateReservationDto request) {
+//        Reservation reservation = new Reservation();
+//        ReservationDetail details = new ReservationDetail(
+//                request.getHotelRoomNumber(),
+//                request.getRestaurantTableNumber()
+//        );
+//
+//        //If agency id is present -> true : else -> false
+//        reservation.setAgencyReservation(request.getAgencyId() != null);
+//
+//        AppUser user = userService.getUserById(request.getReservationUserId());
+//        reservation.setUser(user);
+//
+//        reservation.setReservationType(request.getReservationType());
+//
+//
+//        switch (request.getReservationType()) {
+//            case HotelReservation -> reservation.setHotel(
+//                    hotelService.getHotel(request.getHotelId())
+//            );
+//            case RestaurantReservation -> reservation.setRestaurant(
+//                    restaurantService.getRestaurant(request.getRestaurantId())
+//            );
+//            case ATTRACTION_Reservation -> reservation.setAttraction(
+//                    attractionService.getTouristAttraction(request.getAttractionId())
+//            );
+//        }
+//
+//        reservation.setReservationDetail(details);
+//
+//        reservation.setFromDate(request.getFromDate());
+//        reservation.setToDate(request.getToDate());
+//
+//        return reservationRepository.save(reservation);
+//    }
 
     @Override
     public Reservation updateReservation(Integer reservationId, CreateReservationDto request) {
@@ -158,13 +169,13 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setReservationType(request.getReservationType());
 
         switch (request.getReservationType()) {
-            case HotelReservation -> reservation.setHotel(
+            case HOTEL_RESERVATION -> reservation.setHotel(
                     hotelService.getHotel(request.getHotelId())
             );
-            case RestaurantReservation -> reservation.setRestaurant(
+            case RESTAURANT_RESERVATION -> reservation.setRestaurant(
                     restaurantService.getRestaurant(request.getRestaurantId())
             );
-            case ATTRACTION_Reservation -> reservation.setAttraction(
+            case ATTRACTION_RESERVATION -> reservation.setAttraction(
                     attractionService.getTouristAttraction(request.getAttractionId())
             );
         }
@@ -181,5 +192,29 @@ public class ReservationServiceImpl implements ReservationService {
                 .orElseThrow(() -> new ResourceNotFoundException("Reservation: " + reservationId + " doesn't exist."));
 
         reservationRepository.delete(reservation);
+    }
+
+    @Override
+    public boolean isReservationValid(CreateReservationDto request){
+
+        List<Reservation> intersectedReservations = new ArrayList<>();
+
+        intersectedReservations = reservationRepository
+                .fetchIntersectedReservations(request.getFromDate(), request.getToDate());
+
+        if (intersectedReservations.isEmpty()){
+            return true;
+        }
+
+        for (Reservation reservation : intersectedReservations){
+            if (reservation.getReservationDetail().getRoomNumber()
+                    .equals(request.getHotelRoomNumber())
+                || reservation.getReservationDetail().getRoomNumber()
+                    .equals(request.getRestaurantTableNumber())){
+                return false;
+            }
+        }
+
+        return true;
     }
 }

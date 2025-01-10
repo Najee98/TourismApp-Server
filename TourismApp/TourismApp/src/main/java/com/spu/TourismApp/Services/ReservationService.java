@@ -10,9 +10,11 @@ public interface ReservationService {
 
     List<ReservationDto> getAllUserReservations();
     ReservationDto getReservationById(Integer id);
-    Reservation createReservationByUser(CreateReservationDto request);
-    Reservation createReservationByAgency(CreateReservationDto request);
+    Reservation createReservation(CreateReservationDto request);
+//    Reservation createReservationByAgency(CreateReservationDto request);
 
     Reservation updateReservation(Integer reservationId, CreateReservationDto request);
     void deleteReservation(Integer reservationId);
+
+    boolean isReservationValid(CreateReservationDto request);
 }

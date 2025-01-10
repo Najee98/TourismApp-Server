@@ -40,13 +40,13 @@ public class RestaurantController {
     }
 
     @PutMapping()
-    public ResponseEntity<String> updateRestaurant(@RequestBody RestaurantDto request) {
+    public ResponseEntity<Object> updateRestaurant(@RequestBody RestaurantDto request) {
         restaurantService.updateRestaurant(request);
         return new ResponseEntity<>("{ \"message\": \" Updated successfully  \" }", HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{restaurantId}")
-    public ResponseEntity<String> deleteRestaurant(@PathVariable Integer restaurantId) {
+    public ResponseEntity<Object> deleteRestaurant(@PathVariable Integer restaurantId) {
         restaurantService.deleteRestaurant(restaurantId);
         return new ResponseEntity<>("{ \"message\": \" Deleted successfully  \" }", HttpStatus.NO_CONTENT);
     }

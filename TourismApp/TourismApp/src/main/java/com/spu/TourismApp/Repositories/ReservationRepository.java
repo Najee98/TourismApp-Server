@@ -7,10 +7,17 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
+
+    @Query("select r from Reservation r " +
+            "where (r.fromDate > :fromDate or r.fromDate = :fromDate)" +
+            "and (r.toDate < :toDate or r.toDate = :toDate) ")
+    List<Reservation> fetchIntersectedReservations(@Param("fromDate") Date fromDate,
+                                                   @Param("toDate") Date toDate);
 
 //    @Query("select new com.spu.TourismApp.Shared.Dto.ReservationDto( " +
 //            "r.id, " +

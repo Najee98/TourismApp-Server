@@ -2,7 +2,7 @@ package com.spu.TourismApp.Models.Utils;
 
 public enum ReservationType {
 
-    RestaurantReservation,
-    HotelReservation,
-    ATTRACTION_Reservation
+    RESTAURANT_RESERVATION,
+    HOTEL_RESERVATION,
+    ATTRACTION_RESERVATION
 }

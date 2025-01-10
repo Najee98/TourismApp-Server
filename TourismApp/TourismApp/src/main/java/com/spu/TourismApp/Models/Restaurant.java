@@ -1,7 +1,5 @@
 package com.spu.TourismApp.Models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spu.TourismApp.Models.Utils.TouristAttractionType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
