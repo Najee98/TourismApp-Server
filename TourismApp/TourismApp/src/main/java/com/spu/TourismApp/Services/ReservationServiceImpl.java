@@ -33,17 +33,25 @@ public class ReservationServiceImpl implements ReservationService {
             ReservationDto reservationDto = new ReservationDto();
 
             reservationDto.setReservationId(reservation.getId());
-            reservationDto.setReservationUserName(reservation.getUser().getFirstName() + " " + reservation.getUser().getLastName());
+            reservationDto.setReservationUserName(
+                    reservation.getUser().getFirstName() + " " + reservation.getUser().getLastName()
+            );
             reservationDto.setReservationType(reservation.getReservationType());
 
-            reservationDto.setHotelId(reservation.getHotel().getId());
-            reservationDto.setHotelName(reservation.getHotel().getName());
+            if (reservation.getHotel() != null) {
+                reservationDto.setHotelId(reservation.getHotel().getId());
+                reservationDto.setHotelName(reservation.getHotel().getName());
+            }
 
-            reservationDto.setRestaurantId(reservation.getRestaurant().getId());
-            reservationDto.setRestaurantName(reservation.getRestaurant().getName());
+            if (reservation.getRestaurant() != null) {
+                reservationDto.setRestaurantId(reservation.getRestaurant().getId());
+                reservationDto.setRestaurantName(reservation.getRestaurant().getName());
+            }
 
-            reservationDto.setAttractionId(reservation.getAttraction().getId());
-            reservationDto.setAttractionName(reservation.getAttraction().getName());
+            if (reservation.getAttraction() != null) {
+                reservationDto.setAttractionId(reservation.getAttraction().getId());
+                reservationDto.setAttractionName(reservation.getAttraction().getName());
+            }
 
             response.add(reservationDto);
         }
@@ -75,16 +83,13 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public Reservation createReservation(CreateReservationDto request) {
-        Reservation reservation = new Reservation();
 
+        Reservation reservation = new Reservation();
 
         boolean validReservation = isReservationValid(request);
 
         if (validReservation) {
-            ReservationDetail details = new ReservationDetail(
-                    request.getHotelRoomNumber(),
-                    request.getRestaurantTableNumber()
-            );
+            ReservationDetail details = new ReservationDetail();
 
             //If agency id is present -> true : else -> false
             reservation.setAgencyReservation(request.getAgencyId() != null);
@@ -95,15 +100,27 @@ public class ReservationServiceImpl implements ReservationService {
             reservation.setReservationType(request.getReservationType());
 
             switch (request.getReservationType()) {
-                case HOTEL_RESERVATION -> reservation.setHotel(
-                        hotelService.getHotel(request.getHotelId())
-                );
-                case RESTAURANT_RESERVATION -> reservation.setRestaurant(
-                        restaurantService.getRestaurant(request.getRestaurantId())
-                );
-                case ATTRACTION_RESERVATION -> reservation.setAttraction(
-                        attractionService.getTouristAttraction(request.getAttractionId())
-                );
+                case HOTEL_RESERVATION -> {
+                    reservation.setHotel(
+                            hotelService.getHotel(request.getHotelId())
+                    );
+                    details.setRoomNumber(request.getHotelRoomNumber());
+                    details.setTableNumber(-1);
+                }
+                case RESTAURANT_RESERVATION -> {
+                    reservation.setRestaurant(
+                            restaurantService.getRestaurant(request.getRestaurantId())
+                    );
+                    details.setTableNumber(request.getRestaurantTableNumber());
+                    details.setRoomNumber(-1);
+                }
+                case ATTRACTION_RESERVATION -> {
+                    reservation.setAttraction(
+                            attractionService.getTouristAttraction(request.getAttractionId())
+                    );
+                    details.setTableNumber(-1);
+                    details.setRoomNumber(-1);
+                }
             }
 
             reservation.setReservationDetail(details);

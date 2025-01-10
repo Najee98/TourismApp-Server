@@ -55,7 +55,7 @@ public class Reservation {
     boolean agencyReservation;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     AppUser user;
 
