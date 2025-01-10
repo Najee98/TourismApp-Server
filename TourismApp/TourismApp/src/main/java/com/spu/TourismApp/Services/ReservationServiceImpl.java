@@ -69,14 +69,20 @@ public class ReservationServiceImpl implements ReservationService {
         response.setReservationUserName(reservation.getUser().getFirstName() + " " + reservation.getUser().getLastName());
         response.setReservationType(reservation.getReservationType());
 
-        response.setHotelId(reservation.getHotel().getId());
-        response.setHotelName(reservation.getHotel().getName());
+        if (reservation.getHotel() != null) {
+            response.setHotelId(reservation.getHotel().getId());
+            response.setHotelName(reservation.getHotel().getName());
+        }
 
-        response.setRestaurantId(reservation.getRestaurant().getId());
-        response.setRestaurantName(reservation.getRestaurant().getName());
+        if (reservation.getRestaurant() != null) {
+            response.setRestaurantId(reservation.getRestaurant().getId());
+            response.setRestaurantName(reservation.getRestaurant().getName());
+        }
 
-        response.setAttractionId(reservation.getAttraction().getId());
-        response.setAttractionName(reservation.getAttraction().getName());
+        if (reservation.getAttraction() != null) {
+            response.setAttractionId(reservation.getAttraction().getId());
+            response.setAttractionName(reservation.getAttraction().getName());
+        }
 
         return response;
     }
