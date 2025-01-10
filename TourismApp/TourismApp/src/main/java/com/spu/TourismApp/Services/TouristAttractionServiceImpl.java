@@ -3,8 +3,8 @@ package com.spu.TourismApp.Services;
 import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundException;
 import com.spu.TourismApp.Models.TouristAttraction;
 import com.spu.TourismApp.Repositories.TouristAttractionRepository;
-import com.spu.TourismApp.Shared.Dto.CreateTouristAttractionDto;
-import com.spu.TourismApp.Shared.Dto.TouristAttractionDto;
+import com.spu.TourismApp.Shared.Dto.TouristAttraction.CreateTouristAttractionDto;
+import com.spu.TourismApp.Shared.Dto.TouristAttraction.TouristAttractionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,9 +1,7 @@
 package com.spu.TourismApp.Services;
 
-import com.spu.TourismApp.Shared.Dto.TouristAttractionDto;
-import com.spu.TourismApp.Shared.Dto.TravellingAgencyDto;
-import com.spu.TourismApp.Shared.Dto.CreateTravellingAgencyDto;
-import org.springframework.http.HttpStatusCode;
+import com.spu.TourismApp.Shared.Dto.TravellingAgency.TravellingAgencyDto;
+import com.spu.TourismApp.Shared.Dto.TravellingAgency.CreateTravellingAgencyDto;
 
 import java.util.List;
 

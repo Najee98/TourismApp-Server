@@ -1,19 +1,12 @@
 package com.spu.TourismApp.Repositories;
 
 import com.spu.TourismApp.Models.Hotel;
-import com.spu.TourismApp.Shared.Dto.HotelDto;
-import com.spu.TourismApp.Shared.Dto.HotelReservationDto;
-import com.spu.TourismApp.Shared.Dto.TouristAttractionDto;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-
-import java.util.List;
 
 public interface HotelRepository extends JpaRepository<Hotel, Integer> {
 
 
-//    @Query("select new com.spu.TourismApp.Shared.Dto.HotelReservationDto(" +
+//    @Query("select new com.spu.TourismApp.Shared.Dto.Hotel.HotelReservationDto(" +
 //            "r.id," +
 //            "h.id," +
 //            "concat(r.user.firstName)," +
@@ -22,7 +15,7 @@ public interface HotelRepository extends JpaRepository<Hotel, Integer> {
 //            "from Hotel h join h.reservations r ")
 //    List<HotelReservationDto> getHotelReservations(@Param("hotelId") Integer hotelId);
 
-//    @Query("select new com.spu.TourismApp.Shared.Dto.HotelDto(" +
+//    @Query("select new com.spu.TourismApp.Shared.Dto.Hotel.HotelDto(" +
 //            "h.id," +
 //            "h.name," +
 //            "h.description, " +
@@ -33,7 +26,7 @@ public interface HotelRepository extends JpaRepository<Hotel, Integer> {
 //            "from Hotel h ")
 //    List<HotelDto> findAllHotels();
 //
-//    @Query("select new com.spu.TourismApp.Shared.Dto.HotelDto(" +
+//    @Query("select new com.spu.TourismApp.Shared.Dto.Hotel.HotelDto(" +
 //            "h.id," +
 //            "h.name," +
 //            "h.description, " +

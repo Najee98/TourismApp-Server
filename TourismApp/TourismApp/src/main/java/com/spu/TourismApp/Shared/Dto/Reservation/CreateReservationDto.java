@@ -1,4 +1,4 @@
-package com.spu.TourismApp.Shared.Dto;
+package com.spu.TourismApp.Shared.Dto.Reservation;
 
 import com.spu.TourismApp.Models.Utils.ReservationType;
 import lombok.AllArgsConstructor;
@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @AllArgsConstructor

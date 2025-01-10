@@ -1,15 +1,15 @@
 package com.spu.TourismApp.Controllers;
 
 import com.spu.TourismApp.Services.HotelService;
-import com.spu.TourismApp.Services.TouristAttractionService;
-import com.spu.TourismApp.Shared.Dto.*;
+import com.spu.TourismApp.Shared.Dto.Hotel.CreateHotelDto;
+import com.spu.TourismApp.Shared.Dto.Hotel.HotelDto;
+import com.spu.TourismApp.Shared.Dto.Hotel.HotelReservationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/hotels")

@@ -1,8 +1,8 @@
 package com.spu.TourismApp.Services;
 
 import com.spu.TourismApp.Models.TouristAttraction;
-import com.spu.TourismApp.Shared.Dto.CreateTouristAttractionDto;
-import com.spu.TourismApp.Shared.Dto.TouristAttractionDto;
+import com.spu.TourismApp.Shared.Dto.TouristAttraction.CreateTouristAttractionDto;
+import com.spu.TourismApp.Shared.Dto.TouristAttraction.TouristAttractionDto;
 
 import java.util.List;
 

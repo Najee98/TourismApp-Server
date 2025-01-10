@@ -2,8 +2,8 @@ package com.spu.TourismApp.Controllers;
 
 import com.spu.TourismApp.Models.Reservation;
 import com.spu.TourismApp.Services.ReservationService;
-import com.spu.TourismApp.Shared.Dto.CreateReservationDto;
-import com.spu.TourismApp.Shared.Dto.ReservationDto;
+import com.spu.TourismApp.Shared.Dto.Reservation.CreateReservationDto;
+import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

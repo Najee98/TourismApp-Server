@@ -1,7 +1,9 @@
 package com.spu.TourismApp.Services;
 
 import com.spu.TourismApp.Models.Hotel;
-import com.spu.TourismApp.Shared.Dto.*;
+import com.spu.TourismApp.Shared.Dto.Hotel.CreateHotelDto;
+import com.spu.TourismApp.Shared.Dto.Hotel.HotelDto;
+import com.spu.TourismApp.Shared.Dto.Hotel.HotelReservationDto;
 
 import java.util.List;
 

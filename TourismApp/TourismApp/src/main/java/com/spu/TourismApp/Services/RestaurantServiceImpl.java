@@ -3,9 +3,8 @@ package com.spu.TourismApp.Services;
 import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundException;
 import com.spu.TourismApp.Models.Restaurant;
 import com.spu.TourismApp.Repositories.RestaurantRepository;
-import com.spu.TourismApp.Shared.Dto.CreateRestaurantDto;
-import com.spu.TourismApp.Shared.Dto.CreateTouristAttractionDto;
-import com.spu.TourismApp.Shared.Dto.RestaurantDto;
+import com.spu.TourismApp.Shared.Dto.Restaurant.CreateRestaurantDto;
+import com.spu.TourismApp.Shared.Dto.Restaurant.RestaurantDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,9 +1,8 @@
 package com.spu.TourismApp.Controllers;
 
 import com.spu.TourismApp.Services.TravellingAgencyService;
-import com.spu.TourismApp.Shared.Dto.CreateTravellingAgencyDto;
-import com.spu.TourismApp.Shared.Dto.TouristAttractionDto;
-import com.spu.TourismApp.Shared.Dto.TravellingAgencyDto;
+import com.spu.TourismApp.Shared.Dto.TravellingAgency.CreateTravellingAgencyDto;
+import com.spu.TourismApp.Shared.Dto.TravellingAgency.TravellingAgencyDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -5,8 +5,8 @@ import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundExc
 import com.spu.TourismApp.Models.*;
 import com.spu.TourismApp.Models.Utils.ReservationDetail;
 import com.spu.TourismApp.Repositories.ReservationRepository;
-import com.spu.TourismApp.Shared.Dto.CreateReservationDto;
-import com.spu.TourismApp.Shared.Dto.ReservationDto;
+import com.spu.TourismApp.Shared.Dto.Reservation.CreateReservationDto;
+import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,10 +1,8 @@
 package com.spu.TourismApp.Controllers;
 
 import com.spu.TourismApp.Services.RestaurantService;
-import com.spu.TourismApp.Shared.Dto.CreateHotelDto;
-import com.spu.TourismApp.Shared.Dto.CreateRestaurantDto;
-import com.spu.TourismApp.Shared.Dto.HotelDto;
-import com.spu.TourismApp.Shared.Dto.RestaurantDto;
+import com.spu.TourismApp.Shared.Dto.Restaurant.CreateRestaurantDto;
+import com.spu.TourismApp.Shared.Dto.Restaurant.RestaurantDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

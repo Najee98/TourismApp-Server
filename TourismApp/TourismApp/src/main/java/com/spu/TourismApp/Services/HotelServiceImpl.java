@@ -3,9 +3,9 @@ package com.spu.TourismApp.Services;
 import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundException;
 import com.spu.TourismApp.Models.Hotel;
 import com.spu.TourismApp.Repositories.HotelRepository;
-import com.spu.TourismApp.Shared.Dto.CreateHotelDto;
-import com.spu.TourismApp.Shared.Dto.HotelDto;
-import com.spu.TourismApp.Shared.Dto.HotelReservationDto;
+import com.spu.TourismApp.Shared.Dto.Hotel.CreateHotelDto;
+import com.spu.TourismApp.Shared.Dto.Hotel.HotelDto;
+import com.spu.TourismApp.Shared.Dto.Hotel.HotelReservationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

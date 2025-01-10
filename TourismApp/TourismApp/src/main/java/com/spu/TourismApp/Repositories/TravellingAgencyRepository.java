@@ -1,11 +1,9 @@
 package com.spu.TourismApp.Repositories;
 
 import com.spu.TourismApp.Models.TravellingAgency;
-import com.spu.TourismApp.Shared.Dto.TouristAttractionDto;
-import com.spu.TourismApp.Shared.Dto.TravellingAgencyDto;
+import com.spu.TourismApp.Shared.Dto.TravellingAgency.TravellingAgencyDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,7 +20,7 @@ public interface TravellingAgencyRepository extends JpaRepository<TravellingAgen
             "from TravellingAgency a")
     List<TravellingAgencyDto> findAllAgencies();
 
-//    @Query("select new com.spu.TourismApp.Shared.Dto.TouristAttractionDto(" +
+//    @Query("select new com.spu.TourismApp.Shared.Dto.TouristAttraction.TouristAttractionDto(" +
 //            "at.id," +
 //            "at.name," +
 //            "at.description," +

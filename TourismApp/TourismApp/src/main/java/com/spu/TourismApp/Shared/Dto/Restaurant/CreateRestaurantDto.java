@@ -1,5 +1,6 @@
-package com.spu.TourismApp.Shared.Dto;
+package com.spu.TourismApp.Shared.Dto.Restaurant;
 
+import com.spu.TourismApp.Shared.Dto.TouristAttraction.CreateTouristAttractionDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

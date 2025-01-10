@@ -1,4 +1,4 @@
-package com.spu.TourismApp.Shared.Dto;
+package com.spu.TourismApp.Shared.Dto.TravellingAgency;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,11 +9,11 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateTouristAttractionDto implements Serializable {
+public class CreateTravellingAgencyDto implements Serializable {
 
     String name;
-    String description;
     String address;
     String phone;
     String imageUrl;
+
 }
