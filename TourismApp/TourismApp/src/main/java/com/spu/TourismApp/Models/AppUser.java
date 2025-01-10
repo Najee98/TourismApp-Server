@@ -81,4 +81,12 @@ public class AppUser implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "agency_id"))
     List<TravellingAgency> agencies;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_tours",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "tour_id"))
+    List<Tour> tours;
+
 }

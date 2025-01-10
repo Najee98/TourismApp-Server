@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface TravellingAgencyRepository extends JpaRepository<TravellingAgency, Integer> {
 
-    @Query("select new com.spu.TourismApp.Shared.Dto.TravellingAgencyDto(" +
+    @Query("select new com.spu.TourismApp.Shared.Dto.TravellingAgency.TravellingAgencyDto(" +
             "a.id," +
             "a.name," +
             "a.address," +

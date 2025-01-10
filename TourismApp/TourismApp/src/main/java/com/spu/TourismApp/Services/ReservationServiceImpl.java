@@ -7,6 +7,7 @@ import com.spu.TourismApp.Models.Utils.ReservationDetail;
 import com.spu.TourismApp.Repositories.ReservationRepository;
 import com.spu.TourismApp.Shared.Dto.Reservation.CreateReservationDto;
 import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDto;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -87,6 +88,7 @@ public class ReservationServiceImpl implements ReservationService {
         return response;
     }
 
+    @Transactional
     @Override
     public Reservation createReservation(CreateReservationDto request) {
 
@@ -98,10 +100,17 @@ public class ReservationServiceImpl implements ReservationService {
             ReservationDetail details = new ReservationDetail();
 
             //If agency id is present -> true : else -> false
-            reservation.setAgencyReservation(request.getAgencyId() != null);
+//            reservation.setAgencyReservation(request.getAgencyId() != null);
 
-            AppUser user = userService.getUserById(request.getReservationUserId());
-            reservation.setUser(user);
+            if (request.getAgencyId() != null){
+                reservation.setAgencyReservation(true);
+                reservation.setUser(null);
+            }
+            else {
+                reservation.setAgencyReservation(false);
+                AppUser user = userService.getUserById(request.getReservationUserId());
+                reservation.setUser(user);
+            }
 
             reservation.setReservationType(request.getReservationType());
 
@@ -239,5 +248,17 @@ public class ReservationServiceImpl implements ReservationService {
         }
 
         return true;
+    }
+
+    @Override
+    public List<Reservation> findReservationsForTour(List<Integer> reservationIds) {
+        List<Reservation> response = new ArrayList<>();
+
+        for (Integer reservationId : reservationIds){
+            response.add(reservationRepository.findById(reservationId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Reservation: " + reservationId + " doesn't exist.")));
+        }
+
+        return response;
     }
 }

@@ -28,6 +28,9 @@ public class Tour {
     @JoinColumn(name = "agency_id", nullable = false)
     TravellingAgency agency;
 
+    @ManyToMany(mappedBy = "tours")
+    List<AppUser> subscribers;
+
     private Date startDate;
 
     private Date endDate;

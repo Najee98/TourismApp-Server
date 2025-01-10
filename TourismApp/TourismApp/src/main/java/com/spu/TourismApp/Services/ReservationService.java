@@ -17,4 +17,6 @@ public interface ReservationService {
     void deleteReservation(Integer reservationId);
 
     boolean isReservationValid(CreateReservationDto request);
+
+    List<Reservation> findReservationsForTour(List<Integer> reservationIds);
 }
