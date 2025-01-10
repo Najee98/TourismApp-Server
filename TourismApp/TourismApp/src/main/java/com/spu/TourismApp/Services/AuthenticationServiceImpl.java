@@ -19,7 +19,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class AuthenticationServiceImpl {
+public class AuthenticationServiceImpl implements AuthenticationService{
 
     private final AppUserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -37,7 +37,7 @@ public class AuthenticationServiceImpl {
                     .imageUrl(null)
                     .email(request.getEmail())
                     .password(passwordEncoder.encode(request.getPassword()))
-                    .role(Role.valueOf(request.getRole()))
+                    .role(request.getRole())
                     .build();
 
             userRepository.save(user);

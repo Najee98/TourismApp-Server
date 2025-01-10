@@ -1,5 +1,6 @@
 package com.spu.TourismApp.Controllers;
 
+import com.spu.TourismApp.Services.AuthenticationService;
 import com.spu.TourismApp.Services.AuthenticationServiceImpl;
 import com.spu.TourismApp.Services.UserService;
 import com.spu.TourismApp.Shared.Dto.Authentication.AuthenticationRequest;
@@ -8,14 +9,16 @@ import com.spu.TourismApp.Shared.Dto.Authentication.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+//@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 public class AuthenticationController {
 
-    private final AuthenticationServiceImpl authenticationService;
+    private final AuthenticationService authenticationService;
     private final UserService userService;
 
     @PostMapping("/register")

@@ -19,9 +19,16 @@ public class ReservationDto implements Serializable {
     Integer reservationId;
     String reservationUserName;
     ReservationType reservationType;
-    List<TouristAttraction> reservationTouristAttractions;
-    List<Restaurant> reservationRestaurants;
-    List<Hotel> reservationHotels;
+
+    Integer attractionId;
+    String attractionName;
+
+    Integer restaurantId;
+    String restaurantName;
+
+
+    Integer hotelId;
+    String hotelName;
 
 //    public ReservationDto(Integer reservationId,
 //                          String reservationUserName,

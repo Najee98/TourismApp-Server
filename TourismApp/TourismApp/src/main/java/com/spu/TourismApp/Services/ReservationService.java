@@ -10,6 +10,9 @@ public interface ReservationService {
 
     List<ReservationDto> getAllUserReservations();
     ReservationDto getReservationById(Integer id);
-    Reservation addReservationByUser(CreateReservationDto request);
-    Reservation addReservationByAgency(CreateReservationDto request);
+    Reservation createReservationByUser(CreateReservationDto request);
+    Reservation createReservationByAgency(CreateReservationDto request);
+
+    Reservation updateReservation(Integer reservationId, CreateReservationDto request);
+    void deleteReservation(Integer reservationId);
 }

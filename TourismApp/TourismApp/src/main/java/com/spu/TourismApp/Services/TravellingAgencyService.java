@@ -19,5 +19,4 @@ public interface TravellingAgencyService {
 
     void deleteTravellingAgency(Integer id);
 
-    List<TouristAttractionDto> getAgencyAttractions(Integer id);
 }

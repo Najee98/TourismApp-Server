@@ -1,5 +1,6 @@
 package com.spu.TourismApp.Shared.Dto.Authentication;
 
+import com.spu.TourismApp.Models.Utils.Role;
 import lombok.*;
 
 @Data
@@ -12,6 +13,6 @@ public class RegisterRequest {
     private String lastName;
     private String email;
     private String password;
-    private String role;
+    private Role role;
 
 }

@@ -2,10 +2,7 @@ package com.spu.TourismApp.Controllers;
 
 import com.spu.TourismApp.Services.HotelService;
 import com.spu.TourismApp.Services.TouristAttractionService;
-import com.spu.TourismApp.Shared.Dto.CreateHotelDto;
-import com.spu.TourismApp.Shared.Dto.CreateTouristAttractionDto;
-import com.spu.TourismApp.Shared.Dto.HotelDto;
-import com.spu.TourismApp.Shared.Dto.TouristAttractionDto;
+import com.spu.TourismApp.Shared.Dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +32,11 @@ public class HotelController {
         return ResponseEntity.ok(hotelService.getHotelDetails(hotelId));
     }
 
+    @GetMapping("/hotel-reservations")
+    public ResponseEntity<List<HotelReservationDto>> getHotelReservations(@RequestParam Integer hotelId) {
+        return new ResponseEntity<>(hotelService.getHotelReservations(hotelId), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<Object> createHotel(@RequestBody CreateHotelDto request) {
         hotelService.createHotel(request);
@@ -52,4 +54,5 @@ public class HotelController {
         hotelService.deleteHotel(hotelId);
         return new ResponseEntity<>("{ \"message\": \" Deleted successfully  \" }", HttpStatus.NO_CONTENT);
     }
+
 }

@@ -1,10 +1,7 @@
 package com.spu.TourismApp.Services;
 
 import com.spu.TourismApp.Models.Hotel;
-import com.spu.TourismApp.Shared.Dto.CreateHotelDto;
-import com.spu.TourismApp.Shared.Dto.CreateTouristAttractionDto;
-import com.spu.TourismApp.Shared.Dto.HotelDto;
-import com.spu.TourismApp.Shared.Dto.TouristAttractionDto;
+import com.spu.TourismApp.Shared.Dto.*;
 
 import java.util.List;
 
@@ -21,4 +18,6 @@ public interface HotelService {
     Hotel updateHotel(HotelDto request);
 
     void deleteHotel(Integer id);
+
+    List<HotelReservationDto> getHotelReservations(Integer hotelId);
 }

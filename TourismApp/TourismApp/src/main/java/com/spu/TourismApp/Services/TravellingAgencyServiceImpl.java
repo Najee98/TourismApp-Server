@@ -69,10 +69,6 @@ public class TravellingAgencyServiceImpl implements TravellingAgencyService {
         agencyRepository.deleteById(id);
     }
 
-    @Override
-    public List<TouristAttractionDto> getAgencyAttractions(Integer id) {
-        return agencyRepository.getAgencyAttractions(id);
-    }
 
     private CreateTravellingAgencyDto toDto(TravellingAgency agency) {
         return new CreateTravellingAgencyDto(
@@ -90,8 +86,7 @@ public class TravellingAgencyServiceImpl implements TravellingAgencyService {
                 dto.getAddress(),
                 dto.getPhone(),
                 dto.getImageUrl(),
-                null, // Reservations will not be set here
-                null,  // Subscribers will not be set here
+                null,  // Tours will not be set here
                 null // Attractions will not be set here
         );
     }

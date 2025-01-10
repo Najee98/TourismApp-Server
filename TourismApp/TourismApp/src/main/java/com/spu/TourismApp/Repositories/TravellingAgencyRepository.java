@@ -22,15 +22,15 @@ public interface TravellingAgencyRepository extends JpaRepository<TravellingAgen
             "from TravellingAgency a")
     List<TravellingAgencyDto> findAllAgencies();
 
-    @Query("select new com.spu.TourismApp.Shared.Dto.TouristAttractionDto(" +
-            "at.id," +
-            "at.name," +
-            "at.description," +
-            "at.address," +
-            "at.phone," +
-            "at.imageUrl) " +
-            "from TouristAttraction at join at.agencies ag " +
-    //        "on ag.attractions " +
-            "where ag.id = :agencyId")
-    List<TouristAttractionDto> getAgencyAttractions(@Param("agencyId") Integer agencyId);
+//    @Query("select new com.spu.TourismApp.Shared.Dto.TouristAttractionDto(" +
+//            "at.id," +
+//            "at.name," +
+//            "at.description," +
+//            "at.address," +
+//            "at.phone," +
+//            "at.imageUrl) " +
+//            "from TouristAttraction at join at.agencies ag " +
+//    //        "on ag.attractions " +
+//            "where ag.id = :agencyId")
+//    List<TouristAttractionDto> getAgencyAttractions(@Param("agencyId") Integer agencyId);
 }

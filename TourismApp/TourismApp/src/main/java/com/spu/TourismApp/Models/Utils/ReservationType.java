@@ -4,5 +4,5 @@ public enum ReservationType {
 
     RestaurantReservation,
     HotelReservation,
-    TourReservation
+    ATTRACTION_Reservation
 }

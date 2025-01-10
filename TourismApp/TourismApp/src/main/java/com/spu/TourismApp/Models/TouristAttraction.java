@@ -26,11 +26,4 @@ public class TouristAttraction {
 //    TouristAttractionType type;
     String imageUrl;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "attractions")
-    List<Reservation> reservations;
-
-    @JsonIgnore
-    @ManyToMany(mappedBy = "attractions")
-    List<TravellingAgency> agencies;
 }

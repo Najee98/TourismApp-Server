@@ -19,17 +19,12 @@ public class Hotel{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
+
     String name;
     String description;
     String address;
     String phone;
     String imageUrl;
     Integer availableRooms;
-
-    @JsonIgnore
-    @ManyToMany(mappedBy = "hotels")
-    List<Reservation> reservations;
-
-//    TouristAttractionType type = TouristAttractionType.HOTEL;
 
 }

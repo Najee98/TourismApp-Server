@@ -26,8 +26,4 @@ public class Restaurant{
     String imageUrl;
     Integer availableTables;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "restaurants")
-    List<Reservation> reservations;
-
 }

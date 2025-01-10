@@ -1,5 +1,6 @@
 package com.spu.TourismApp.Shared.Dto;
 
+import com.spu.TourismApp.Models.Utils.ReservationType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,10 +16,16 @@ public class CreateReservationDto implements Serializable {
 
     Integer reservationUserId;
     //sent null in case of user reservation
-    Integer reservationAgencyId;
-    List<Integer> touristAttractionIds;
-    List<Integer> restaurantIds;
-    List<Integer> hotelIds;
+    Integer agencyId;
+    ReservationType reservationType;
+
+    Integer attractionId;
+
+    Integer restaurantId;
+    Integer restaurantTableNumber;
+
+    Integer hotelId;
+    Integer hotelRoomNumber;
 
     Date fromDate;
     Date toDate;

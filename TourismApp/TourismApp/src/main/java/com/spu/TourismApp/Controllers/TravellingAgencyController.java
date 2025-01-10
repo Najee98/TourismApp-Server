@@ -32,10 +32,10 @@ public class TravellingAgencyController {
         return ResponseEntity.ok(agencyService.getTravellingAgency(id));
     }
 
-    @GetMapping("/{id}/attractions")
-    public ResponseEntity<List<TouristAttractionDto>> getAllTravellingAgencies(@PathVariable Integer id) {
-        return new ResponseEntity<>(agencyService.getAgencyAttractions(id), HttpStatus.OK);
-    }
+//    @GetMapping("/{id}/attractions")
+//    public ResponseEntity<List<TouristAttractionDto>> getAllTravellingAgencies(@PathVariable Integer id) {
+//        return new ResponseEntity<>(agencyService.getAgencyAttractions(id), HttpStatus.OK);
+//    }
 
     @PostMapping
     public ResponseEntity<String> createAgency(@RequestBody CreateTravellingAgencyDto request) {
