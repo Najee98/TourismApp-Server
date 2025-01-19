@@ -34,11 +34,6 @@ public class TourController {
         return ResponseEntity.status(HttpStatus.CREATED).body(tourService.createTour(request));
     }
 
-    @PostMapping("/{tourId}")
-    public ResponseEntity<Object> updateTour(@PathVariable Integer tourId, @RequestBody List<Integer> userIds) {
-        return new ResponseEntity<>("{ \"message\": \" users added successfully  \" }", HttpStatus.OK);
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<Tour> updateTour(@PathVariable Integer id, @RequestBody CreateTourDto request) {
         return ResponseEntity.ok(tourService.updateTour(id, request));
