@@ -1,6 +1,7 @@
 package com.spu.TourismApp.Repositories;
 
 import com.spu.TourismApp.Models.Reservation;
+import com.spu.TourismApp.Shared.Dto.Hotel.HotelReservationDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,6 +18,18 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
             "and (r.toDate < :toDate or r.toDate = :toDate) ")
     List<Reservation> fetchIntersectedReservations(@Param("fromDate") Date fromDate,
                                                    @Param("toDate") Date toDate);
+
+    @Query("select new com.spu.TourismApp.Shared.Dto.Hotel.HotelReservationDto(" +
+            "r.id," +
+            "h.id," +
+            "r.user.firstName," +
+            "h.name," +
+            "r.fromDate," +
+            "r.toDate," +
+            "r.agencyReservation) " +
+            "from Reservation r join r.hotel h " +
+            "where r.hotel.id = :hotelId")
+    List<HotelReservationDto> getHotelReservations(@Param("hotelId") Integer hotelId);
 
 //    @Query("select new com.spu.TourismApp.Shared.Dto.Reservation.ReservationDto( " +
 //            "r.id, " +

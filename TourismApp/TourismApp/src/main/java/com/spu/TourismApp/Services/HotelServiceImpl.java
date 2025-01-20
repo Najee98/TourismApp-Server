@@ -2,7 +2,9 @@ package com.spu.TourismApp.Services;
 
 import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundException;
 import com.spu.TourismApp.Models.Hotel;
+import com.spu.TourismApp.Models.Reservation;
 import com.spu.TourismApp.Repositories.HotelRepository;
+import com.spu.TourismApp.Repositories.ReservationRepository;
 import com.spu.TourismApp.Shared.Dto.Hotel.CreateHotelDto;
 import com.spu.TourismApp.Shared.Dto.Hotel.HotelDto;
 import com.spu.TourismApp.Shared.Dto.Hotel.HotelReservationDto;
@@ -17,6 +19,7 @@ import java.util.List;
 public class HotelServiceImpl implements HotelService {
 
     private final HotelRepository hotelRepository;
+    private final ReservationRepository reservationRepository;
 
 
     @Override
@@ -56,7 +59,7 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public List<HotelReservationDto> getHotelReservations(Integer hotelId) {
-        return null;
+        return reservationRepository.getHotelReservations(hotelId);
     }
 
     @Override
