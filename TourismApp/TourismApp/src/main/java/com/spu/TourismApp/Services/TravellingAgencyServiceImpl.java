@@ -2,7 +2,9 @@ package com.spu.TourismApp.Services;
 
 import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundException;
 import com.spu.TourismApp.Models.TravellingAgency;
+import com.spu.TourismApp.Repositories.TourRepository;
 import com.spu.TourismApp.Repositories.TravellingAgencyRepository;
+import com.spu.TourismApp.Shared.Dto.TravellingAgency.AgencyTourDto;
 import com.spu.TourismApp.Shared.Dto.TravellingAgency.TravellingAgencyDto;
 import com.spu.TourismApp.Shared.Dto.TravellingAgency.CreateTravellingAgencyDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +16,12 @@ import java.util.List;
 public class TravellingAgencyServiceImpl implements TravellingAgencyService {
 
     private final TravellingAgencyRepository agencyRepository;
+    private final TourRepository tourRepository;
 
     @Autowired
-    public TravellingAgencyServiceImpl(TravellingAgencyRepository agencyRepository) {
+    public TravellingAgencyServiceImpl(TravellingAgencyRepository agencyRepository, TourRepository tourRepository) {
         this.agencyRepository = agencyRepository;
+        this.tourRepository = tourRepository;
     }
 
     @Override
@@ -39,6 +43,11 @@ public class TravellingAgencyServiceImpl implements TravellingAgencyService {
         );
 
         return response;
+    }
+
+    @Override
+    public List<AgencyTourDto> getAgencyTours(Integer agencyId) {
+        return tourRepository.getAgencyTours(agencyId);
     }
 
     @Override
@@ -67,7 +76,6 @@ public class TravellingAgencyServiceImpl implements TravellingAgencyService {
         }
         agencyRepository.deleteById(id);
     }
-
 
     private CreateTravellingAgencyDto toDto(TravellingAgency agency) {
         return new CreateTravellingAgencyDto(

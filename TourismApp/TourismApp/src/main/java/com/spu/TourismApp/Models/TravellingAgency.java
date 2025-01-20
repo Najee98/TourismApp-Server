@@ -25,13 +25,4 @@ public class TravellingAgency {
 
     @ManyToMany(mappedBy = "agencies")
     List<AppUser> subscribers;
-
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "agency_attractions",
-//            joinColumns = @JoinColumn(name = "agency_id"),
-//            inverseJoinColumns = @JoinColumn(name = "attraction_id"))
-//    List<TouristAttraction> attractions;
-
-
 }

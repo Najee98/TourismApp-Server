@@ -1,6 +1,7 @@
 package com.spu.TourismApp.Controllers;
 
 import com.spu.TourismApp.Services.TravellingAgencyService;
+import com.spu.TourismApp.Shared.Dto.TravellingAgency.AgencyTourDto;
 import com.spu.TourismApp.Shared.Dto.TravellingAgency.CreateTravellingAgencyDto;
 import com.spu.TourismApp.Shared.Dto.TravellingAgency.TravellingAgencyDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +27,15 @@ public class TravellingAgencyController {
         return ResponseEntity.ok(agencyService.getAllTravellingAgencies());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<TravellingAgencyDto> getAgencyById(@PathVariable Integer id) {
-        return ResponseEntity.ok(agencyService.getTravellingAgency(id));
+    @GetMapping("/{agencyId}")
+    public ResponseEntity<TravellingAgencyDto> getAgencyById(@PathVariable Integer agencyId) {
+        return ResponseEntity.ok(agencyService.getTravellingAgency(agencyId));
     }
 
-//    @GetMapping("/{id}/attractions")
-//    public ResponseEntity<List<TouristAttractionDto>> getAllTravellingAgencies(@PathVariable Integer id) {
-//        return new ResponseEntity<>(agencyService.getAgencyAttractions(id), HttpStatus.OK);
-//    }
+    @GetMapping("/{agencyId}/tours")
+    public ResponseEntity<List<AgencyTourDto>> getAllTravellingAgencies(@PathVariable Integer agencyId) {
+        return new ResponseEntity<>(agencyService.getAgencyTours(agencyId), HttpStatus.OK);
+    }
 
     @PostMapping
     public ResponseEntity<String> createAgency(@RequestBody CreateTravellingAgencyDto request) {

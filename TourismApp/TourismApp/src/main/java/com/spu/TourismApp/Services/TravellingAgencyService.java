@@ -1,5 +1,6 @@
 package com.spu.TourismApp.Services;
 
+import com.spu.TourismApp.Shared.Dto.TravellingAgency.AgencyTourDto;
 import com.spu.TourismApp.Shared.Dto.TravellingAgency.TravellingAgencyDto;
 import com.spu.TourismApp.Shared.Dto.TravellingAgency.CreateTravellingAgencyDto;
 
@@ -17,4 +18,5 @@ public interface TravellingAgencyService {
 
     void deleteTravellingAgency(Integer id);
 
+    List<AgencyTourDto> getAgencyTours(Integer agencyId);
 }
