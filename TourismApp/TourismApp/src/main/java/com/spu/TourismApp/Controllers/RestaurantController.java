@@ -1,8 +1,10 @@
 package com.spu.TourismApp.Controllers;
 
 import com.spu.TourismApp.Services.RestaurantService;
+import com.spu.TourismApp.Shared.Dto.Hotel.HotelReservationDto;
 import com.spu.TourismApp.Shared.Dto.Restaurant.CreateRestaurantDto;
 import com.spu.TourismApp.Shared.Dto.Restaurant.RestaurantDto;
+import com.spu.TourismApp.Shared.Dto.Restaurant.RestaurantReservationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +31,11 @@ public class RestaurantController {
     @GetMapping("/{restaurantId}")
     public ResponseEntity<RestaurantDto> getRestaurantDetails(@PathVariable Integer restaurantId) {
         return ResponseEntity.ok(restaurantService.getRestaurantDetails(restaurantId));
+    }
+
+    @GetMapping("/{restaurantId}/reservations")
+    public ResponseEntity<List<RestaurantReservationDto>> getHotelReservations(@PathVariable Integer restaurantId) {
+        return new ResponseEntity<>(restaurantService.getRestaurantReservations(restaurantId), HttpStatus.OK);
     }
 
     @PostMapping

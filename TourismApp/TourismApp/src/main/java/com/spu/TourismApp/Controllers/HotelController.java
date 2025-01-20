@@ -32,8 +32,8 @@ public class HotelController {
         return ResponseEntity.ok(hotelService.getHotelDetails(hotelId));
     }
 
-    @GetMapping("/hotel-reservations")
-    public ResponseEntity<List<HotelReservationDto>> getHotelReservations(@RequestParam Integer hotelId) {
+    @GetMapping("/{hotelId}/reservations")
+    public ResponseEntity<List<HotelReservationDto>> getHotelReservations(@PathVariable Integer hotelId) {
         return new ResponseEntity<>(hotelService.getHotelReservations(hotelId), HttpStatus.OK);
     }
 

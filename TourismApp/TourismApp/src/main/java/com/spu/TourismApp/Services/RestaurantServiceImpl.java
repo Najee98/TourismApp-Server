@@ -2,9 +2,11 @@ package com.spu.TourismApp.Services;
 
 import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundException;
 import com.spu.TourismApp.Models.Restaurant;
+import com.spu.TourismApp.Repositories.ReservationRepository;
 import com.spu.TourismApp.Repositories.RestaurantRepository;
 import com.spu.TourismApp.Shared.Dto.Restaurant.CreateRestaurantDto;
 import com.spu.TourismApp.Shared.Dto.Restaurant.RestaurantDto;
+import com.spu.TourismApp.Shared.Dto.Restaurant.RestaurantReservationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ import java.util.List;
 public class RestaurantServiceImpl implements RestaurantService{
 
     private final RestaurantRepository restaurantRepository;
+    private final ReservationRepository reservationRepository;
+
 
     @Override
     public List<RestaurantDto> getAllRestaurants() {
@@ -50,6 +54,11 @@ public class RestaurantServiceImpl implements RestaurantService{
     public Restaurant getRestaurant(Integer id){
         return restaurantRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Restaurant with id: " + id + " not found"));
+    }
+
+    @Override
+    public List<RestaurantReservationDto> getRestaurantReservations(Integer restaurantId) {
+        return reservationRepository.getRestaurantReservations(restaurantId);
     }
 
     @Override
