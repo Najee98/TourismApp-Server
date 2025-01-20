@@ -1,28 +1,31 @@
 package com.spu.TourismApp.Services;
 
 import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundException;
+import com.spu.TourismApp.Models.Reservation;
 import com.spu.TourismApp.Models.TravellingAgency;
+import com.spu.TourismApp.Repositories.ReservationRepository;
 import com.spu.TourismApp.Repositories.TourRepository;
 import com.spu.TourismApp.Repositories.TravellingAgencyRepository;
+import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDto;
+import com.spu.TourismApp.Shared.Dto.TravellingAgency.AgencyTourDbResult;
 import com.spu.TourismApp.Shared.Dto.TravellingAgency.AgencyTourDto;
 import com.spu.TourismApp.Shared.Dto.TravellingAgency.TravellingAgencyDto;
 import com.spu.TourismApp.Shared.Dto.TravellingAgency.CreateTravellingAgencyDto;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class TravellingAgencyServiceImpl implements TravellingAgencyService {
 
     private final TravellingAgencyRepository agencyRepository;
     private final TourRepository tourRepository;
-
-    @Autowired
-    public TravellingAgencyServiceImpl(TravellingAgencyRepository agencyRepository, TourRepository tourRepository) {
-        this.agencyRepository = agencyRepository;
-        this.tourRepository = tourRepository;
-    }
+    private final ReservationRepository reservationRepository;
 
     @Override
     public List<TravellingAgencyDto> getAllTravellingAgencies() {
@@ -45,9 +48,44 @@ public class TravellingAgencyServiceImpl implements TravellingAgencyService {
         return response;
     }
 
-    @Override
+//    @Override
+//    public List<AgencyTourDto> getAgencyTours(Integer agencyId) {
+//
+//        List<AgencyTourDto> response = tourRepository.getAgencyTours(agencyId);
+//
+//        List<AgencyTourDto> response = new ArrayList<>();
+//        List<ReservationDto> reservationDtos = new ArrayList<>();
+//
+//        for (AgencyTourDbResult agencyTour : agencyTourDtos) {
+//            AgencyTourDto dto = new AgencyTourDto();
+//
+//            dto.setTourId(agencyTour.getTourId());
+//            dto.setAgencyId(agencyTour.getAgencyId());
+//            dto.setAgencyName(agencyTour.getAgencyName());
+//            dto.setTourName(agencyTour.getTourName());
+//            dto.setStartDate(agencyTour.getStartDate());
+//            dto.setEndDate(agencyTour.getEndDate());
+//
+//            reservationDtos = mapReservationToDto(agencyTour.getReservations());
+//
+//            dto.setReservations(reservationDtos);
+//        }
+//
+//        return response;
+//    }
+
     public List<AgencyTourDto> getAgencyTours(Integer agencyId) {
-        return tourRepository.getAgencyTours(agencyId);
+        List<AgencyTourDto> tours = tourRepository.getAgencyTours(agencyId);
+
+        for (AgencyTourDto tour : tours) {
+            List<Reservation> reservations = fetchReservationsByTourId(tour.getTourId());
+            List<ReservationDto> reservationDtos = reservations.stream()
+                    .map(this::mapReservationToDto)
+                    .collect(Collectors.toList());
+            tour.setReservations(reservationDtos);
+        }
+
+        return tours;
     }
 
     @Override
@@ -94,6 +132,53 @@ public class TravellingAgencyServiceImpl implements TravellingAgencyService {
                 dto.getPhone(),
                 dto.getImageUrl(),
                 null // Agency users will not be set here
+        );
+    }
+
+//    private List<ReservationDto> mapReservationToDto(List<Reservation> reservations) {
+//
+//        List<ReservationDto> reservationDtos = new ArrayList<>();
+//
+//        for (Reservation reservation : reservations) {
+//            ReservationDto dto = new ReservationDto();
+//
+//            dto.setReservationId(reservation.getId());
+//            dto.setReservationUserName(reservation.getUser().getFirstName() + " " + reservation.getUser().getLastName());
+//            dto.setReservationType(reservation.getReservationType());
+//
+//            dto.setAttractionId(reservation.getAttraction().getId());
+//            dto.setAttractionName(reservation.getAttraction().getName());
+//
+//            dto.setHotelId(reservation.getHotel().getId());
+//            dto.setHotelName(reservation.getHotel().getName());
+//
+//            dto.setRestaurantId(reservation.getRestaurant().getId());
+//            dto.setRestaurantName(reservation.getRestaurant().getName());
+//
+//            reservationDtos.add(dto);
+//        }
+//
+//        return reservationDtos;
+//    }
+
+    private List<Reservation> fetchReservationsByTourId(Integer tourId) {
+        return reservationRepository.findAllByTourId(tourId);
+    }
+
+    private ReservationDto mapReservationToDto(Reservation reservation) {
+        // Map Reservation entity to ReservationDto
+        return new ReservationDto(
+                reservation.getId(),
+                reservation.getUser() != null
+                        ? reservation.getUser().getFirstName() + " " + reservation.getUser().getLastName()
+                        : null,
+                reservation.getReservationType(),
+                reservation.getAttraction() != null ? reservation.getAttraction().getId() : null,
+                reservation.getAttraction() != null ? reservation.getAttraction().getName() : null,
+                reservation.getRestaurant() != null ? reservation.getRestaurant().getId() : null,
+                reservation.getRestaurant() != null ? reservation.getRestaurant().getName() : null,
+                reservation.getHotel() != null ? reservation.getHotel().getId() : null,
+                reservation.getHotel() != null ? reservation.getHotel().getName() : null
         );
     }
 }
