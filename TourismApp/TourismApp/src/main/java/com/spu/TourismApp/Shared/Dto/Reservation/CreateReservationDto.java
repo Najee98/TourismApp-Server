@@ -21,10 +21,10 @@ public class CreateReservationDto implements Serializable {
     Integer attractionId;
 
     Integer restaurantId;
-    Integer restaurantTableNumber;
+    int restaurantTableNumber;
 
     Integer hotelId;
-    Integer hotelRoomNumber;
+    int hotelRoomNumber;
 
     Date fromDate;
     Date toDate;
