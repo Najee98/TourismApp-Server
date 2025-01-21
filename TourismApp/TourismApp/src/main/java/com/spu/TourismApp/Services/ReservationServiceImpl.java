@@ -239,10 +239,12 @@ public class ReservationServiceImpl implements ReservationService {
         }
 
         for (Reservation reservation : intersectedReservations){
-            if (reservation.getReservationDetail().getRoomNumber()
-                    .equals(request.getHotelRoomNumber())
-                || reservation.getReservationDetail().getRoomNumber()
-                    .equals(request.getRestaurantTableNumber())){
+            if (reservation.getReservationDetail().getRoomNumber().intValue()
+                    == request.getHotelRoomNumber().intValue()){
+                return false;
+            }
+            if (reservation.getReservationDetail().getRoomNumber().intValue()
+                    == request.getRestaurantTableNumber().intValue()){
                 return false;
             }
         }
