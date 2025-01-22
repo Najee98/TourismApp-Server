@@ -23,7 +23,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     @Query("select new com.spu.TourismApp.Shared.Dto.Hotel.HotelReservationDto(" +
             "r.id," +
             "h.id," +
-            "r.user.firstName," +
+//            "r.user.firstName," +
             "h.name," +
             "r.fromDate," +
             "r.toDate," +
@@ -35,11 +35,10 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     @Query("select new com.spu.TourismApp.Shared.Dto.Restaurant.RestaurantReservationDto(" +
             "rs.id," +
             "rt.id," +
-            "rs.user.firstName," +
+//            "rs.user.firstName," +
             "rt.name," +
             "rs.fromDate," +
-            "rs.toDate," +
-            "rs.agencyReservation) " +
+            "rs.toDate)" +
             "from Reservation rs join rs.restaurant rt " +
             "where rs.restaurant.id = :restaurantId")
     List<RestaurantReservationDto> getRestaurantReservations(@Param("restaurantId") Integer restaurantId);

@@ -3,14 +3,12 @@ package com.spu.TourismApp.Models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spu.TourismApp.Models.Utils.ReservationDetail;
 import com.spu.TourismApp.Models.Utils.ReservationType;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "reservations")
@@ -42,22 +40,22 @@ public class Reservation {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "attraction_id")
-    TouristAttraction attraction;
+    Attraction attraction;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "agency_id")
-    TravellingAgency agency;
+    Agency agency;
 
     Date fromDate;
     Date toDate;
 
     boolean agencyReservation;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    AppUser user;
+//    @JsonIgnore
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "user_id")
+//    AppUser user;
 
     @JsonIgnore
     @ManyToOne

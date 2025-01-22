@@ -5,24 +5,21 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
-@Table(name = "agencies")
+@Table(name = "attractions")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class TravellingAgency {
+@AllArgsConstructor
+public class Attraction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-
     String name;
+    String description;
     String address;
     String phone;
+//    TouristAttractionType type;
     String imageUrl;
 
-    @ManyToMany(mappedBy = "agencies")
-    List<AppUser> subscribers;
 }

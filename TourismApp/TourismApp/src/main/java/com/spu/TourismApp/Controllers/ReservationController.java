@@ -2,7 +2,7 @@ package com.spu.TourismApp.Controllers;
 
 import com.spu.TourismApp.Models.Reservation;
 import com.spu.TourismApp.Services.ReservationService;
-import com.spu.TourismApp.Shared.Dto.Reservation.CreateReservationDto;
+import com.spu.TourismApp.Shared.Dto.Reservation.CreateAttractionReservationDto;
 import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +35,7 @@ public class ReservationController {
     }
 
     @PostMapping()
-    public ResponseEntity<Reservation> createReservationByUser(@RequestBody CreateReservationDto request) {
+    public ResponseEntity<Reservation> createReservationByUser(@RequestBody CreateAttractionReservationDto request) {
         return new ResponseEntity<>(reservationService.createReservation(request), HttpStatus.CREATED);
     }
 
@@ -47,7 +47,7 @@ public class ReservationController {
     @PutMapping("/{id}")
     public ResponseEntity<Reservation> updateReservation(
             @PathVariable Integer id, 
-            @RequestBody CreateReservationDto request) {
+            @RequestBody CreateAttractionReservationDto request) {
 
         return new ResponseEntity<>(reservationService.updateReservation(id, request), HttpStatus.OK);
     }

@@ -23,6 +23,6 @@ public class Hotel{
     String address;
     String phone;
     String imageUrl;
-    Integer availableRooms;
+    int availableRooms;
 
 }

@@ -14,7 +14,7 @@ public class HotelReservationDto implements Serializable {
 
     Integer reservationId;
     Integer hotelId;
-    String reservationUser;
+//    String reservationUser;
     String hotelName;
     Date fromDate;
     Date toDate;

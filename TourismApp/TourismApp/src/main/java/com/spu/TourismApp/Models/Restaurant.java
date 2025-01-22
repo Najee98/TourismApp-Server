@@ -22,6 +22,6 @@ public class Restaurant{
     String address;
     String phone;
     String imageUrl;
-    Integer availableTables;
+    int availableTables;
 
 }

@@ -1,8 +1,7 @@
 package com.spu.TourismApp.Repositories;
 
 import com.spu.TourismApp.Models.Tour;
-import com.spu.TourismApp.Shared.Dto.TravellingAgency.AgencyTourDbResult;
-import com.spu.TourismApp.Shared.Dto.TravellingAgency.AgencyTourDto;
+import com.spu.TourismApp.Shared.Dto.Agency.AgencyTourDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -26,7 +25,7 @@ public interface TourRepository extends JpaRepository<Tour, Integer> {
 //            "WHERE t.agency.id = :agencyId")
 //    List<AgencyTourDbResult> getAgencyTours(@Param("agencyId") Integer agencyId);
 
-    @Query("SELECT new com.spu.TourismApp.Shared.Dto.TravellingAgency.AgencyTourDto(" +
+    @Query("SELECT new com.spu.TourismApp.Shared.Dto.Agency.AgencyTourDto(" +
             "t.id, " +
             "t.agency.id, " +
             "t.agency.name, " +

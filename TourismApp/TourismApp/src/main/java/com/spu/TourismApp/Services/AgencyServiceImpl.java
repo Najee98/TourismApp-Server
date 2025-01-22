@@ -2,42 +2,39 @@ package com.spu.TourismApp.Services;
 
 import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundException;
 import com.spu.TourismApp.Models.Reservation;
-import com.spu.TourismApp.Models.TravellingAgency;
+import com.spu.TourismApp.Models.Agency;
 import com.spu.TourismApp.Repositories.ReservationRepository;
 import com.spu.TourismApp.Repositories.TourRepository;
-import com.spu.TourismApp.Repositories.TravellingAgencyRepository;
+import com.spu.TourismApp.Repositories.AgencyRepository;
 import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDto;
-import com.spu.TourismApp.Shared.Dto.TravellingAgency.AgencyTourDbResult;
-import com.spu.TourismApp.Shared.Dto.TravellingAgency.AgencyTourDto;
-import com.spu.TourismApp.Shared.Dto.TravellingAgency.TravellingAgencyDto;
-import com.spu.TourismApp.Shared.Dto.TravellingAgency.CreateTravellingAgencyDto;
+import com.spu.TourismApp.Shared.Dto.Agency.AgencyTourDto;
+import com.spu.TourismApp.Shared.Dto.Agency.AgencyDto;
+import com.spu.TourismApp.Shared.Dto.Agency.CreateAgencyDto;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class TravellingAgencyServiceImpl implements TravellingAgencyService {
+public class AgencyServiceImpl implements AgencyService {
 
-    private final TravellingAgencyRepository agencyRepository;
+    private final AgencyRepository agencyRepository;
     private final TourRepository tourRepository;
     private final ReservationRepository reservationRepository;
 
     @Override
-    public List<TravellingAgencyDto> getAllTravellingAgencies() {
+    public List<AgencyDto> getAllTravellingAgencies() {
         return agencyRepository.findAllAgencies();
     }
 
     @Override
-    public TravellingAgencyDto getTravellingAgency(Integer id) {
-        TravellingAgency agency = agencyRepository.findById(id)
+    public AgencyDto getTravellingAgency(Integer id) {
+        Agency agency = agencyRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Agency not found with id: " + id));
 
-        TravellingAgencyDto response = new TravellingAgencyDto(
+        AgencyDto response = new AgencyDto(
                 agency.getId(),
                 agency.getName(),
                 agency.getAddress(),
@@ -89,14 +86,14 @@ public class TravellingAgencyServiceImpl implements TravellingAgencyService {
     }
 
     @Override
-    public void createTravellingAgency(CreateTravellingAgencyDto request) {
-        TravellingAgency agency = toEntity(request);
+    public void createTravellingAgency(CreateAgencyDto request) {
+        Agency agency = toEntity(request);
         agencyRepository.save(agency);
     }
 
     @Override
-    public void updateTravellingAgency(TravellingAgencyDto request) {
-        TravellingAgency existingAgency = agencyRepository.findById(request.getId())
+    public void updateTravellingAgency(AgencyDto request) {
+        Agency existingAgency = agencyRepository.findById(request.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Agency not found with id: " + request.getId()));
         
         existingAgency.setName(request.getName());
@@ -115,8 +112,8 @@ public class TravellingAgencyServiceImpl implements TravellingAgencyService {
         agencyRepository.deleteById(id);
     }
 
-    private CreateTravellingAgencyDto toDto(TravellingAgency agency) {
-        return new CreateTravellingAgencyDto(
+    private CreateAgencyDto toDto(Agency agency) {
+        return new CreateAgencyDto(
                 agency.getName(),
                 agency.getAddress(),
                 agency.getPhone(),
@@ -124,14 +121,13 @@ public class TravellingAgencyServiceImpl implements TravellingAgencyService {
         );
     }
 
-    private TravellingAgency toEntity(CreateTravellingAgencyDto dto) {
-        return new TravellingAgency(
+    private Agency toEntity(CreateAgencyDto dto) {
+        return new Agency(
                 null, // ID is auto-generated
                 dto.getName(),
                 dto.getAddress(),
                 dto.getPhone(),
-                dto.getImageUrl(),
-                null // Agency users will not be set here
+                dto.getImageUrl()
         );
     }
 
@@ -169,9 +165,9 @@ public class TravellingAgencyServiceImpl implements TravellingAgencyService {
         // Map Reservation entity to ReservationDto
         return new ReservationDto(
                 reservation.getId(),
-                reservation.getUser() != null
-                        ? reservation.getUser().getFirstName() + " " + reservation.getUser().getLastName()
-                        : null,
+//                reservation.getUser() != null
+//                        ? reservation.getUser().getFirstName() + " " + reservation.getUser().getLastName()
+//                        : null,
                 reservation.getReservationType(),
                 reservation.getAttraction() != null ? reservation.getAttraction().getId() : null,
                 reservation.getAttraction() != null ? reservation.getAttraction().getName() : null,

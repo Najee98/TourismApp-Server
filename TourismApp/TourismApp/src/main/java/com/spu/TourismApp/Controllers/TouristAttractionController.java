@@ -1,8 +1,8 @@
 package com.spu.TourismApp.Controllers;
 
-import com.spu.TourismApp.Services.TouristAttractionService;
-import com.spu.TourismApp.Shared.Dto.TouristAttraction.CreateTouristAttractionDto;
-import com.spu.TourismApp.Shared.Dto.TouristAttraction.TouristAttractionDto;
+import com.spu.TourismApp.Services.AttractionService;
+import com.spu.TourismApp.Shared.Dto.Attraction.CreateAttractionDto;
+import com.spu.TourismApp.Shared.Dto.Attraction.AttractionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,31 +14,31 @@ import java.util.List;
 @RequestMapping("/api/attractions")
 public class TouristAttractionController {
 
-    private final TouristAttractionService attractionService;
+    private final AttractionService attractionService;
 
     @Autowired
-    public TouristAttractionController(TouristAttractionService attractionService) {
+    public TouristAttractionController(AttractionService attractionService) {
         this.attractionService = attractionService;
     }
 
     @GetMapping
-    public ResponseEntity<List<TouristAttractionDto>> getAllAttractions() {
+    public ResponseEntity<List<AttractionDto>> getAllAttractions() {
         return ResponseEntity.ok(attractionService.getAllTouristAttractions());
     }
 
     @GetMapping("/{attractionId}")
-    public ResponseEntity<TouristAttractionDto> getAttractionById(@PathVariable Integer attractionId) {
+    public ResponseEntity<AttractionDto> getAttractionById(@PathVariable Integer attractionId) {
         return ResponseEntity.ok(attractionService.getTouristAttractionDetails(attractionId));
     }
 
     @PostMapping
-    public ResponseEntity<String> createAttraction(@RequestBody CreateTouristAttractionDto request) {
+    public ResponseEntity<String> createAttraction(@RequestBody CreateAttractionDto request) {
         attractionService.createTouristAttraction(request);
         return new ResponseEntity<>("{ \"message\": \" Created successfully  \" }", HttpStatus.CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<String> updateAttraction(@RequestBody TouristAttractionDto request) {
+    public ResponseEntity<String> updateAttraction(@RequestBody AttractionDto request) {
         attractionService.updateTouristAttraction(request);
         return new ResponseEntity<>("{ \"message\": \" Updated successfully  \" }", HttpStatus.NO_CONTENT);
     }

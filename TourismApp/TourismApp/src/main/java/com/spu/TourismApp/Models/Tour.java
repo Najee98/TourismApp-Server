@@ -26,7 +26,7 @@ public class Tour {
 
     @ManyToOne
     @JoinColumn(name = "agency_id", nullable = false)
-    TravellingAgency agency;
+    Agency agency;
 
     @ManyToMany(mappedBy = "tours")
     List<AppUser> subscribers;

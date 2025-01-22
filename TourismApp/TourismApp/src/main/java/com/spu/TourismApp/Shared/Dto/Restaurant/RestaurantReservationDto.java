@@ -14,9 +14,9 @@ public class RestaurantReservationDto implements Serializable {
 
     Integer reservationId;
     Integer restaurantId;
-    String reservationUser;
+//    String reservationUser;
     String restaurantName;
     Date fromDate;
     Date toDate;
-    boolean isAgencyReservation;
+//    boolean isAgencyReservation;
 }

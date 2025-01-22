@@ -1,9 +1,9 @@
 package com.spu.TourismApp.Controllers;
 
-import com.spu.TourismApp.Services.TravellingAgencyService;
-import com.spu.TourismApp.Shared.Dto.TravellingAgency.AgencyTourDto;
-import com.spu.TourismApp.Shared.Dto.TravellingAgency.CreateTravellingAgencyDto;
-import com.spu.TourismApp.Shared.Dto.TravellingAgency.TravellingAgencyDto;
+import com.spu.TourismApp.Services.AgencyService;
+import com.spu.TourismApp.Shared.Dto.Agency.AgencyTourDto;
+import com.spu.TourismApp.Shared.Dto.Agency.CreateAgencyDto;
+import com.spu.TourismApp.Shared.Dto.Agency.AgencyDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,20 +15,20 @@ import java.util.List;
 @RequestMapping("/api/agencies")
 public class TravellingAgencyController {
 
-    private final TravellingAgencyService agencyService;
+    private final AgencyService agencyService;
 
     @Autowired
-    public TravellingAgencyController(TravellingAgencyService agencyService) {
+    public TravellingAgencyController(AgencyService agencyService) {
         this.agencyService = agencyService;
     }
 
     @GetMapping
-    public ResponseEntity<List<TravellingAgencyDto>> getAllAgencies() {
+    public ResponseEntity<List<AgencyDto>> getAllAgencies() {
         return ResponseEntity.ok(agencyService.getAllTravellingAgencies());
     }
 
     @GetMapping("/{agencyId}")
-    public ResponseEntity<TravellingAgencyDto> getAgencyById(@PathVariable Integer agencyId) {
+    public ResponseEntity<AgencyDto> getAgencyById(@PathVariable Integer agencyId) {
         return ResponseEntity.ok(agencyService.getTravellingAgency(agencyId));
     }
 
@@ -38,13 +38,13 @@ public class TravellingAgencyController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createAgency(@RequestBody CreateTravellingAgencyDto request) {
+    public ResponseEntity<String> createAgency(@RequestBody CreateAgencyDto request) {
         agencyService.createTravellingAgency(request);
         return new ResponseEntity<>("{ \"message\": \" Created successfully  \" }", HttpStatus.CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<String> updateAgency(@RequestBody TravellingAgencyDto request) {
+    public ResponseEntity<String> updateAgency(@RequestBody AgencyDto request) {
         agencyService.updateTravellingAgency(request);
         return new ResponseEntity<>("{ \"message\": \" Updated successfully  \" }", HttpStatus.NO_CONTENT);
     }

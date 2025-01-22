@@ -72,15 +72,15 @@ public class AppUser implements UserDetails {
     }
 
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Reservation> reservations = new ArrayList<Reservation>();
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    List<Reservation> reservations = new ArrayList<Reservation>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_agency",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "agency_id"))
-    List<TravellingAgency> agencies;
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(
+//            name = "user_agency",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "agency_id"))
+//    List<TravellingAgency> agencies;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

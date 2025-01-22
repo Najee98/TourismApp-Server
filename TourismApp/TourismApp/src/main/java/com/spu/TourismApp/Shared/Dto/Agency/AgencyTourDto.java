@@ -1,7 +1,6 @@
-package com.spu.TourismApp.Shared.Dto.TravellingAgency;
+package com.spu.TourismApp.Shared.Dto.Agency;
 
 import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDto;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

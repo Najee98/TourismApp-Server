@@ -4,15 +4,12 @@ import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundExc
 import com.spu.TourismApp.Models.AppUser;
 import com.spu.TourismApp.Models.Reservation;
 import com.spu.TourismApp.Models.Tour;
-import com.spu.TourismApp.Models.TravellingAgency;
-import com.spu.TourismApp.Repositories.ReservationRepository;
 import com.spu.TourismApp.Repositories.TourRepository;
-import com.spu.TourismApp.Repositories.TravellingAgencyRepository;
+import com.spu.TourismApp.Repositories.AgencyRepository;
 import com.spu.TourismApp.Shared.Dto.Tour.CreateTourDto;
 import com.spu.TourismApp.Shared.Dto.Tour.TourDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,7 +22,7 @@ public class TourServiceImpl implements TourService {
 
     private final TourRepository tourRepository;
     private final ReservationService reservationService;
-    private final TravellingAgencyRepository agencyRepository;
+    private final AgencyRepository agencyRepository;
     private final UserService userService;
 
     @Override

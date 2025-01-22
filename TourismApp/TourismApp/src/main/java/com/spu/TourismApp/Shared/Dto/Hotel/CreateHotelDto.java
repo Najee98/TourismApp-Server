@@ -1,6 +1,6 @@
 package com.spu.TourismApp.Shared.Dto.Hotel;
 
-import com.spu.TourismApp.Shared.Dto.TouristAttraction.CreateTouristAttractionDto;
+import com.spu.TourismApp.Shared.Dto.Attraction.CreateAttractionDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,9 +10,9 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateHotelDto extends CreateTouristAttractionDto implements Serializable {
+public class CreateHotelDto extends CreateAttractionDto implements Serializable {
 
-    private Integer availableRooms;
+    private int availableRooms;
 
     public CreateHotelDto(String name, String description, String address, String phone, String imageUrl) {
         super(name, description, address, phone, imageUrl);

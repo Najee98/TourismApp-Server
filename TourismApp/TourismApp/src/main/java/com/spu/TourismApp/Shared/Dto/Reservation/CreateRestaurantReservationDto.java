@@ -11,20 +11,15 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateReservationDto implements Serializable {
+public class CreateRestaurantReservationDto implements Serializable {
 
     Integer reservationUserId;
-    //sent null in case of user reservation
-    Integer agencyId;
+//    //sent null in case of user reservation
+//    Integer agencyId;
     ReservationType reservationType;
-
-    Integer attractionId;
 
     Integer restaurantId;
     int restaurantTableNumber;
-
-    Integer hotelId;
-    int hotelRoomNumber;
 
     Date fromDate;
     Date toDate;

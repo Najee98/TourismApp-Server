@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class ReservationDto implements Serializable {
 
     Integer reservationId;
-    String reservationUserName;
+//    String reservationUserName;
     ReservationType reservationType;
 
     Integer attractionId;
@@ -21,7 +21,6 @@ public class ReservationDto implements Serializable {
 
     Integer restaurantId;
     String restaurantName;
-
 
     Integer hotelId;
     String hotelName;

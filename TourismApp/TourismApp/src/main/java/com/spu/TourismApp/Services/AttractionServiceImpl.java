@@ -1,10 +1,10 @@
 package com.spu.TourismApp.Services;
 
 import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundException;
-import com.spu.TourismApp.Models.TouristAttraction;
-import com.spu.TourismApp.Repositories.TouristAttractionRepository;
-import com.spu.TourismApp.Shared.Dto.TouristAttraction.CreateTouristAttractionDto;
-import com.spu.TourismApp.Shared.Dto.TouristAttraction.TouristAttractionDto;
+import com.spu.TourismApp.Models.Attraction;
+import com.spu.TourismApp.Repositories.AttractionRepository;
+import com.spu.TourismApp.Shared.Dto.Attraction.CreateAttractionDto;
+import com.spu.TourismApp.Shared.Dto.Attraction.AttractionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,23 +12,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TouristAttractionServiceImpl implements TouristAttractionService{
+public class AttractionServiceImpl implements AttractionService {
 
-    private final TouristAttractionRepository attractionRepository;
+    private final AttractionRepository attractionRepository;
 
     @Autowired
-    public TouristAttractionServiceImpl(TouristAttractionRepository attractionRepository) {
+    public AttractionServiceImpl(AttractionRepository attractionRepository) {
         this.attractionRepository = attractionRepository;
     }
 
     @Override
-    public List<TouristAttractionDto> getAllTouristAttractions() {
-        List<TouristAttraction> touristAttractions = attractionRepository.findAll();
+    public List<AttractionDto> getAllTouristAttractions() {
+        List<Attraction> attractions = attractionRepository.findAll();
 
-        List<TouristAttractionDto> response = new ArrayList<>();
+        List<AttractionDto> response = new ArrayList<>();
 
-        for (TouristAttraction attraction : touristAttractions) {
-            TouristAttractionDto dto = new TouristAttractionDto();
+        for (Attraction attraction : attractions) {
+            AttractionDto dto = new AttractionDto();
 
             dto = mapAttractionToDto(attraction);
 
@@ -39,11 +39,11 @@ public class TouristAttractionServiceImpl implements TouristAttractionService{
     }
 
     @Override
-    public TouristAttractionDto getTouristAttractionDetails(Integer id) {
-        TouristAttraction attraction = attractionRepository.findById(id)
+    public AttractionDto getTouristAttractionDetails(Integer id) {
+        Attraction attraction = attractionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Attraction with id: " + id + " not found"));
 
-        TouristAttractionDto response = new TouristAttractionDto();
+        AttractionDto response = new AttractionDto();
 
         response = mapAttractionToDto(attraction);
 
@@ -51,14 +51,14 @@ public class TouristAttractionServiceImpl implements TouristAttractionService{
     }
 
     @Override
-    public TouristAttraction getTouristAttraction(Integer id) {
+    public Attraction getTouristAttraction(Integer id) {
         return attractionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Tourist Attraction Not Found"));
     }
 
     @Override
-    public void createTouristAttraction(CreateTouristAttractionDto request) {
-        TouristAttraction attraction = new TouristAttraction();
+    public void createTouristAttraction(CreateAttractionDto request) {
+        Attraction attraction = new Attraction();
 
         attraction.setName(request.getName());
         attraction.setDescription(request.getDescription());
@@ -70,8 +70,8 @@ public class TouristAttractionServiceImpl implements TouristAttractionService{
     }
 
     @Override
-    public void updateTouristAttraction(TouristAttractionDto request) {
-        TouristAttraction attraction = attractionRepository.findById(request.getId())
+    public void updateTouristAttraction(AttractionDto request) {
+        Attraction attraction = attractionRepository.findById(request.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Tourist Attraction Not Found"));
 
         attraction.setName(request.getName());
@@ -85,14 +85,14 @@ public class TouristAttractionServiceImpl implements TouristAttractionService{
 
     @Override
     public void deleteTouristAttraction(Integer id) {
-        TouristAttraction attraction = attractionRepository.findById(id)
+        Attraction attraction = attractionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Tourist Attraction Not Found"));
 
         attractionRepository.delete(attraction);
     }
 
-    private static TouristAttractionDto mapAttractionToDto(TouristAttraction attraction) {
-        TouristAttractionDto dto = new TouristAttractionDto();
+    private static AttractionDto mapAttractionToDto(Attraction attraction) {
+        AttractionDto dto = new AttractionDto();
 
         dto.setId(attraction.getId());
         dto.setName(attraction.getName());
@@ -103,8 +103,8 @@ public class TouristAttractionServiceImpl implements TouristAttractionService{
         return dto;
     }
 
-    private static TouristAttraction mapDtoToAttraction(TouristAttractionDto dto) {
-        TouristAttraction attraction = new TouristAttraction();
+    private static Attraction mapDtoToAttraction(AttractionDto dto) {
+        Attraction attraction = new Attraction();
 
         attraction.setId(dto.getId());
         attraction.setName(dto.getName());

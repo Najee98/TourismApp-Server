@@ -5,7 +5,7 @@ import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundExc
 import com.spu.TourismApp.Models.*;
 import com.spu.TourismApp.Models.Utils.ReservationDetail;
 import com.spu.TourismApp.Repositories.ReservationRepository;
-import com.spu.TourismApp.Shared.Dto.Reservation.CreateReservationDto;
+import com.spu.TourismApp.Shared.Dto.Reservation.CreateAttractionReservationDto;
 import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ public class ReservationServiceImpl implements ReservationService {
     private final ReservationRepository reservationRepository;
     private final UserService userService;
     private final HotelService hotelService;
-    private final TouristAttractionService attractionService;
+    private final AttractionService attractionService;
     private final RestaurantService restaurantService;
 
     @Override
@@ -33,10 +33,10 @@ public class ReservationServiceImpl implements ReservationService {
         for(Reservation reservation : reservations) {
             ReservationDto reservationDto = new ReservationDto();
 
-            reservationDto.setReservationId(reservation.getId());
-            reservationDto.setReservationUserName(
-                    reservation.getUser().getFirstName() + " " + reservation.getUser().getLastName()
-            );
+//            reservationDto.setReservationId(reservation.getId());
+//            reservationDto.setReservationUserName(
+//                    reservation.getUser().getFirstName() + " " + reservation.getUser().getLastName()
+//            );
             reservationDto.setReservationType(reservation.getReservationType());
 
             if (reservation.getHotel() != null) {
@@ -67,7 +67,7 @@ public class ReservationServiceImpl implements ReservationService {
         ReservationDto response = new ReservationDto();
 
         response.setReservationId(reservation.getId());
-        response.setReservationUserName(reservation.getUser().getFirstName() + " " + reservation.getUser().getLastName());
+//        response.setReservationUserName(reservation.getUser().getFirstName() + " " + reservation.getUser().getLastName());
         response.setReservationType(reservation.getReservationType());
 
         if (reservation.getHotel() != null) {
@@ -90,7 +90,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Transactional
     @Override
-    public Reservation createReservation(CreateReservationDto request) {
+    public Reservation createReservation(CreateAttractionReservationDto request) {
 
         Reservation reservation = new Reservation();
 
@@ -104,12 +104,12 @@ public class ReservationServiceImpl implements ReservationService {
 
             if (request.getAgencyId() != null){
                 reservation.setAgencyReservation(true);
-                reservation.setUser(null);
+//                reservation.setUser(null);
             }
             else {
                 reservation.setAgencyReservation(false);
                 AppUser user = userService.getUserById(request.getReservationUserId());
-                reservation.setUser(user);
+//                reservation.setUser(user);
             }
 
             reservation.setReservationType(request.getReservationType());
@@ -189,7 +189,7 @@ public class ReservationServiceImpl implements ReservationService {
 //    }
 
     @Override
-    public Reservation updateReservation(Integer reservationId, CreateReservationDto request) {
+    public Reservation updateReservation(Integer reservationId, CreateAttractionReservationDto request) {
         Reservation reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new ResourceNotFoundException("Reservation with id: " + reservationId + " not found."));
 
@@ -227,7 +227,7 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public boolean isReservationValid(CreateReservationDto request){
+    public boolean isReservationValid(CreateAttractionReservationDto request){
 
         List<Reservation> intersectedReservations = new ArrayList<>();
 

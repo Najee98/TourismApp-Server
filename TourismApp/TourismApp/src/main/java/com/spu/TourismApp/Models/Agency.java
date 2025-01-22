@@ -1,28 +1,26 @@
 package com.spu.TourismApp.Models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
-@Table(name = "toutist_attractions")
+@Table(name = "agencies")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class TouristAttraction {
+@NoArgsConstructor
+public class Agency {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
+
     String name;
-    String description;
     String address;
     String phone;
-//    TouristAttractionType type;
     String imageUrl;
 
+//    @ManyToMany(mappedBy = "agencies")
+//    List<AppUser> subscribers;
 }
