@@ -4,9 +4,10 @@ import com.spu.TourismApp.ExceptionHandling.CustomExceptions.DuplicatedResourceE
 import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundException;
 import com.spu.TourismApp.Models.*;
 import com.spu.TourismApp.Models.Utils.ReservationDetail;
+import com.spu.TourismApp.Models.Utils.ReservationType;
+import com.spu.TourismApp.Repositories.AgencyRepository;
 import com.spu.TourismApp.Repositories.ReservationRepository;
-import com.spu.TourismApp.Shared.Dto.Reservation.CreateAttractionReservationDto;
-import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDto;
+import com.spu.TourismApp.Shared.Dto.Reservation.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,15 +24,16 @@ public class ReservationServiceImpl implements ReservationService {
     private final HotelService hotelService;
     private final AttractionService attractionService;
     private final RestaurantService restaurantService;
+    private final AgencyRepository agencyRepository;
 
     @Override
-    public List<ReservationDto> getAllUserReservations() {
+    public List<ReservationDetailsDto> getAllUserReservations() {
         List<Reservation> reservations = reservationRepository.findAll();
 
-        List<ReservationDto> response = new ArrayList<>();
+        List<ReservationDetailsDto> response = new ArrayList<>();
 
         for(Reservation reservation : reservations) {
-            ReservationDto reservationDto = new ReservationDto();
+            ReservationDetailsDto reservationDto = new ReservationDetailsDto();
 
 //            reservationDto.setReservationId(reservation.getId());
 //            reservationDto.setReservationUserName(
@@ -60,11 +62,11 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public ReservationDto getReservationById(Integer id) {
+    public ReservationDetailsDto getReservationById(Integer id) {
         Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Reservation with id: " + id + " not found"));
 
-        ReservationDto response = new ReservationDto();
+        ReservationDetailsDto response = new ReservationDetailsDto();
 
         response.setReservationId(reservation.getId());
 //        response.setReservationUserName(reservation.getUser().getFirstName() + " " + reservation.getUser().getLastName());
@@ -90,7 +92,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Transactional
     @Override
-    public Reservation createReservation(CreateAttractionReservationDto request) {
+    public Reservation createReservation(ReservationDto request) {
 
         Reservation reservation = new Reservation();
 
@@ -99,42 +101,25 @@ public class ReservationServiceImpl implements ReservationService {
         if (validReservation) {
             ReservationDetail details = new ReservationDetail();
 
-            //If agency id is present -> true : else -> false
-//            reservation.setAgencyReservation(request.getAgencyId() != null);
+            reservation.setReservationType(ReservationType.valueOf(request.getReservationType()));
 
-            if (request.getAgencyId() != null){
-                reservation.setAgencyReservation(true);
-//                reservation.setUser(null);
-            }
-            else {
-                reservation.setAgencyReservation(false);
-                AppUser user = userService.getUserById(request.getReservationUserId());
-//                reservation.setUser(user);
-            }
-
-            reservation.setReservationType(request.getReservationType());
-
-            switch (request.getReservationType()) {
+            switch (ReservationType.valueOf(request.getReservationType())) {
                 case HOTEL_RESERVATION -> {
                     reservation.setHotel(
-                            hotelService.getHotel(request.getHotelId())
+                            hotelService.getHotel(request.getReservationRelatedId())
                     );
-                    details.setRoomNumber(request.getHotelRoomNumber());
-                    details.setTableNumber(-1);
+                    details.setRoomNumber(request.getTableOrRoomNumber());
                 }
                 case RESTAURANT_RESERVATION -> {
                     reservation.setRestaurant(
-                            restaurantService.getRestaurant(request.getRestaurantId())
+                            restaurantService.getRestaurant(request.getReservationRelatedId())
                     );
-                    details.setTableNumber(request.getRestaurantTableNumber());
-                    details.setRoomNumber(-1);
+                    details.setTableNumber(request.getTableOrRoomNumber());
                 }
                 case ATTRACTION_RESERVATION -> {
                     reservation.setAttraction(
-                            attractionService.getTouristAttraction(request.getAttractionId())
+                            attractionService.getTouristAttraction(request.getReservationRelatedId())
                     );
-                    details.setTableNumber(-1);
-                    details.setRoomNumber(-1);
                 }
             }
 
@@ -143,6 +128,9 @@ public class ReservationServiceImpl implements ReservationService {
             reservation.setFromDate(request.getFromDate());
             reservation.setToDate(request.getToDate());
 
+            reservation.setAgency(agencyRepository.findById(request.getAgencyId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Agency with id: " + request.getAgencyId() + " not found")));
+
             return reservationRepository.save(reservation);
 
         }else{
@@ -150,6 +138,7 @@ public class ReservationServiceImpl implements ReservationService {
         }
 
     }
+
 
 //    @Override
 //    public Reservation createReservationByAgency(CreateReservationDto request) {
@@ -188,29 +177,39 @@ public class ReservationServiceImpl implements ReservationService {
 //        return reservationRepository.save(reservation);
 //    }
 
+    @Transactional
     @Override
-    public Reservation updateReservation(Integer reservationId, CreateAttractionReservationDto request) {
+    public Reservation updateReservation(Integer reservationId, ReservationDto request) {
         Reservation reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new ResourceNotFoundException("Reservation with id: " + reservationId + " not found."));
 
-        ReservationDetail details = new ReservationDetail(
-                request.getHotelRoomNumber(),
-                request.getRestaurantTableNumber()
-        );
-        reservation.setReservationDetail(details);
-        reservation.setReservationType(request.getReservationType());
+        ReservationDetail details = new ReservationDetail();
 
-        switch (request.getReservationType()) {
-            case HOTEL_RESERVATION -> reservation.setHotel(
-                    hotelService.getHotel(request.getHotelId())
-            );
-            case RESTAURANT_RESERVATION -> reservation.setRestaurant(
-                    restaurantService.getRestaurant(request.getRestaurantId())
-            );
-            case ATTRACTION_RESERVATION -> reservation.setAttraction(
-                    attractionService.getTouristAttraction(request.getAttractionId())
-            );
+        reservation.setReservationType(ReservationType.valueOf(request.getReservationType()));
+
+        switch (ReservationType.valueOf(request.getReservationType())) {
+            case HOTEL_RESERVATION -> {
+                reservation.setHotel(
+                        hotelService.getHotel(request.getReservationRelatedId())
+                );
+                details.setRoomNumber(request.getTableOrRoomNumber());
+            }
+            case RESTAURANT_RESERVATION -> {
+                reservation.setRestaurant(
+                        restaurantService.getRestaurant(request.getReservationRelatedId())
+                );
+                details.setTableNumber(request.getTableOrRoomNumber());
+            }
+            case ATTRACTION_RESERVATION -> {
+                reservation.setAttraction(
+                        attractionService.getTouristAttraction(request.getReservationRelatedId())
+                );
+            }
         }
+
+        reservation.setReservationDetail(details);
+        reservation.setAgency(agencyRepository.findById(request.getAgencyId())
+                .orElseThrow(() -> new ResourceNotFoundException("Agency with id: " + request.getAgencyId() + " not found")));
 
         reservation.setFromDate(request.getFromDate());
         reservation.setToDate(request.getToDate());
@@ -227,7 +226,7 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public boolean isReservationValid(CreateAttractionReservationDto request){
+    public boolean isReservationValid(ReservationDto request){
 
         List<Reservation> intersectedReservations = new ArrayList<>();
 
@@ -239,12 +238,10 @@ public class ReservationServiceImpl implements ReservationService {
         }
 
         for (Reservation reservation : intersectedReservations){
-            if (reservation.getReservationDetail().getRoomNumber()
-                    == request.getHotelRoomNumber()){
-                return false;
-            }
-            if (reservation.getReservationDetail().getRoomNumber()
-                    == request.getRestaurantTableNumber()){
+            if ((reservation.getReservationDetail().getRoomNumber() == 0
+                && reservation.getReservationDetail().getTableNumber() == request.getTableOrRoomNumber())
+            || (reservation.getReservationDetail().getTableNumber() == 0
+                && reservation.getReservationDetail().getRoomNumber() == request.getTableOrRoomNumber())){
                 return false;
             }
         }
@@ -263,4 +260,5 @@ public class ReservationServiceImpl implements ReservationService {
 
         return response;
     }
+
 }

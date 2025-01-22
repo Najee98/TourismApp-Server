@@ -13,12 +13,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/agencies")
-public class TravellingAgencyController {
+public class AgencyController {
 
     private final AgencyService agencyService;
 
     @Autowired
-    public TravellingAgencyController(AgencyService agencyService) {
+    public AgencyController(AgencyService agencyService) {
         this.agencyService = agencyService;
     }
 

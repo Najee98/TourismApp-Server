@@ -18,6 +18,5 @@ public class HotelReservationDto implements Serializable {
     String hotelName;
     Date fromDate;
     Date toDate;
-    boolean isAgencyReservation;
 
 }

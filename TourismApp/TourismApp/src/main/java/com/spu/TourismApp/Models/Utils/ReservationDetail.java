@@ -14,8 +14,8 @@ import java.util.List;
 @Data
 public class ReservationDetail {
 
-    int roomNumber;
-    int tableNumber;
+    int roomNumber = -1;
+    int tableNumber = -1;
 
     @ManyToMany(fetch = FetchType.LAZY)
     List<Attraction> attractions;

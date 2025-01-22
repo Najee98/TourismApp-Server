@@ -12,12 +12,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/attractions")
-public class TouristAttractionController {
+public class AttractionController {
 
     private final AttractionService attractionService;
 
     @Autowired
-    public TouristAttractionController(AttractionService attractionService) {
+    public AttractionController(AttractionService attractionService) {
         this.attractionService = attractionService;
     }
 

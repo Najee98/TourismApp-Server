@@ -6,36 +6,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class ReservationDto implements Serializable {
 
-    Integer reservationId;
-//    String reservationUserName;
-    ReservationType reservationType;
+    Integer agencyId;
+    String reservationType;
 
-    Integer attractionId;
-    String attractionName;
+    Integer reservationRelatedId;
 
-    Integer restaurantId;
-    String restaurantName;
+    int tableOrRoomNumber;
 
-    Integer hotelId;
-    String hotelName;
-
-//    public ReservationDto(Integer reservationId,
-//                          String reservationUserName,
-//                          ReservationType reservationType,
-//                          List<TouristAttraction> reservationTouristAttractions,
-//                          List<Restaurant> reservationRestaurants,
-//                          List<Hotel> reservationHotels) {
-//        this.reservationId = reservationId;
-//        this.reservationUserName = reservationUserName;
-//        this.reservationType = reservationType;
-//        this.reservationTouristAttractions = reservationTouristAttractions;
-//        this.reservationRestaurants = reservationRestaurants;
-//        this.reservationHotels = reservationHotels;
-//    }
+    Date fromDate;
+    Date toDate;
 }

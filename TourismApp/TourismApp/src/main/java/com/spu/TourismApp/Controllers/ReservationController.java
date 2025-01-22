@@ -2,8 +2,7 @@ package com.spu.TourismApp.Controllers;
 
 import com.spu.TourismApp.Models.Reservation;
 import com.spu.TourismApp.Services.ReservationService;
-import com.spu.TourismApp.Shared.Dto.Reservation.CreateAttractionReservationDto;
-import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDto;
+import com.spu.TourismApp.Shared.Dto.Reservation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,31 +22,26 @@ public class ReservationController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ReservationDto>> getAllUserReservations() {
-        List<ReservationDto> reservations = reservationService.getAllUserReservations();
+    public ResponseEntity<List<ReservationDetailsDto>> getAllUserReservations() {
+        List<ReservationDetailsDto> reservations = reservationService.getAllUserReservations();
         return ResponseEntity.ok(reservations);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ReservationDto> getReservationById(@PathVariable Integer id) {
-        ReservationDto reservation = reservationService.getReservationById(id);
+    public ResponseEntity<ReservationDetailsDto> getReservationById(@PathVariable Integer id) {
+        ReservationDetailsDto reservation = reservationService.getReservationById(id);
         return ResponseEntity.ok(reservation);
     }
 
     @PostMapping()
-    public ResponseEntity<Reservation> createReservationByUser(@RequestBody CreateAttractionReservationDto request) {
+    public ResponseEntity<Reservation> createAttractionReservation(@RequestBody ReservationDto request) {
         return new ResponseEntity<>(reservationService.createReservation(request), HttpStatus.CREATED);
     }
-
-//    @PostMapping("/agency")
-//    public ResponseEntity<Reservation> createReservationByAgency(@RequestBody CreateReservationDto request) {
-//        return new ResponseEntity<>(reservationService.createReservationByAgency(request), HttpStatus.CREATED);
-//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Reservation> updateReservation(
             @PathVariable Integer id, 
-            @RequestBody CreateAttractionReservationDto request) {
+            @RequestBody ReservationDto request) {
 
         return new ResponseEntity<>(reservationService.updateReservation(id, request), HttpStatus.OK);
     }

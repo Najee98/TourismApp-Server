@@ -27,22 +27,18 @@ public class Reservation {
     @Embedded
     ReservationDetail reservationDetail;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "hotel_id")
-    Hotel hotel;
+    Hotel hotel = null;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
-    Restaurant restaurant;
+    Restaurant restaurant = null;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "attraction_id")
-    Attraction attraction;
+    Attraction attraction = null;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "agency_id")
     Agency agency;
@@ -50,14 +46,11 @@ public class Reservation {
     Date fromDate;
     Date toDate;
 
-    boolean agencyReservation;
-
 //    @JsonIgnore
 //    @ManyToOne(fetch = FetchType.EAGER)
 //    @JoinColumn(name = "user_id")
 //    AppUser user;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "tour_id")
     Tour tour;

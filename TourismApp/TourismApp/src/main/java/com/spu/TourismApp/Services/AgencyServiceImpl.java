@@ -6,7 +6,7 @@ import com.spu.TourismApp.Models.Agency;
 import com.spu.TourismApp.Repositories.ReservationRepository;
 import com.spu.TourismApp.Repositories.TourRepository;
 import com.spu.TourismApp.Repositories.AgencyRepository;
-import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDto;
+import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDetailsDto;
 import com.spu.TourismApp.Shared.Dto.Agency.AgencyTourDto;
 import com.spu.TourismApp.Shared.Dto.Agency.AgencyDto;
 import com.spu.TourismApp.Shared.Dto.Agency.CreateAgencyDto;
@@ -76,7 +76,7 @@ public class AgencyServiceImpl implements AgencyService {
 
         for (AgencyTourDto tour : tours) {
             List<Reservation> reservations = fetchReservationsByTourId(tour.getTourId());
-            List<ReservationDto> reservationDtos = reservations.stream()
+            List<ReservationDetailsDto> reservationDtos = reservations.stream()
                     .map(this::mapReservationToDto)
                     .collect(Collectors.toList());
             tour.setReservations(reservationDtos);
@@ -161,9 +161,9 @@ public class AgencyServiceImpl implements AgencyService {
         return reservationRepository.findAllByTourId(tourId);
     }
 
-    private ReservationDto mapReservationToDto(Reservation reservation) {
+    private ReservationDetailsDto mapReservationToDto(Reservation reservation) {
         // Map Reservation entity to ReservationDto
-        return new ReservationDto(
+        return new ReservationDetailsDto(
                 reservation.getId(),
 //                reservation.getUser() != null
 //                        ? reservation.getUser().getFirstName() + " " + reservation.getUser().getLastName()

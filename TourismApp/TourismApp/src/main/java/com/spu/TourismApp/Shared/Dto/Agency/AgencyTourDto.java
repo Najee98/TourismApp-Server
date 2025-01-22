@@ -1,6 +1,6 @@
 package com.spu.TourismApp.Shared.Dto.Agency;
 
-import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDto;
+import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDetailsDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,7 +18,7 @@ public class AgencyTourDto implements Serializable {
     String tourName;
     Date startDate;
     Date endDate;
-    List<ReservationDto> reservations;
+    List<ReservationDetailsDto> reservations;
 
     public AgencyTourDto(Integer tourId, Integer agencyId, String agencyName, String tourName, Date startDate, Date endDate) {
         this.tourId = tourId;
@@ -29,7 +29,7 @@ public class AgencyTourDto implements Serializable {
         this.endDate = endDate;
     }
 
-    public AgencyTourDto(Integer tourId, Integer agencyId, String agencyName, String tourName, Date startDate, Date endDate, List<ReservationDto> reservations) {
+    public AgencyTourDto(Integer tourId, Integer agencyId, String agencyName, String tourName, Date startDate, Date endDate, List<ReservationDetailsDto> reservations) {
         this.tourId = tourId;
         this.agencyId = agencyId;
         this.agencyName = agencyName;

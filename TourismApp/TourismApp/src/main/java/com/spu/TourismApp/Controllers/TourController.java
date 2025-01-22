@@ -30,18 +30,20 @@ public class TourController {
     }
 
     @PostMapping
-    public ResponseEntity<Tour> createTour(@RequestBody CreateTourDto request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(tourService.createTour(request));
+    public ResponseEntity<Object> createTour(@RequestBody CreateTourDto request) {
+        tourService.createTour(request);
+        return new ResponseEntity<>("{ \"message\": \" created successfully  \" }", HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Tour> updateTour(@PathVariable Integer id, @RequestBody CreateTourDto request) {
-        return ResponseEntity.ok(tourService.updateTour(id, request));
+    public ResponseEntity<Object> updateTour(@PathVariable Integer id, @RequestBody CreateTourDto request) {
+        tourService.updateTour(id, request);
+        return new ResponseEntity<>("{ \"message\": \" updated successfully  \" }", HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTour(@PathVariable Integer id) {
+    public ResponseEntity<Object> deleteTour(@PathVariable Integer id) {
         tourService.deleteTour(id);
-        return ResponseEntity.noContent().build();
+        return new ResponseEntity<>("{ \"message\": \" deleted successfully  \" }", HttpStatus.NO_CONTENT);
     }
 }

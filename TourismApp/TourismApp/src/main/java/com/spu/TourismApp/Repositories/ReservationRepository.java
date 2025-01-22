@@ -26,8 +26,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 //            "r.user.firstName," +
             "h.name," +
             "r.fromDate," +
-            "r.toDate," +
-            "r.agencyReservation) " +
+            "r.toDate)" +
             "from Reservation r join r.hotel h " +
             "where r.hotel.id = :hotelId")
     List<HotelReservationDto> getHotelReservations(@Param("hotelId") Integer hotelId);
