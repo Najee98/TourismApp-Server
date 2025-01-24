@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -13,17 +14,14 @@ import java.io.Serializable;
 public class ReservationDetailsDto implements Serializable {
 
     Integer reservationId;
-//    String reservationUserName;
+    Integer agencyId;
     ReservationType reservationType;
 
-    Integer attractionId;
-    String attractionName;
+    Integer relatedId;
+    String relatedName;
 
-    Integer restaurantId;
-    String restaurantName;
-
-    Integer hotelId;
-    String hotelName;
+    Date fromDate;
+    Date toDate;
 
 //    public ReservationDto(Integer reservationId,
 //                          String reservationUserName,

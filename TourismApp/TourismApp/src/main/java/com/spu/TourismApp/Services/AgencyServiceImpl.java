@@ -163,18 +163,30 @@ public class AgencyServiceImpl implements AgencyService {
 
     private ReservationDetailsDto mapReservationToDto(Reservation reservation) {
         // Map Reservation entity to ReservationDto
+
+        Integer relatedId = -1;
+        String relatedName = " ";
+
+        if (reservation.getHotel() != null) {
+            relatedId = reservation.getHotel().getId();
+            relatedName = reservation.getHotel().getName();
+        } else if (reservation.getRestaurant() != null){
+            relatedId = reservation.getRestaurant().getId();
+            relatedName = reservation.getRestaurant().getName();
+        } else if (reservation.getAttraction() != null){
+            relatedId = reservation.getAttraction().getId();
+            relatedName = reservation.getAttraction().getName();
+        }
+
+        ReservationDetailsDto dto = new ReservationDetailsDto();
         return new ReservationDetailsDto(
                 reservation.getId(),
-//                reservation.getUser() != null
-//                        ? reservation.getUser().getFirstName() + " " + reservation.getUser().getLastName()
-//                        : null,
+                reservation.getAgency().getId(),
                 reservation.getReservationType(),
-                reservation.getAttraction() != null ? reservation.getAttraction().getId() : null,
-                reservation.getAttraction() != null ? reservation.getAttraction().getName() : null,
-                reservation.getRestaurant() != null ? reservation.getRestaurant().getId() : null,
-                reservation.getRestaurant() != null ? reservation.getRestaurant().getName() : null,
-                reservation.getHotel() != null ? reservation.getHotel().getId() : null,
-                reservation.getHotel() != null ? reservation.getHotel().getName() : null
+                relatedId,
+                relatedName,
+                reservation.getFromDate(),
+                reservation.getToDate()
         );
     }
 }

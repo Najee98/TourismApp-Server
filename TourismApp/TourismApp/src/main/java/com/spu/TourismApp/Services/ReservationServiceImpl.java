@@ -35,6 +35,11 @@ public class ReservationServiceImpl implements ReservationService {
         for(Reservation reservation : reservations) {
             ReservationDetailsDto reservationDto = new ReservationDetailsDto();
 
+            reservationDto.setReservationId(reservation.getId());
+            reservationDto.setReservationType(reservation.getReservationType());
+            reservation.setAgency(
+                    agencyRepository.findById(reservation.getAgency().getId()).orElse(null)
+            );
 //            reservationDto.setReservationId(reservation.getId());
 //            reservationDto.setReservationUserName(
 //                    reservation.getUser().getFirstName() + " " + reservation.getUser().getLastName()
@@ -42,19 +47,22 @@ public class ReservationServiceImpl implements ReservationService {
             reservationDto.setReservationType(reservation.getReservationType());
 
             if (reservation.getHotel() != null) {
-                reservationDto.setHotelId(reservation.getHotel().getId());
-                reservationDto.setHotelName(reservation.getHotel().getName());
+                reservationDto.setRelatedId(reservation.getHotel().getId());
+                reservationDto.setRelatedName(reservation.getHotel().getName());
             }
 
             if (reservation.getRestaurant() != null) {
-                reservationDto.setRestaurantId(reservation.getRestaurant().getId());
-                reservationDto.setRestaurantName(reservation.getRestaurant().getName());
+                reservationDto.setRelatedId(reservation.getRestaurant().getId());
+                reservationDto.setRelatedName(reservation.getRestaurant().getName());
             }
 
             if (reservation.getAttraction() != null) {
-                reservationDto.setAttractionId(reservation.getAttraction().getId());
-                reservationDto.setAttractionName(reservation.getAttraction().getName());
+                reservationDto.setRelatedId(reservation.getAttraction().getId());
+                reservationDto.setRelatedName(reservation.getAttraction().getName());
             }
+
+            reservationDto.setFromDate(reservation.getFromDate());
+            reservationDto.setToDate(reservation.getToDate());
 
             response.add(reservationDto);
         }
@@ -72,20 +80,25 @@ public class ReservationServiceImpl implements ReservationService {
 //        response.setReservationUserName(reservation.getUser().getFirstName() + " " + reservation.getUser().getLastName());
         response.setReservationType(reservation.getReservationType());
 
+        response.setAgencyId(reservation.getAgency().getId());
+
         if (reservation.getHotel() != null) {
-            response.setHotelId(reservation.getHotel().getId());
-            response.setHotelName(reservation.getHotel().getName());
+            response.setRelatedId(reservation.getHotel().getId());
+            response.setRelatedName(reservation.getHotel().getName());
         }
 
         if (reservation.getRestaurant() != null) {
-            response.setRestaurantId(reservation.getRestaurant().getId());
-            response.setRestaurantName(reservation.getRestaurant().getName());
+            response.setRelatedId(reservation.getRestaurant().getId());
+            response.setRelatedName(reservation.getRestaurant().getName());
         }
 
         if (reservation.getAttraction() != null) {
-            response.setAttractionId(reservation.getAttraction().getId());
-            response.setAttractionName(reservation.getAttraction().getName());
+            response.setRelatedId(reservation.getAttraction().getId());
+            response.setRelatedName(reservation.getAttraction().getName());
         }
+
+        response.setFromDate(reservation.getFromDate());
+        reservation.setToDate(reservation.getToDate());
 
         return response;
     }
