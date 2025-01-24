@@ -1,14 +1,9 @@
 package com.spu.TourismApp.Shared.Utils;
 
-import com.spu.TourismApp.Models.AppUser;
-import com.spu.TourismApp.Models.Attraction;
-import com.spu.TourismApp.Models.Hotel;
-import com.spu.TourismApp.Models.Restaurant;
+import com.spu.TourismApp.Models.*;
 import com.spu.TourismApp.Models.Utils.Role;
-import com.spu.TourismApp.Repositories.AppUserRepository;
-import com.spu.TourismApp.Repositories.AttractionRepository;
-import com.spu.TourismApp.Repositories.HotelRepository;
-import com.spu.TourismApp.Repositories.RestaurantRepository;
+import com.spu.TourismApp.Repositories.*;
+import com.spu.TourismApp.Services.HotelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -23,16 +18,7 @@ public class DataSeeder implements CommandLineRunner {
     private final HotelRepository hotelRepository;
     private final RestaurantRepository restaurantRepository;
     private final AttractionRepository attractionRepository;
-
-//    public DataSeeder(AppUserRepository userRepository,
-//                      HotelRepository hotelRepository,
-//                      RestaurantRepository restaurantRepository,
-//                      AttractionRepository attractionRepository) {
-//        this.userRepository = userRepository;
-//        this.hotelRepository = hotelRepository;
-//        this.restaurantRepository = restaurantRepository;
-//        this.attractionRepository = attractionRepository;
-//    }
+    private final AgencyRepository agencyRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -109,6 +95,26 @@ public class DataSeeder implements CommandLineRunner {
                     "088 555444",
                     "testImage6"
                     ));
+        }
+
+        // Seed Agencies
+        if(agencyRepository.count() == 0) {
+            agencyRepository.save(new Agency(
+                    null,
+                    "The greatest agency in the west",
+                    "West-side yo",
+                    "011 123456",
+                    "testImage7",
+                    null
+            ));
+            agencyRepository.save(new Agency(
+                    null,
+                    "The greatest agency in the east",
+                    "East-siiiide",
+                    "099 654321",
+                    "testImage8",
+                    null
+            ));
         }
     }
 }
