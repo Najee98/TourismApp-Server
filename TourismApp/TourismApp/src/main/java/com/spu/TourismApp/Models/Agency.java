@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "agencies")
 @Data
@@ -20,6 +22,9 @@ public class Agency {
     String address;
     String phone;
     String imageUrl;
+
+    @OneToMany(mappedBy = "agency", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Tour> tours;
 
 //    @ManyToMany(mappedBy = "agencies")
 //    List<AppUser> subscribers;

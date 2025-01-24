@@ -127,7 +127,8 @@ public class AgencyServiceImpl implements AgencyService {
                 dto.getName(),
                 dto.getAddress(),
                 dto.getPhone(),
-                dto.getImageUrl()
+                dto.getImageUrl(),
+                null
         );
     }
 
