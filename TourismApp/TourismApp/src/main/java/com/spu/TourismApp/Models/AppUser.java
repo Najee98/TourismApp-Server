@@ -1,5 +1,6 @@
 package com.spu.TourismApp.Models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.spu.TourismApp.Models.Utils.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -87,6 +88,17 @@ public class AppUser implements UserDetails {
             name = "user_tours",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "tour_id"))
+    @JsonManagedReference
     List<Tour> tours;
+
+    @Override
+    public String toString() {
+        return "AppUser{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 
 }

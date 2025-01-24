@@ -104,16 +104,16 @@ public class DataSeeder implements CommandLineRunner {
                     "The greatest agency in the west",
                     "West-side yo",
                     "011 123456",
-                    "testImage7",
-                    null
+                    "testImage7"
+                    //null
             ));
             agencyRepository.save(new Agency(
                     null,
                     "The greatest agency in the east",
                     "East-siiiide",
                     "099 654321",
-                    "testImage8",
-                    null
+                    "testImage8"
+//                    null
             ));
         }
     }

@@ -1,5 +1,6 @@
 package com.spu.TourismApp.Models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,9 +24,8 @@ public class Agency {
     String phone;
     String imageUrl;
 
-    @OneToMany(mappedBy = "agency", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Tour> tours;
+//    @OneToMany(mappedBy = "agency", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JsonManagedReference
+//    List<Tour> tours;
 
-//    @ManyToMany(mappedBy = "agencies")
-//    List<AppUser> subscribers;
 }

@@ -21,11 +21,6 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<ReservationDetailsDto>> getAllUserReservations() {
-        List<ReservationDetailsDto> reservations = reservationService.getAllUserReservations();
-        return ResponseEntity.ok(reservations);
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<ReservationDetailsDto> getReservationById(@PathVariable Integer id) {

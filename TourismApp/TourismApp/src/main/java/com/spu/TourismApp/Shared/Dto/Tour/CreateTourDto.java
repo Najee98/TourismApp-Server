@@ -13,4 +13,5 @@ public class CreateTourDto {
     private List<Integer> reservationIds;
     private Date startDate;
     private Date endDate;
+    private int maxSubscribersCount;
 }

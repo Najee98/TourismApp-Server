@@ -1,5 +1,6 @@
 package com.spu.TourismApp.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +22,8 @@ public class Tour {
 
     String name;
 
+    int maxSubscribersCount;
+
     @OneToMany(mappedBy = "tour", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Reservation> reservations;
 
@@ -29,10 +32,21 @@ public class Tour {
     Agency agency;
 
     @ManyToMany(mappedBy = "tours")
+    @JsonBackReference
     List<AppUser> subscribers;
 
     private Date startDate;
 
     private Date endDate;
 
+    @Override
+    public String toString() {
+        return "Tour{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", maxSubscribersCount=" + maxSubscribersCount +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                '}';
+    }
 }

@@ -39,7 +39,7 @@ public class Reservation {
     @JoinColumn(name = "attraction_id")
     Attraction attraction = null;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "agency_id")
     Agency agency;
 

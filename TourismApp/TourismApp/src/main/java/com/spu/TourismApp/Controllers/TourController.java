@@ -46,4 +46,15 @@ public class TourController {
         tourService.deleteTour(id);
         return new ResponseEntity<>("{ \"message\": \" deleted successfully  \" }", HttpStatus.NO_CONTENT);
     }
+
+    @PostMapping("/users/add")
+    public ResponseEntity<Object> addUserToTour(@RequestParam Integer tourId){
+        tourService.addUserToTour(tourId);
+        return new ResponseEntity<>("{ \"message\": \" user is now added to the tour.  \" }", HttpStatus.OK);
+    }
+
+    @GetMapping("/user-tours")
+    public ResponseEntity<List<TourDto>> getAllUserTours() {
+        return new ResponseEntity<>(tourService.getAllUserTours(), HttpStatus.OK);
+    }
 }

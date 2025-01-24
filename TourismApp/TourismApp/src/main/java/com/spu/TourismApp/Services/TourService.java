@@ -9,8 +9,12 @@ import java.util.List;
 public interface TourService {
     List<TourDto> getAllTours();
     TourDto getTourById(Integer id);
-    Tour createTour(CreateTourDto createTourDto);
-    Tour updateTour(Integer id, CreateTourDto request);
-    void bookUserForTour(Integer tourId, List<Integer> userIds);
+    void createTour(CreateTourDto createTourDto);
+    void updateTour(Integer id, CreateTourDto request);
+//    void bookUserForTour(Integer tourId, List<Integer> userIds);
     void deleteTour(Integer id);
+
+    void addUserToTour(Integer tourId);
+
+    List<TourDto> getAllUserTours();
 }
