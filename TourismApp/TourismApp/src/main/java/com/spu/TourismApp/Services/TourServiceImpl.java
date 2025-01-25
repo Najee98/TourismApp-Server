@@ -106,6 +106,7 @@ public class TourServiceImpl implements TourService {
         tourRepository.deleteById(id);
     }
 
+    @Transactional
     @Override
     public void addUserToTour(Integer tourId) {
         AppUser tourUser = userService.getUserFromLogin();
@@ -114,7 +115,9 @@ public class TourServiceImpl implements TourService {
                 .orElseThrow(() -> new ResourceNotFoundException("Tour not found"));
 
         tour.getSubscribers().add(tourUser);
+        tourUser.getTours().add(tour);
 
+        userService.saveUser(tourUser);
         tourRepository.save(tour);
     }
 

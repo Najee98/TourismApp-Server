@@ -15,14 +15,20 @@ public class UserServiceImpl implements UserService {
 
     private final AppUserRepository userRepository;
 
-    @Transactional
     @Override
     public AppUser getUserFromLogin() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        AppUser user = (AppUser) authentication.getPrincipal();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new ResourceNotFoundException("User not authenticated");
+        }
 
-        return user;
+        Object principal = authentication.getPrincipal();
+        if (principal instanceof AppUser) {
+            return (AppUser) principal;
+        } else {
+            throw new ResourceNotFoundException("User not found or invalid principal type");
+        }
     }
 
     @Override
