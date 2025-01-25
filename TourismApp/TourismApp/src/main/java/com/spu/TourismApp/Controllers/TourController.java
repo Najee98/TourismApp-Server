@@ -53,6 +53,12 @@ public class TourController {
         return new ResponseEntity<>("{ \"message\": \" user is now added to the tour.  \" }", HttpStatus.OK);
     }
 
+    @PostMapping("/users/remove")
+    public ResponseEntity<Object> removeUserFromTour(@RequestParam Integer tourId){
+        tourService.removeUserFromTour(tourId);
+        return new ResponseEntity<>("{ \"message\": \" user is now removed from the tour.  \" }", HttpStatus.OK);
+    }
+
     @GetMapping("/user-tours")
     public ResponseEntity<List<TourDto>> getAllUserTours() {
         return new ResponseEntity<>(tourService.getAllUserTours(), HttpStatus.OK);

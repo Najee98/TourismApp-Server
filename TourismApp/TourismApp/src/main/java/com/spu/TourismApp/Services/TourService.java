@@ -17,4 +17,6 @@ public interface TourService {
     void addUserToTour(Integer tourId);
 
     List<TourDto> getAllUserTours();
+
+    void removeUserFromTour(Integer tourId);
 }

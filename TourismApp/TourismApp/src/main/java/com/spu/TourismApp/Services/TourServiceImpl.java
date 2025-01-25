@@ -121,6 +121,21 @@ public class TourServiceImpl implements TourService {
         tourRepository.save(tour);
     }
 
+    @Transactional
+    @Override
+    public void removeUserFromTour(Integer tourId) {
+        AppUser tourUser = userService.getUserFromLogin();
+
+        Tour tour = tourRepository.findById(tourId)
+                .orElseThrow(() -> new ResourceNotFoundException("Tour not found"));
+
+        tour.getSubscribers().remove(tourUser);
+        tourUser.getTours().remove(tour);
+
+        userService.saveUser(tourUser);
+        tourRepository.save(tour);
+    }
+
     @Override
     public List<TourDto> getAllUserTours() {
         AppUser user = userService.getUserFromLogin();
