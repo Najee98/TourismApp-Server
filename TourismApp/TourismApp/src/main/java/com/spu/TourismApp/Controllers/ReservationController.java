@@ -29,16 +29,18 @@ public class ReservationController {
     }
 
     @PostMapping()
-    public ResponseEntity<Reservation> createReservation(@RequestBody ReservationDto request) {
-        return new ResponseEntity<>(reservationService.createReservation(request), HttpStatus.CREATED);
+    public ResponseEntity<Object> createReservation(@RequestBody ReservationDto request) {
+        reservationService.createReservation(request);
+        return new ResponseEntity<>("{ \"message\": \" created successfully  \" }", HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Reservation> updateReservation(
+    public ResponseEntity<Object> updateReservation(
             @PathVariable Integer id, 
             @RequestBody ReservationDto request) {
 
-        return new ResponseEntity<>(reservationService.updateReservation(id, request), HttpStatus.OK);
+        reservationService.updateReservation(id, request);
+        return new ResponseEntity<>("{ \"message\": \" updated successfully  \" }", HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

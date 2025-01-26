@@ -14,6 +14,7 @@ import com.spu.TourismApp.Shared.Dto.Agency.CreateAgencyDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -86,6 +87,47 @@ public class AgencyServiceImpl implements AgencyService {
         }
 
         return tours;
+    }
+
+    @Override
+    public List<ReservationDetailsDto> getAgencyReservations(Integer agencyId) {
+        List<Reservation> reservations = reservationRepository.getAgencyReservations(agencyId);
+
+        List<ReservationDetailsDto> response = new ArrayList<>();
+
+        for(Reservation reservation : reservations) {
+            ReservationDetailsDto reservationDto = new ReservationDetailsDto();
+
+            reservationDto.setReservationId(reservation.getId());
+            reservationDto.setReservationType(reservation.getReservationType());
+            reservation.setAgency(
+                    agencyRepository.findById(reservation.getAgency().getId()).orElse(null)
+            );
+
+            reservationDto.setReservationType(reservation.getReservationType());
+
+            if (reservation.getHotel() != null) {
+                reservationDto.setRelatedId(reservation.getHotel().getId());
+                reservationDto.setRelatedName(reservation.getHotel().getName());
+            }
+
+            if (reservation.getRestaurant() != null) {
+                reservationDto.setRelatedId(reservation.getRestaurant().getId());
+                reservationDto.setRelatedName(reservation.getRestaurant().getName());
+            }
+
+            if (reservation.getAttraction() != null) {
+                reservationDto.setRelatedId(reservation.getAttraction().getId());
+                reservationDto.setRelatedName(reservation.getAttraction().getName());
+            }
+
+            reservationDto.setFromDate(reservation.getFromDate());
+            reservationDto.setToDate(reservation.getToDate());
+
+            response.add(reservationDto);
+        }
+
+        return response;
     }
 
     @Override

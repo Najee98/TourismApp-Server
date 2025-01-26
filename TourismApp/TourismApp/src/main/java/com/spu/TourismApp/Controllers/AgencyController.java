@@ -4,6 +4,8 @@ import com.spu.TourismApp.Services.AgencyService;
 import com.spu.TourismApp.Shared.Dto.Agency.AgencyTourDto;
 import com.spu.TourismApp.Shared.Dto.Agency.CreateAgencyDto;
 import com.spu.TourismApp.Shared.Dto.Agency.AgencyDto;
+import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDetailsDto;
+import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +35,7 @@ public class AgencyController {
     }
 
     @GetMapping("/{agencyId}/tours")
-    public ResponseEntity<List<AgencyTourDto>> getAllTravellingAgencies(@PathVariable Integer agencyId) {
+    public ResponseEntity<List<AgencyTourDto>> getAgencyTours(@PathVariable Integer agencyId) {
         return new ResponseEntity<>(agencyService.getAgencyTours(agencyId), HttpStatus.OK);
     }
 
@@ -53,5 +55,10 @@ public class AgencyController {
     public ResponseEntity<String> deleteAgency(@PathVariable Integer id) {
         agencyService.deleteTravellingAgency(id);
         return new ResponseEntity<>("{ \"message\": \" Deleted successfully  \" }", HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/reservations")
+    public ResponseEntity<List<ReservationDetailsDto>> getAgencyReservations(@RequestParam Integer agencyId) {
+        return new ResponseEntity<>(agencyService.getAgencyReservations(agencyId), HttpStatus.OK);
     }
 }

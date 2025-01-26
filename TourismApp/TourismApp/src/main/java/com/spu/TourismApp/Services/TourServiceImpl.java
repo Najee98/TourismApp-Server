@@ -6,6 +6,8 @@ import com.spu.TourismApp.Models.Reservation;
 import com.spu.TourismApp.Models.Tour;
 import com.spu.TourismApp.Repositories.TourRepository;
 import com.spu.TourismApp.Repositories.AgencyRepository;
+import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDetailsDto;
+import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDto;
 import com.spu.TourismApp.Shared.Dto.Tour.CreateTourDto;
 import com.spu.TourismApp.Shared.Dto.Tour.TourDto;
 import jakarta.transaction.Transactional;
@@ -134,6 +136,47 @@ public class TourServiceImpl implements TourService {
 
         userService.saveUser(tourUser);
         tourRepository.save(tour);
+    }
+
+    @Override
+    public List<ReservationDetailsDto> getTourReservations(Integer tourId) {
+        List<Reservation> reservations = reservationService.getTourReservations(tourId);
+
+        List<ReservationDetailsDto> response = new ArrayList<>();
+
+        for(Reservation reservation : reservations) {
+            ReservationDetailsDto reservationDto = new ReservationDetailsDto();
+
+            reservationDto.setReservationId(reservation.getId());
+            reservationDto.setReservationType(reservation.getReservationType());
+            reservation.setAgency(
+                    agencyRepository.findById(reservation.getAgency().getId()).orElse(null)
+            );
+
+            reservationDto.setReservationType(reservation.getReservationType());
+
+            if (reservation.getHotel() != null) {
+                reservationDto.setRelatedId(reservation.getHotel().getId());
+                reservationDto.setRelatedName(reservation.getHotel().getName());
+            }
+
+            if (reservation.getRestaurant() != null) {
+                reservationDto.setRelatedId(reservation.getRestaurant().getId());
+                reservationDto.setRelatedName(reservation.getRestaurant().getName());
+            }
+
+            if (reservation.getAttraction() != null) {
+                reservationDto.setRelatedId(reservation.getAttraction().getId());
+                reservationDto.setRelatedName(reservation.getAttraction().getName());
+            }
+
+            reservationDto.setFromDate(reservation.getFromDate());
+            reservationDto.setToDate(reservation.getToDate());
+
+            response.add(reservationDto);
+        }
+
+        return response;
     }
 
     @Override

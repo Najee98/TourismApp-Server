@@ -1,7 +1,10 @@
 package com.spu.TourismApp.Controllers;
 
+import com.spu.TourismApp.Models.Reservation;
 import com.spu.TourismApp.Models.Tour;
 import com.spu.TourismApp.Services.TourService;
+import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDetailsDto;
+import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDto;
 import com.spu.TourismApp.Shared.Dto.Tour.CreateTourDto;
 import com.spu.TourismApp.Shared.Dto.Tour.TourDto;
 import lombok.RequiredArgsConstructor;
@@ -62,5 +65,10 @@ public class TourController {
     @GetMapping("/user-tours")
     public ResponseEntity<List<TourDto>> getAllUserTours() {
         return new ResponseEntity<>(tourService.getAllUserTours(), HttpStatus.OK);
+    }
+
+    @GetMapping("/reservations")
+    public ResponseEntity<List<ReservationDetailsDto>> getTourReservations(@RequestParam Integer tourId){
+        return new ResponseEntity<>(tourService.getTourReservations(tourId), HttpStatus.OK);
     }
 }

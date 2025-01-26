@@ -3,6 +3,8 @@ package com.spu.TourismApp.Repositories;
 import com.spu.TourismApp.Models.AppUser;
 import com.spu.TourismApp.Models.Tour;
 import com.spu.TourismApp.Shared.Dto.Agency.AgencyTourDto;
+import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDetailsDto;
+import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

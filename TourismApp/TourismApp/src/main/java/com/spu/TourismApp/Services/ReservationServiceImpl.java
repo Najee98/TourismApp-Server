@@ -40,10 +40,7 @@ public class ReservationServiceImpl implements ReservationService {
             reservation.setAgency(
                     agencyRepository.findById(reservation.getAgency().getId()).orElse(null)
             );
-//            reservationDto.setReservationId(reservation.getId());
-//            reservationDto.setReservationUserName(
-//                    reservation.getUser().getFirstName() + " " + reservation.getUser().getLastName()
-//            );
+
             reservationDto.setReservationType(reservation.getReservationType());
 
             if (reservation.getHotel() != null) {
@@ -105,7 +102,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Transactional
     @Override
-    public Reservation createReservation(ReservationDto request) {
+    public void createReservation(ReservationDto request) {
 
         Reservation reservation = new Reservation();
 
@@ -144,7 +141,7 @@ public class ReservationServiceImpl implements ReservationService {
             reservation.setAgency(agencyRepository.findById(request.getAgencyId())
                     .orElseThrow(() -> new ResourceNotFoundException("Agency with id: " + request.getAgencyId() + " not found")));
 
-            return reservationRepository.save(reservation);
+            reservationRepository.save(reservation);
 
         }else{
             throw new DuplicatedResourceException("Reservation already exists within this period of time.");
@@ -192,7 +189,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Transactional
     @Override
-    public Reservation updateReservation(Integer reservationId, ReservationDto request) {
+    public void updateReservation(Integer reservationId, ReservationDto request) {
         Reservation reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new ResourceNotFoundException("Reservation with id: " + reservationId + " not found."));
 
@@ -227,7 +224,7 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setFromDate(request.getFromDate());
         reservation.setToDate(request.getToDate());
 
-        return reservationRepository.save(reservation);
+        reservationRepository.save(reservation);
     }
 
     @Override
@@ -272,6 +269,11 @@ public class ReservationServiceImpl implements ReservationService {
         }
 
         return response;
+    }
+
+    @Override
+    public List<Reservation> getTourReservations(Integer tourId) {
+        return reservationRepository.getTourReservations(tourId);
     }
 
 }

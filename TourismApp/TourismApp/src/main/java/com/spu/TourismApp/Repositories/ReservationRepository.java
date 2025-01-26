@@ -45,6 +45,12 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     @Query("select r from Reservation r where r.tour.id = :tourId")
     List<Reservation> findAllByTourId(@Param("tourId") Integer tourId);
 
+    @Query("select r from Reservation r join r.tour t where t.id = :tourId")
+    List<Reservation> getTourReservations(@Param("tourId") Integer tourId);
+
+    @Query("select r from Reservation r join r.agency a where a.id = :agencyId")
+    List<Reservation> getAgencyReservations(@Param("agencyId") Integer agencyId);
+
 //    @Query("select new com.spu.TourismApp.Shared.Dto.Reservation.ReservationDto( " +
 //            "r.id, " +
 //            "r.user.firstName, " +

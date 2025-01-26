@@ -9,13 +9,14 @@ public interface ReservationService {
 
     List<ReservationDetailsDto> getAllUserReservations();
     ReservationDetailsDto getReservationById(Integer id);
-    Reservation createReservation(ReservationDto request);
+    void createReservation(ReservationDto request);
 
-    Reservation updateReservation(Integer reservationId, ReservationDto request);
+    void updateReservation(Integer reservationId, ReservationDto request);
     void deleteReservation(Integer reservationId);
 
     boolean isReservationValid(ReservationDto request);
 
     List<Reservation> findReservationsForTour(List<Integer> reservationIds);
 
+    List<Reservation> getTourReservations(Integer tourId);
 }
