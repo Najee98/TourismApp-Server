@@ -3,6 +3,7 @@ package com.spu.TourismApp.Services;
 import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundException;
 import com.spu.TourismApp.Models.Reservation;
 import com.spu.TourismApp.Models.Agency;
+import com.spu.TourismApp.Repositories.AppUserRepository;
 import com.spu.TourismApp.Repositories.ReservationRepository;
 import com.spu.TourismApp.Repositories.TourRepository;
 import com.spu.TourismApp.Repositories.AgencyRepository;
@@ -23,6 +24,7 @@ public class AgencyServiceImpl implements AgencyService {
     private final AgencyRepository agencyRepository;
     private final TourRepository tourRepository;
     private final ReservationRepository reservationRepository;
+    private final AppUserRepository userRepository;
 
     @Override
     public List<AgencyDto> getAllTravellingAgencies() {
@@ -39,7 +41,8 @@ public class AgencyServiceImpl implements AgencyService {
                 agency.getName(),
                 agency.getAddress(),
                 agency.getPhone(),
-                agency.getImageUrl()
+                agency.getImageUrl(),
+                agency.getManagerId().getId()
         );
 
         return response;
@@ -88,6 +91,10 @@ public class AgencyServiceImpl implements AgencyService {
     @Override
     public void createTravellingAgency(CreateAgencyDto request) {
         Agency agency = toEntity(request);
+        agency.setManagerId(
+                userRepository.findById(request.getManagerId())
+                .orElseThrow(() -> new ResourceNotFoundException("Manager not found with id: " + request.getManagerId())));
+
         agencyRepository.save(agency);
     }
 
@@ -117,7 +124,8 @@ public class AgencyServiceImpl implements AgencyService {
                 agency.getName(),
                 agency.getAddress(),
                 agency.getPhone(),
-                agency.getImageUrl()
+                agency.getImageUrl(),
+                userRepository.findById(agency.getId()).get().getId()
         );
     }
 
@@ -127,8 +135,8 @@ public class AgencyServiceImpl implements AgencyService {
                 dto.getName(),
                 dto.getAddress(),
                 dto.getPhone(),
-                dto.getImageUrl()
-//                null
+                dto.getImageUrl(),
+                null
         );
     }
 

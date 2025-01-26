@@ -15,8 +15,9 @@ public class AgencyDto extends CreateAgencyDto implements Serializable {
                      String name,
                      String address,
                      String phone,
-                     String imageUrl) {
-        super(name, address, phone, imageUrl);
+                     String imageUrl,
+                     Integer managerId) {
+        super(name, address, phone, imageUrl, managerId);
         this.id = id;
     }
 

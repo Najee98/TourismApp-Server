@@ -15,5 +15,5 @@ public class CreateAgencyDto implements Serializable {
     String address;
     String phone;
     String imageUrl;
-
+    Integer managerId;
 }

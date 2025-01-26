@@ -6,9 +6,11 @@ import com.spu.TourismApp.Repositories.*;
 import com.spu.TourismApp.Services.HotelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import static com.spu.TourismApp.Models.Utils.Role.ADMIN;
+import static com.spu.TourismApp.Models.Utils.Role.USER;
 
 @Component
 @RequiredArgsConstructor
@@ -19,19 +21,29 @@ public class DataSeeder implements CommandLineRunner {
     private final RestaurantRepository restaurantRepository;
     private final AttractionRepository attractionRepository;
     private final AgencyRepository agencyRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
         // Seed Admin User
-        if (userRepository.findByEmail("admin@admin.com").isEmpty()) {
+        if (userRepository.findByEmail("admin@admin.com").isEmpty()
+            && userRepository.findByEmail("user@user.com").isEmpty()) {
             AppUser admin = new AppUser();
             admin.setFirstName("admin");
             admin.setLastName("admin");
             admin.setEmail("admin@admin.com");
-            admin.setPassword("admin1234"); // No-op encoding for plain text (use a proper encoder in production)
+            admin.setPassword(passwordEncoder.encode("admin1234")); // No-op encoding for plain text (use a proper encoder in production)
             admin.setRole(ADMIN);
 
+            AppUser user = new AppUser();
+            user.setFirstName("user");
+            user.setLastName("user");
+            user.setEmail("user@user.com");
+            user.setPassword(passwordEncoder.encode("user1234"));
+            user.setRole(USER);
+
             userRepository.save(admin);
+            userRepository.save(user);
         }
 
         // Seed Hotels
@@ -104,16 +116,16 @@ public class DataSeeder implements CommandLineRunner {
                     "The greatest agency in the west",
                     "West-side yo",
                     "011 123456",
-                    "testImage7"
-                    //null
-            ));
+                    "testImage7",
+                    userRepository.findById(1).orElse(null)
+                    ));
             agencyRepository.save(new Agency(
                     null,
                     "The greatest agency in the east",
                     "East-siiiide",
                     "099 654321",
-                    "testImage8"
-//                    null
+                    "testImage8",
+                    userRepository.findById(2).orElse(null)
             ));
         }
     }
