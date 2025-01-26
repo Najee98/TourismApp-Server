@@ -149,8 +149,8 @@ public class TourServiceImpl implements TourService {
 
             reservationDto.setReservationId(reservation.getId());
             reservationDto.setReservationType(reservation.getReservationType());
-            reservation.setAgency(
-                    agencyRepository.findById(reservation.getAgency().getId()).orElse(null)
+            reservationDto.setAgencyId(
+                    agencyRepository.findById(reservation.getAgency().getId()).orElse(null).getId()
             );
 
             reservationDto.setReservationType(reservation.getReservationType());
