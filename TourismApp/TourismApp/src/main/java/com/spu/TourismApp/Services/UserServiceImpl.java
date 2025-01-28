@@ -3,11 +3,14 @@ package com.spu.TourismApp.Services;
 import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundException;
 import com.spu.TourismApp.Models.AppUser;
 import com.spu.TourismApp.Repositories.AppUserRepository;
-import jakarta.transaction.Transactional;
+import com.spu.TourismApp.Shared.Dto.Agency.AgenciesUsersDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +40,24 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("User with id: " + userId + " not found"));
 
         return user;
+    }
+
+    @Override
+    public List<AgenciesUsersDto> getAllUsersForAgencies() {
+        List<AppUser> users = userRepository.getAllUsersForAgencies();
+
+        List<AgenciesUsersDto> response = new ArrayList<>();
+
+        for (AppUser user : users) {
+            AgenciesUsersDto dto = new AgenciesUsersDto();
+
+            dto.setId(user.getId());
+            dto.setName(user.getFirstName() + " " + user.getLastName());
+
+            response.add(dto);
+        }
+
+        return response;
     }
 
     @Override

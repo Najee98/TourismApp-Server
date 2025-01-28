@@ -1,6 +1,9 @@
 package com.spu.TourismApp.Controllers;
 
+import com.spu.TourismApp.Models.AppUser;
 import com.spu.TourismApp.Services.AgencyService;
+import com.spu.TourismApp.Services.UserService;
+import com.spu.TourismApp.Shared.Dto.Agency.AgenciesUsersDto;
 import com.spu.TourismApp.Shared.Dto.Agency.AgencyTourDto;
 import com.spu.TourismApp.Shared.Dto.Agency.CreateAgencyDto;
 import com.spu.TourismApp.Shared.Dto.Agency.AgencyDto;
@@ -18,10 +21,12 @@ import java.util.List;
 public class AgencyController {
 
     private final AgencyService agencyService;
+    private final UserService userService;
 
     @Autowired
-    public AgencyController(AgencyService agencyService) {
+    public AgencyController(AgencyService agencyService, UserService userService) {
         this.agencyService = agencyService;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -60,5 +65,10 @@ public class AgencyController {
     @GetMapping("/reservations")
     public ResponseEntity<List<ReservationDetailsDto>> getAgencyReservations(@RequestParam Integer agencyId) {
         return new ResponseEntity<>(agencyService.getAgencyReservations(agencyId), HttpStatus.OK);
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<AgenciesUsersDto>> getAllUsersForAgencies(){
+        return new ResponseEntity<>(userService.getAllUsersForAgencies(), HttpStatus.OK);
     }
 }
