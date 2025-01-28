@@ -10,6 +10,7 @@ import java.io.Serializable;
 public class AgencyDto extends CreateAgencyDto implements Serializable {
 
     Integer id;
+    Integer managerId;
 
     public AgencyDto(Integer id,
                      String name,
@@ -19,6 +20,7 @@ public class AgencyDto extends CreateAgencyDto implements Serializable {
                      Integer managerId) {
         super(name, address, phone, imageUrl, managerId);
         this.id = id;
+        this.managerId = managerId;
     }
 
 }

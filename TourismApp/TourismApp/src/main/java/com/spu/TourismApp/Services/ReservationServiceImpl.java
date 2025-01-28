@@ -138,8 +138,8 @@ public class ReservationServiceImpl implements ReservationService {
             reservation.setFromDate(request.getFromDate());
             reservation.setToDate(request.getToDate());
 
-            reservation.setAgency(agencyRepository.findById(request.getAgencyId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Agency with id: " + request.getAgencyId() + " not found")));
+//            reservation.setAgency(agencyRepository.findById(request.getAgencyId())
+//                    .orElseThrow(() -> new ResourceNotFoundException("Agency with id: " + request.getAgencyId() + " not found")));
 
             reservationRepository.save(reservation);
 
@@ -218,8 +218,8 @@ public class ReservationServiceImpl implements ReservationService {
         }
 
         reservation.setReservationDetail(details);
-        reservation.setAgency(agencyRepository.findById(request.getAgencyId())
-                .orElseThrow(() -> new ResourceNotFoundException("Agency with id: " + request.getAgencyId() + " not found")));
+//        reservation.setAgency(agencyRepository.findById(request.getAgencyId())
+//                .orElseThrow(() -> new ResourceNotFoundException("Agency with id: " + request.getAgencyId() + " not found")));
 
         reservation.setFromDate(request.getFromDate());
         reservation.setToDate(request.getToDate());

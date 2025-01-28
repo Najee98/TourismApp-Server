@@ -9,15 +9,15 @@ import java.util.List;
 
 public interface AgencyService {
 
-    List<AgencyDto> getAllTravellingAgencies();
+    List<AgencyDto> getAllAgencies();
 
-    AgencyDto getTravellingAgency(Integer id);
+    AgencyDto getAgency(Integer id);
 
-    void createTravellingAgency(CreateAgencyDto request);
+    void createAgency(CreateAgencyDto request);
 
-    void updateTravellingAgency(AgencyDto request);
+    void updateAgency(AgencyDto request);
 
-    void deleteTravellingAgency(Integer id);
+    void deleteAgency(Integer id);
 
     List<AgencyTourDto> getAgencyTours(Integer agencyId);
 

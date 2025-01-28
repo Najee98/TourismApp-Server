@@ -13,7 +13,6 @@ import java.util.Date;
 @NoArgsConstructor
 public class ReservationDto implements Serializable {
 
-    Integer agencyId;
     String reservationType;
 
     Integer reservationRelatedId;

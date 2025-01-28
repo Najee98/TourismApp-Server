@@ -26,12 +26,12 @@ public class AgencyController {
 
     @GetMapping
     public ResponseEntity<List<AgencyDto>> getAllAgencies() {
-        return ResponseEntity.ok(agencyService.getAllTravellingAgencies());
+        return ResponseEntity.ok(agencyService.getAllAgencies());
     }
 
     @GetMapping("/{agencyId}")
     public ResponseEntity<AgencyDto> getAgencyById(@PathVariable Integer agencyId) {
-        return ResponseEntity.ok(agencyService.getTravellingAgency(agencyId));
+        return ResponseEntity.ok(agencyService.getAgency(agencyId));
     }
 
     @GetMapping("/{agencyId}/tours")
@@ -41,19 +41,19 @@ public class AgencyController {
 
     @PostMapping
     public ResponseEntity<String> createAgency(@RequestBody CreateAgencyDto request) {
-        agencyService.createTravellingAgency(request);
+        agencyService.createAgency(request);
         return new ResponseEntity<>("{ \"message\": \" Created successfully  \" }", HttpStatus.CREATED);
     }
 
     @PutMapping
     public ResponseEntity<String> updateAgency(@RequestBody AgencyDto request) {
-        agencyService.updateTravellingAgency(request);
+        agencyService.updateAgency(request);
         return new ResponseEntity<>("{ \"message\": \" Updated successfully  \" }", HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteAgency(@PathVariable Integer id) {
-        agencyService.deleteTravellingAgency(id);
+        agencyService.deleteAgency(id);
         return new ResponseEntity<>("{ \"message\": \" Deleted successfully  \" }", HttpStatus.NO_CONTENT);
     }
 

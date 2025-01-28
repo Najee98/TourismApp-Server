@@ -1,8 +1,10 @@
 package com.spu.TourismApp.Services;
 
 import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundException;
+import com.spu.TourismApp.Models.AppUser;
 import com.spu.TourismApp.Models.Reservation;
 import com.spu.TourismApp.Models.Agency;
+import com.spu.TourismApp.Models.Utils.Role;
 import com.spu.TourismApp.Repositories.AppUserRepository;
 import com.spu.TourismApp.Repositories.ReservationRepository;
 import com.spu.TourismApp.Repositories.TourRepository;
@@ -26,14 +28,15 @@ public class AgencyServiceImpl implements AgencyService {
     private final TourRepository tourRepository;
     private final ReservationRepository reservationRepository;
     private final AppUserRepository userRepository;
+//    private final UserService userService;
 
     @Override
-    public List<AgencyDto> getAllTravellingAgencies() {
+    public List<AgencyDto> getAllAgencies() {
         return agencyRepository.findAllAgencies();
     }
 
     @Override
-    public AgencyDto getTravellingAgency(Integer id) {
+    public AgencyDto getAgency(Integer id) {
         Agency agency = agencyRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Agency not found with id: " + id));
 
@@ -131,17 +134,20 @@ public class AgencyServiceImpl implements AgencyService {
     }
 
     @Override
-    public void createTravellingAgency(CreateAgencyDto request) {
+    public void createAgency(CreateAgencyDto request) {
         Agency agency = toEntity(request);
+
         agency.setManagerId(
                 userRepository.findById(request.getManagerId())
                 .orElseThrow(() -> new ResourceNotFoundException("Manager not found with id: " + request.getManagerId())));
+
+        agency.getManagerId().setAgency(agency);
 
         agencyRepository.save(agency);
     }
 
     @Override
-    public void updateTravellingAgency(AgencyDto request) {
+    public void updateAgency(AgencyDto request) {
         Agency existingAgency = agencyRepository.findById(request.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Agency not found with id: " + request.getId()));
         
@@ -149,12 +155,16 @@ public class AgencyServiceImpl implements AgencyService {
         existingAgency.setAddress(request.getAddress());
         existingAgency.setPhone(request.getPhone());
         existingAgency.setImageUrl(request.getImageUrl());
+        existingAgency.setManagerId(
+                userRepository.findById(request.getManagerId())
+                        .orElseThrow(() -> new ResourceNotFoundException("Manager not found with id: " + request.getManagerId()))
+        );
         
         agencyRepository.save(existingAgency);
     }
 
     @Override
-    public void deleteTravellingAgency(Integer id) {
+    public void deleteAgency(Integer id) {
         if (!agencyRepository.existsById(id)) {
             throw new ResourceNotFoundException("Agency not found with id: " + id);
         }
