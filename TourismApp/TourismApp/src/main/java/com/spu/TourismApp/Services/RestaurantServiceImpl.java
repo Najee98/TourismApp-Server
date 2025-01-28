@@ -101,7 +101,7 @@ public class RestaurantServiceImpl implements RestaurantService{
         restaurant.setDescription(dto.getDescription());
         restaurant.setAddress(dto.getAddress());
         restaurant.setPhone(dto.getPhone());
-        restaurant.setImageUrl(restaurant.getImageUrl());
+        restaurant.setImageUrl(dto.getImageUrl());
         restaurant.setAvailableTables(dto.getAvailableTables());
 
         return restaurant;
