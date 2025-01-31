@@ -28,7 +28,7 @@ public class AgencyServiceImpl implements AgencyService {
     private final TourRepository tourRepository;
     private final ReservationRepository reservationRepository;
     private final AppUserRepository userRepository;
-//    private final UserService userService;
+    private final UserService userService;
 
     @Override
     public List<AgencyDto> getAllAgencies() {
@@ -52,34 +52,10 @@ public class AgencyServiceImpl implements AgencyService {
         return response;
     }
 
-//    @Override
-//    public List<AgencyTourDto> getAgencyTours(Integer agencyId) {
-//
-//        List<AgencyTourDto> response = tourRepository.getAgencyTours(agencyId);
-//
-//        List<AgencyTourDto> response = new ArrayList<>();
-//        List<ReservationDto> reservationDtos = new ArrayList<>();
-//
-//        for (AgencyTourDbResult agencyTour : agencyTourDtos) {
-//            AgencyTourDto dto = new AgencyTourDto();
-//
-//            dto.setTourId(agencyTour.getTourId());
-//            dto.setAgencyId(agencyTour.getAgencyId());
-//            dto.setAgencyName(agencyTour.getAgencyName());
-//            dto.setTourName(agencyTour.getTourName());
-//            dto.setStartDate(agencyTour.getStartDate());
-//            dto.setEndDate(agencyTour.getEndDate());
-//
-//            reservationDtos = mapReservationToDto(agencyTour.getReservations());
-//
-//            dto.setReservations(reservationDtos);
-//        }
-//
-//        return response;
-//    }
-
-    public List<AgencyTourDto> getAgencyTours(Integer agencyId) {
-        List<AgencyTourDto> tours = tourRepository.getAgencyTours(agencyId);
+    public List<AgencyTourDto> getAgencyTours() {
+        List<AgencyTourDto> tours = tourRepository.getAgencyTours(
+                getLoggedInUserAgency().getId()
+        );
 
         for (AgencyTourDto tour : tours) {
             List<Reservation> reservations = fetchReservationsByTourId(tour.getTourId());
@@ -93,10 +69,14 @@ public class AgencyServiceImpl implements AgencyService {
     }
 
     @Override
-    public List<ReservationDetailsDto> getAgencyReservations(Integer agencyId) {
-        List<Reservation> reservations = reservationRepository.getAgencyReservations(agencyId);
+    public List<ReservationDetailsDto> getAgencyReservations() {
+        Agency requetedAgency = getLoggedInUserAgency();
+
+        List<Reservation> reservations = reservationRepository.getAgencyReservations(requetedAgency.getId());
 
         List<ReservationDetailsDto> response = new ArrayList<>();
+
+
 
         for(Reservation reservation : reservations) {
             ReservationDetailsDto reservationDto = new ReservationDetailsDto();
@@ -188,7 +168,7 @@ public class AgencyServiceImpl implements AgencyService {
                 dto.getAddress(),
                 dto.getPhone(),
                 dto.getImageUrl(),
-                null
+                userRepository.findById(dto.getManagerId()).get()
         );
     }
 
@@ -249,5 +229,11 @@ public class AgencyServiceImpl implements AgencyService {
                 reservation.getFromDate(),
                 reservation.getToDate()
         );
+    }
+
+    private Agency getLoggedInUserAgency(){
+        AppUser agencyManager = userService.getUserFromLogin();
+
+        return agencyManager.getAgency();
     }
 }

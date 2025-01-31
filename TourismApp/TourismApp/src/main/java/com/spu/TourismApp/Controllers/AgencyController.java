@@ -39,9 +39,9 @@ public class AgencyController {
         return ResponseEntity.ok(agencyService.getAgency(agencyId));
     }
 
-    @GetMapping("/{agencyId}/tours")
-    public ResponseEntity<List<AgencyTourDto>> getAgencyTours(@PathVariable Integer agencyId) {
-        return new ResponseEntity<>(agencyService.getAgencyTours(agencyId), HttpStatus.OK);
+    @GetMapping("/tours")
+    public ResponseEntity<List<AgencyTourDto>> getAgencyTours() {
+        return new ResponseEntity<>(agencyService.getAgencyTours(), HttpStatus.OK);
     }
 
     @PostMapping
@@ -63,8 +63,8 @@ public class AgencyController {
     }
 
     @GetMapping("/reservations")
-    public ResponseEntity<List<ReservationDetailsDto>> getAgencyReservations(@RequestParam Integer agencyId) {
-        return new ResponseEntity<>(agencyService.getAgencyReservations(agencyId), HttpStatus.OK);
+    public ResponseEntity<List<ReservationDetailsDto>> getAgencyReservations() {
+        return new ResponseEntity<>(agencyService.getAgencyReservations(), HttpStatus.OK);
     }
 
     @GetMapping("/users")

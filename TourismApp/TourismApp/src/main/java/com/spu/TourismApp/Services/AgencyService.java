@@ -19,7 +19,7 @@ public interface AgencyService {
 
     void deleteAgency(Integer id);
 
-    List<AgencyTourDto> getAgencyTours(Integer agencyId);
+    List<AgencyTourDto> getAgencyTours();
 
-    List<ReservationDetailsDto> getAgencyReservations(Integer agencyId);
+    List<ReservationDetailsDto> getAgencyReservations();
 }
