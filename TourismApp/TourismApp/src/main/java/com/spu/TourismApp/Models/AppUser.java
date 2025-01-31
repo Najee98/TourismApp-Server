@@ -80,7 +80,7 @@ public class AppUser implements UserDetails {
     @JsonManagedReference
     List<Tour> tours;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Agency agency;
 
     @Override

@@ -17,7 +17,7 @@ public interface AgencyRepository extends JpaRepository<Agency, Integer> {
             "a.address," +
             "a.phone," +
             "a.imageUrl," +
-            "a.managerId.id) " +
+            "a.manager.id) " +
             "from Agency a")
     List<AgencyDto> findAllAgencies();
 

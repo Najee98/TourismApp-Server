@@ -1,6 +1,7 @@
 package com.spu.TourismApp.Shared.Utils;
 
 import com.spu.TourismApp.Models.*;
+import com.spu.TourismApp.Models.Utils.ReservationType;
 import com.spu.TourismApp.Models.Utils.Role;
 import com.spu.TourismApp.Repositories.*;
 import com.spu.TourismApp.Services.HotelService;
@@ -8,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 import static com.spu.TourismApp.Models.Utils.Role.ADMIN;
 import static com.spu.TourismApp.Models.Utils.Role.USER;
@@ -21,6 +24,8 @@ public class DataSeeder implements CommandLineRunner {
     private final RestaurantRepository restaurantRepository;
     private final AttractionRepository attractionRepository;
     private final AgencyRepository agencyRepository;
+    private final ReservationRepository reservationRepository;
+    private final TourRepository tourRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -128,5 +133,19 @@ public class DataSeeder implements CommandLineRunner {
                     userRepository.findById(2).orElse(null)
             ));
         }
+
+//        if(restaurantRepository.count() == 0){
+//            Reservation firstRes = new Reservation();
+//            firstRes.setReservationType(ReservationType.HOTEL_RESERVATION);
+//            firstRes.setHotel(hotelRepository.findById(1).orElse(null));
+//            firstRes.setFromDate(new Date(2024-2-6));
+//            firstRes.setToDate(new Date(2024-3-6));
+//            firstRes.setAgency(agencyRepository.findById(1).orElse(null));
+//            firstRes.getReservationDetail().setTableNumber(5);
+//            firstRes.setTour(
+//
+//            );
+//
+//        }
     }
 }

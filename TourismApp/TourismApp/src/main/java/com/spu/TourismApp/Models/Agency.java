@@ -25,7 +25,7 @@ public class Agency {
     String imageUrl;
 
     @OneToOne(fetch = FetchType.EAGER, optional = false)
-    AppUser managerId;
+    AppUser manager;
 
 //    @OneToMany(mappedBy = "agency", cascade = CascadeType.ALL, orphanRemoval = true)
 //    @JsonManagedReference

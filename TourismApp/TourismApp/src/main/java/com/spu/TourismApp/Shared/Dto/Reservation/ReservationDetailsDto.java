@@ -23,17 +23,4 @@ public class ReservationDetailsDto implements Serializable {
     Date fromDate;
     Date toDate;
 
-//    public ReservationDto(Integer reservationId,
-//                          String reservationUserName,
-//                          ReservationType reservationType,
-//                          List<TouristAttraction> reservationTouristAttractions,
-//                          List<Restaurant> reservationRestaurants,
-//                          List<Hotel> reservationHotels) {
-//        this.reservationId = reservationId;
-//        this.reservationUserName = reservationUserName;
-//        this.reservationType = reservationType;
-//        this.reservationTouristAttractions = reservationTouristAttractions;
-//        this.reservationRestaurants = reservationRestaurants;
-//        this.reservationHotels = reservationHotels;
-//    }
 }

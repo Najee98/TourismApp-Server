@@ -14,6 +14,7 @@ import com.spu.TourismApp.Shared.Dto.Agency.AgencyTourDto;
 import com.spu.TourismApp.Shared.Dto.Agency.AgencyDto;
 import com.spu.TourismApp.Shared.Dto.Agency.CreateAgencyDto;
 import lombok.AllArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class AgencyServiceImpl implements AgencyService {
                 agency.getAddress(),
                 agency.getPhone(),
                 agency.getImageUrl(),
-                agency.getManagerId().getId()
+                agency.getManager().getId()
         );
 
         return response;
@@ -117,11 +118,11 @@ public class AgencyServiceImpl implements AgencyService {
     public void createAgency(CreateAgencyDto request) {
         Agency agency = toEntity(request);
 
-        agency.setManagerId(
+        agency.setManager(
                 userRepository.findById(request.getManagerId())
                 .orElseThrow(() -> new ResourceNotFoundException("Manager not found with id: " + request.getManagerId())));
 
-        agency.getManagerId().setAgency(agency);
+        agency.getManager().setAgency(agency);
 
         agencyRepository.save(agency);
     }
@@ -135,7 +136,7 @@ public class AgencyServiceImpl implements AgencyService {
         existingAgency.setAddress(request.getAddress());
         existingAgency.setPhone(request.getPhone());
         existingAgency.setImageUrl(request.getImageUrl());
-        existingAgency.setManagerId(
+        existingAgency.setManager(
                 userRepository.findById(request.getManagerId())
                         .orElseThrow(() -> new ResourceNotFoundException("Manager not found with id: " + request.getManagerId()))
         );
@@ -233,7 +234,6 @@ public class AgencyServiceImpl implements AgencyService {
 
     private Agency getLoggedInUserAgency(){
         AppUser agencyManager = userService.getUserFromLogin();
-
         return agencyManager.getAgency();
     }
 }
