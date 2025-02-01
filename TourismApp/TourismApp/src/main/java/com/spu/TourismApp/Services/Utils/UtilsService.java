@@ -1,7 +1,6 @@
 package com.spu.TourismApp.Services.Utils;
 
-import com.spu.TourismApp.Models.Agency;
-import com.spu.TourismApp.Models.AppUser;
+import com.spu.TourismApp.Models.*;
 import com.spu.TourismApp.Services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,4 +16,20 @@ public class UtilsService {
         AppUser agencyManager = userService.getUserFromLogin();
         return agencyManager.getAgency();
     }
+
+    public Hotel getLoggedInUserHotel() {
+        AppUser hotelManager = userService.getUserFromLogin();
+        return hotelManager.getHotel();
+    }
+
+    public Restaurant getLoggedInUserRestaurant() {
+        AppUser agencyManager = userService.getUserFromLogin();
+        return agencyManager.getRestaurant();
+    }
+
+    public Attraction getLoggedInUserAttraction() {
+        AppUser agencyManager = userService.getUserFromLogin();
+        return agencyManager.getAttraction();
+    }
+
 }

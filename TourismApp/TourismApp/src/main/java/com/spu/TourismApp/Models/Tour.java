@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.Date;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Tour {
 
     @Id
@@ -39,14 +41,14 @@ public class Tour {
 
     private Date endDate;
 
-    @Override
-    public String toString() {
-        return "Tour{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", maxSubscribersCount=" + maxSubscribersCount +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Tour{" +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                ", maxSubscribersCount=" + maxSubscribersCount +
+//                ", startDate=" + startDate +
+//                ", endDate=" + endDate +
+//                '}';
+//    }
 }

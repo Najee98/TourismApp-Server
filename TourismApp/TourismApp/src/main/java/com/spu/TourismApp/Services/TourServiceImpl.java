@@ -132,39 +132,39 @@ public class TourServiceImpl implements TourService {
     public List<ReservationDetailsDto> getTourReservations(Integer tourId) {
         List<Reservation> reservations = reservationService.getTourReservations(tourId);
 
-        List<ReservationDetailsDto> response = new ArrayList<>();
+        List<ReservationDetailsDto> response = convertToDetailsDto(reservations);
 
-        for(Reservation reservation : reservations) {
-            ReservationDetailsDto reservationDto = new ReservationDetailsDto();
-
-            reservationDto.setReservationId(reservation.getId());
-            reservationDto.setReservationType(reservation.getReservationType());
-            reservationDto.setAgencyId(
-                    agencyRepository.findById(reservation.getAgency().getId()).orElse(null).getId()
-            );
-
-            reservationDto.setReservationType(reservation.getReservationType());
-
-            if (reservation.getHotel() != null) {
-                reservationDto.setRelatedId(reservation.getHotel().getId());
-                reservationDto.setRelatedName(reservation.getHotel().getName());
-            }
-
-            if (reservation.getRestaurant() != null) {
-                reservationDto.setRelatedId(reservation.getRestaurant().getId());
-                reservationDto.setRelatedName(reservation.getRestaurant().getName());
-            }
-
-            if (reservation.getAttraction() != null) {
-                reservationDto.setRelatedId(reservation.getAttraction().getId());
-                reservationDto.setRelatedName(reservation.getAttraction().getName());
-            }
-
-            reservationDto.setFromDate(reservation.getFromDate());
-            reservationDto.setToDate(reservation.getToDate());
-
-            response.add(reservationDto);
-        }
+//        for(Reservation reservation : reservations) {
+//            ReservationDetailsDto reservationDto = new ReservationDetailsDto();
+//
+//            reservationDto.setReservationId(reservation.getId());
+//            reservationDto.setReservationType(reservation.getReservationType());
+//            reservationDto.setAgencyId(
+//                    agencyRepository.findById(reservation.getAgency().getId()).orElse(null).getId()
+//            );
+//
+//            reservationDto.setReservationType(reservation.getReservationType());
+//
+//            if (reservation.getHotel() != null) {
+//                reservationDto.setRelatedId(reservation.getHotel().getId());
+//                reservationDto.setRelatedName(reservation.getHotel().getName());
+//            }
+//
+//            if (reservation.getRestaurant() != null) {
+//                reservationDto.setRelatedId(reservation.getRestaurant().getId());
+//                reservationDto.setRelatedName(reservation.getRestaurant().getName());
+//            }
+//
+//            if (reservation.getAttraction() != null) {
+//                reservationDto.setRelatedId(reservation.getAttraction().getId());
+//                reservationDto.setRelatedName(reservation.getAttraction().getName());
+//            }
+//
+//            reservationDto.setFromDate(reservation.getFromDate());
+//            reservationDto.setToDate(reservation.getToDate());
+//
+//            response.add(reservationDto);
+//        }
 
         return response;
     }
@@ -187,13 +187,51 @@ public class TourServiceImpl implements TourService {
     }
 
     private TourDto convertToDto(Tour tour) {
+
         return new TourDto(
             tour.getId(),
             tour.getName(),
             tour.getAgency().getId(),
-            tour.getReservations().stream().map(Reservation::getId).collect(Collectors.toList()),
+            convertToDetailsDto(tour.getReservations()),
             tour.getStartDate(),
             tour.getEndDate()
         );
     }
+
+    private List<ReservationDetailsDto> convertToDetailsDto (List<Reservation> reservations) {
+
+        List<ReservationDetailsDto> reservationDetailsList = new ArrayList<>();
+
+        for(Reservation reservation : reservations) {
+            ReservationDetailsDto dto = new ReservationDetailsDto();
+
+            dto.setReservationId(reservation.getId());
+            dto.setReservationType(reservation.getReservationType());
+            dto.setAgencyId(reservation.getAgency().getId());
+
+            if (reservation.getHotel() != null) {
+                dto.setRelatedId(reservation.getHotel().getId());
+                dto.setRelatedName(reservation.getHotel().getName());
+            }
+
+            if (reservation.getRestaurant() != null) {
+                dto.setRelatedId(reservation.getRestaurant().getId());
+                dto.setRelatedName(reservation.getRestaurant().getName());
+            }
+
+            if (reservation.getAttraction() != null) {
+                dto.setRelatedId(reservation.getAttraction().getId());
+                dto.setRelatedName(reservation.getAttraction().getName());
+            }
+
+            dto.setFromDate(reservation.getFromDate());
+            dto.setToDate(reservation.getToDate());
+
+            reservationDetailsList.add(dto);
+
+        }
+
+        return reservationDetailsList;
+    }
+
 }

@@ -1,6 +1,8 @@
 package com.spu.TourismApp.Controllers;
 
 import com.spu.TourismApp.Services.RestaurantService;
+import com.spu.TourismApp.Services.UserService;
+import com.spu.TourismApp.Shared.Dto.Agency.ManagementUserDto;
 import com.spu.TourismApp.Shared.Dto.Hotel.HotelReservationDto;
 import com.spu.TourismApp.Shared.Dto.Restaurant.CreateRestaurantDto;
 import com.spu.TourismApp.Shared.Dto.Restaurant.RestaurantDto;
@@ -17,10 +19,12 @@ import java.util.List;
 public class RestaurantController {
 
     private final RestaurantService restaurantService;
+    private final UserService userService;
 
     @Autowired
-    public RestaurantController(RestaurantService restaurantService) {
+    public RestaurantController(RestaurantService restaurantService, UserService userService) {
         this.restaurantService = restaurantService;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -33,9 +37,9 @@ public class RestaurantController {
         return ResponseEntity.ok(restaurantService.getRestaurantDetails(restaurantId));
     }
 
-    @GetMapping("/{restaurantId}/reservations")
-    public ResponseEntity<List<RestaurantReservationDto>> getHotelReservations(@PathVariable Integer restaurantId) {
-        return new ResponseEntity<>(restaurantService.getRestaurantReservations(restaurantId), HttpStatus.OK);
+    @GetMapping("/reservations")
+    public ResponseEntity<List<RestaurantReservationDto>> getHotelReservations() {
+        return new ResponseEntity<>(restaurantService.getRestaurantReservations(), HttpStatus.OK);
     }
 
     @PostMapping
@@ -54,5 +58,10 @@ public class RestaurantController {
     public ResponseEntity<Object> deleteRestaurant(@PathVariable Integer restaurantId) {
         restaurantService.deleteRestaurant(restaurantId);
         return new ResponseEntity<>("{ \"message\": \" Deleted successfully  \" }", HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<ManagementUserDto>> getAllUsersForAgencies(){
+        return new ResponseEntity<>(userService.getAllUsersForRestaurants(), HttpStatus.OK);
     }
 }

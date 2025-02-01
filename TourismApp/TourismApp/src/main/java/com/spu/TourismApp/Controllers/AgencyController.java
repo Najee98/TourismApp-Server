@@ -1,14 +1,12 @@
 package com.spu.TourismApp.Controllers;
 
-import com.spu.TourismApp.Models.AppUser;
 import com.spu.TourismApp.Services.AgencyService;
 import com.spu.TourismApp.Services.UserService;
-import com.spu.TourismApp.Shared.Dto.Agency.AgenciesUsersDto;
+import com.spu.TourismApp.Shared.Dto.Agency.ManagementUserDto;
 import com.spu.TourismApp.Shared.Dto.Agency.AgencyTourDto;
 import com.spu.TourismApp.Shared.Dto.Agency.CreateAgencyDto;
 import com.spu.TourismApp.Shared.Dto.Agency.AgencyDto;
 import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDetailsDto;
-import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -68,7 +66,7 @@ public class AgencyController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<AgenciesUsersDto>> getAllUsersForAgencies(){
+    public ResponseEntity<List<ManagementUserDto>> getAllUsersForAgencies(){
         return new ResponseEntity<>(userService.getAllUsersForAgencies(), HttpStatus.OK);
     }
 }

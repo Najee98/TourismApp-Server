@@ -27,8 +27,4 @@ public class Agency {
     @OneToOne(fetch = FetchType.EAGER, optional = false)
     AppUser manager;
 
-//    @OneToMany(mappedBy = "agency", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JsonManagedReference
-//    List<Tour> tours;
-
 }

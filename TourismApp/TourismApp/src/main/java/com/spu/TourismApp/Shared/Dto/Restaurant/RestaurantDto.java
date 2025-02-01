@@ -12,6 +12,7 @@ public class RestaurantDto extends CreateAttractionDto implements Serializable {
 
     Integer id;
     private int availableTables;
+    private Integer managerId;
 
     public RestaurantDto(String name, String description, String address, String phone, String imageUrl) {
         super(name, description, address, phone, imageUrl);
@@ -23,10 +24,12 @@ public class RestaurantDto extends CreateAttractionDto implements Serializable {
                          String address,
                          String phone,
                          String imageUrl,
-                         int availableTables) {
+                         int availableTables,
+                         Integer managerId) {
         super(name, description, address, phone, imageUrl);
         this.id = id;
         this.availableTables = availableTables;
+        this.managerId = managerId;
     }
 
 //    public RestaurantDto(Integer id) {

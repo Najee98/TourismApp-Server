@@ -24,4 +24,6 @@ public class Restaurant{
     String imageUrl;
     int availableTables;
 
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
+    AppUser manager;
 }

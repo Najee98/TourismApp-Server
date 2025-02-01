@@ -5,6 +5,8 @@ import com.spu.TourismApp.Models.Hotel;
 import com.spu.TourismApp.Models.Reservation;
 import com.spu.TourismApp.Repositories.HotelRepository;
 import com.spu.TourismApp.Repositories.ReservationRepository;
+import com.spu.TourismApp.Services.Utils.UtilsService;
+import com.spu.TourismApp.Shared.Dto.Agency.ManagementUserDto;
 import com.spu.TourismApp.Shared.Dto.Hotel.CreateHotelDto;
 import com.spu.TourismApp.Shared.Dto.Hotel.HotelDto;
 import com.spu.TourismApp.Shared.Dto.Hotel.HotelReservationDto;
@@ -20,7 +22,8 @@ public class HotelServiceImpl implements HotelService {
 
     private final HotelRepository hotelRepository;
     private final ReservationRepository reservationRepository;
-
+    private final UtilsService utilsService;
+    private final UserService userService;
 
     @Override
     public List<HotelDto> getAllHotels() {
@@ -58,7 +61,9 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public List<HotelReservationDto> getHotelReservations(Integer hotelId) {
+    public List<HotelReservationDto> getHotelReservations() {
+
+        Integer hotelId = utilsService.getLoggedInUserHotel().getId();
         return reservationRepository.getHotelReservations(hotelId);
     }
 
@@ -72,7 +77,9 @@ public class HotelServiceImpl implements HotelService {
         hotel.setDescription(request.getDescription());
         hotel.setImageUrl(request.getImageUrl());
         hotel.setAvailableRooms(request.getAvailableRooms());
-
+        hotel.setManager(
+                userService.getUserById(request.getManagerId())
+        );
 //        hotel = mapDtoToHotel(hotel, request);
 
         return hotelRepository.save(hotel);
@@ -118,6 +125,7 @@ public class HotelServiceImpl implements HotelService {
         hotelDto.setPhone(hotel.getPhone());
         hotelDto.setImageUrl(hotel.getImageUrl());
         hotelDto.setAvailableRooms(hotel.getAvailableRooms());
+        hotelDto.setManagerId(hotel.getManager().getId());
 
         return hotelDto;
     }

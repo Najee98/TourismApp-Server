@@ -3,7 +3,7 @@ package com.spu.TourismApp.Services;
 import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundException;
 import com.spu.TourismApp.Models.AppUser;
 import com.spu.TourismApp.Repositories.AppUserRepository;
-import com.spu.TourismApp.Shared.Dto.Agency.AgenciesUsersDto;
+import com.spu.TourismApp.Shared.Dto.Agency.ManagementUserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,13 +43,49 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<AgenciesUsersDto> getAllUsersForAgencies() {
+    public List<ManagementUserDto> getAllUsersForAgencies() {
         List<AppUser> users = userRepository.getAllUsersForAgencies();
 
-        List<AgenciesUsersDto> response = new ArrayList<>();
+        List<ManagementUserDto> response = new ArrayList<>();
 
         for (AppUser user : users) {
-            AgenciesUsersDto dto = new AgenciesUsersDto();
+            ManagementUserDto dto = new ManagementUserDto();
+
+            dto.setId(user.getId());
+            dto.setName(user.getFirstName() + " " + user.getLastName());
+
+            response.add(dto);
+        }
+
+        return response;
+    }
+
+    @Override
+    public List<ManagementUserDto> getAllUsersForHotels() {
+        List<AppUser> users = userRepository.getAllUsersForHotels();
+
+        List<ManagementUserDto> response = new ArrayList<>();
+
+        for (AppUser user : users) {
+            ManagementUserDto dto = new ManagementUserDto();
+
+            dto.setId(user.getId());
+            dto.setName(user.getFirstName() + " " + user.getLastName());
+
+            response.add(dto);
+        }
+
+        return response;
+    }
+
+    @Override
+    public List<ManagementUserDto> getAllUsersForRestaurants() {
+        List<AppUser> users = userRepository.getAllUsersForRestaurants();
+
+        List<ManagementUserDto> response = new ArrayList<>();
+
+        for (AppUser user : users) {
+            ManagementUserDto dto = new ManagementUserDto();
 
             dto.setId(user.getId());
             dto.setName(user.getFirstName() + " " + user.getLastName());
@@ -64,4 +100,6 @@ public class UserServiceImpl implements UserService {
     public void saveUser(AppUser user) {
         userRepository.save(user);
     }
+
+
 }

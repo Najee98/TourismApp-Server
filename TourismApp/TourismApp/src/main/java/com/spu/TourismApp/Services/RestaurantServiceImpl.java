@@ -4,6 +4,7 @@ import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundExc
 import com.spu.TourismApp.Models.Restaurant;
 import com.spu.TourismApp.Repositories.ReservationRepository;
 import com.spu.TourismApp.Repositories.RestaurantRepository;
+import com.spu.TourismApp.Services.Utils.UtilsService;
 import com.spu.TourismApp.Shared.Dto.Restaurant.CreateRestaurantDto;
 import com.spu.TourismApp.Shared.Dto.Restaurant.RestaurantDto;
 import com.spu.TourismApp.Shared.Dto.Restaurant.RestaurantReservationDto;
@@ -19,6 +20,8 @@ public class RestaurantServiceImpl implements RestaurantService{
 
     private final RestaurantRepository restaurantRepository;
     private final ReservationRepository reservationRepository;
+    private final UtilsService utilsService;
+    private final UserService userService;
 
 
     @Override
@@ -57,7 +60,10 @@ public class RestaurantServiceImpl implements RestaurantService{
     }
 
     @Override
-    public List<RestaurantReservationDto> getRestaurantReservations(Integer restaurantId) {
+    public List<RestaurantReservationDto> getRestaurantReservations() {
+
+        Integer restaurantId = utilsService.getLoggedInUserRestaurant().getId();
+
         return reservationRepository.getRestaurantReservations(restaurantId);
     }
 
@@ -71,6 +77,9 @@ public class RestaurantServiceImpl implements RestaurantService{
         restaurant.setPhone(request.getPhone());
         restaurant.setImageUrl(request.getImageUrl());
         restaurant.setAvailableTables(request.getAvailableTables());
+        restaurant.setManager(
+                userService.getUserById(request.getManagerId())
+        );
 
         restaurantRepository.save(restaurant);
     }
@@ -103,6 +112,9 @@ public class RestaurantServiceImpl implements RestaurantService{
         restaurant.setPhone(dto.getPhone());
         restaurant.setImageUrl(dto.getImageUrl());
         restaurant.setAvailableTables(dto.getAvailableTables());
+//        restaurant.setManager(
+//
+//        );
 
         return restaurant;
     }
@@ -117,6 +129,7 @@ public class RestaurantServiceImpl implements RestaurantService{
         dto.setPhone(restaurant.getPhone());
         dto.setImageUrl(restaurant.getImageUrl());
         dto.setAvailableTables(restaurant.getAvailableTables());
+        dto.setManagerId(restaurant.getManager().getId());
 
         return dto;
     }

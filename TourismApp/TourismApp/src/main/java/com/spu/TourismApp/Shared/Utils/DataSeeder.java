@@ -60,7 +60,8 @@ public class DataSeeder implements CommandLineRunner {
                     "Hotel street",
                     "011 123456",
                     "testImage1",
-                    15));
+                    15,
+                    userRepository.findById(1).get()));
 
             hotelRepository.save(new Hotel(
                     null,
@@ -69,7 +70,8 @@ public class DataSeeder implements CommandLineRunner {
                     "Hotelllay street",
                     "099 654321",
                     "testImage2",
-                    25));
+                    25,
+                    userRepository.findById(2).get()));
         }
 
         // Seed Restaurants
@@ -81,7 +83,8 @@ public class DataSeeder implements CommandLineRunner {
                     "Restaurant street",
                     "011 12356",
                     "testImage3",
-                    12));
+                    12,
+                    userRepository.findById(1).get()));
 
             restaurantRepository.save(new Restaurant(
                     null,
@@ -90,7 +93,8 @@ public class DataSeeder implements CommandLineRunner {
                     "Restaurant streetaaaayyyy",
                     "099 654321",
                     "testImage4",
-                    33));
+                    33,
+                    userRepository.findById(2).get()));
         }
 
         // Seed Attractions
@@ -101,7 +105,8 @@ public class DataSeeder implements CommandLineRunner {
                     "The greatest attraction in the east",
                     "Santa Claws street",
                     "099 654321",
-                    "testImage5"
+                    "testImage5",
+                    userRepository.findById(1).get()
                     ));
 
             attractionRepository.save(new Attraction(
@@ -110,7 +115,8 @@ public class DataSeeder implements CommandLineRunner {
                     "The greatest place in F.R.I.E.N.D.S",
                     "Friends street",
                     "088 555444",
-                    "testImage6"
+                    "testImage6",
+                    userRepository.findById(2).get()
                     ));
         }
 

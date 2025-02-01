@@ -16,4 +16,10 @@ public interface AppUserRepository extends JpaRepository<AppUser, Integer> {
 
     @Query("select a from AppUser a where a.role = 'AGENCY_MANAGER' ")
     List<AppUser> getAllUsersForAgencies();
+
+    @Query("select a from AppUser a where a.role = 'HOTEL_MANAGER' ")
+    List<AppUser> getAllUsersForHotels();
+
+    @Query("select a from AppUser a where a.role = 'RESTAURANT_MANAGER' ")
+    List<AppUser> getAllUsersForRestaurants();
 }

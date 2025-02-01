@@ -13,4 +13,6 @@ import java.io.Serializable;
 public class CreateRestaurantDto extends CreateAttractionDto implements Serializable {
 
     private int availableTables;
+    private Integer managerId;
+
 }

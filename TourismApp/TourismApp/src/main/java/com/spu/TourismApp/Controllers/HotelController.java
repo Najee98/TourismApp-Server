@@ -1,6 +1,8 @@
 package com.spu.TourismApp.Controllers;
 
 import com.spu.TourismApp.Services.HotelService;
+import com.spu.TourismApp.Services.UserService;
+import com.spu.TourismApp.Shared.Dto.Agency.ManagementUserDto;
 import com.spu.TourismApp.Shared.Dto.Hotel.CreateHotelDto;
 import com.spu.TourismApp.Shared.Dto.Hotel.HotelDto;
 import com.spu.TourismApp.Shared.Dto.Hotel.HotelReservationDto;
@@ -16,10 +18,12 @@ import java.util.List;
 public class HotelController {
 
     private final HotelService hotelService;
+    private final UserService userService;
 
     @Autowired
-    public HotelController(HotelService hotelService) {
+    public HotelController(HotelService hotelService, UserService userService) {
         this.hotelService = hotelService;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -32,9 +36,9 @@ public class HotelController {
         return ResponseEntity.ok(hotelService.getHotelDetails(hotelId));
     }
 
-    @GetMapping("/{hotelId}/reservations")
-    public ResponseEntity<List<HotelReservationDto>> getHotelReservations(@PathVariable Integer hotelId) {
-        return new ResponseEntity<>(hotelService.getHotelReservations(hotelId), HttpStatus.OK);
+    @GetMapping("/reservations")
+    public ResponseEntity<List<HotelReservationDto>> getHotelReservations() {
+        return new ResponseEntity<>(hotelService.getHotelReservations(), HttpStatus.OK);
     }
 
     @PostMapping
@@ -53,6 +57,11 @@ public class HotelController {
     public ResponseEntity<String> deleteHotel(@PathVariable Integer hotelId) {
         hotelService.deleteHotel(hotelId);
         return new ResponseEntity<>("{ \"message\": \" Deleted successfully  \" }", HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<ManagementUserDto>> getAllUsersForHotels(){
+        return new ResponseEntity<>(userService.getAllUsersForHotels(), HttpStatus.OK);
     }
 
 }

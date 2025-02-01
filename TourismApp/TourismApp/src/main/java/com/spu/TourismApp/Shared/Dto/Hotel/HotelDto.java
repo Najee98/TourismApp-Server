@@ -12,6 +12,7 @@ public class HotelDto extends CreateAttractionDto implements Serializable {
 
     private Integer id;
     private int availableRooms;
+    private Integer managerId;
 
     public HotelDto(String name, String description, String address, String phone, String imageUrl) {
         super(name, description, address, phone, imageUrl);

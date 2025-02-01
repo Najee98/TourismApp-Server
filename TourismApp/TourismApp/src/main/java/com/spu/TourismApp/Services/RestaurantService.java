@@ -21,5 +21,5 @@ public interface RestaurantService {
 
     void deleteRestaurant(Integer id);
 
-    List<RestaurantReservationDto> getRestaurantReservations(Integer restaurantId);
+    List<RestaurantReservationDto> getRestaurantReservations();
 }

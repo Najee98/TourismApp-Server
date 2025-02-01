@@ -25,4 +25,7 @@ public class Hotel{
     String imageUrl;
     int availableRooms;
 
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
+    AppUser manager;
+
 }

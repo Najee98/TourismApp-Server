@@ -12,7 +12,7 @@ public class TourDto {
     private Integer id;
     private String tourName;
     private Integer agencyId;
-    private List<Integer> reservations;
+    private List<ReservationDetailsDto> reservations;
     private Date startDate;
     private Date endDate;
 }

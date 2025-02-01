@@ -19,7 +19,8 @@ public class Attraction {
     String description;
     String address;
     String phone;
-//    TouristAttractionType type;
     String imageUrl;
 
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
+    AppUser manager;
 }
