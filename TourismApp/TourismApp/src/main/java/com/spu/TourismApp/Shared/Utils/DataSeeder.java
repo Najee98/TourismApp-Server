@@ -133,19 +133,5 @@ public class DataSeeder implements CommandLineRunner {
                     userRepository.findById(2).orElse(null)
             ));
         }
-
-//        if(restaurantRepository.count() == 0){
-//            Reservation firstRes = new Reservation();
-//            firstRes.setReservationType(ReservationType.HOTEL_RESERVATION);
-//            firstRes.setHotel(hotelRepository.findById(1).orElse(null));
-//            firstRes.setFromDate(new Date(2024-2-6));
-//            firstRes.setToDate(new Date(2024-3-6));
-//            firstRes.setAgency(agencyRepository.findById(1).orElse(null));
-//            firstRes.getReservationDetail().setTableNumber(5);
-//            firstRes.setTour(
-//
-//            );
-//
-//        }
     }
 }

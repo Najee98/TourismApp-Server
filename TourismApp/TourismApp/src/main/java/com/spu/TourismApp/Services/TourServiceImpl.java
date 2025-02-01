@@ -6,6 +6,7 @@ import com.spu.TourismApp.Models.Reservation;
 import com.spu.TourismApp.Models.Tour;
 import com.spu.TourismApp.Repositories.TourRepository;
 import com.spu.TourismApp.Repositories.AgencyRepository;
+import com.spu.TourismApp.Services.Utils.UtilsService;
 import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDetailsDto;
 import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDto;
 import com.spu.TourismApp.Shared.Dto.Tour.CreateTourDto;
@@ -26,6 +27,7 @@ public class TourServiceImpl implements TourService {
     private final ReservationService reservationService;
     private final AgencyRepository agencyRepository;
     private final UserService userService;
+    private final UtilsService utilsService;
 
     @Override
     public List<TourDto> getAllTours() {
@@ -58,7 +60,7 @@ public class TourServiceImpl implements TourService {
         tour.setMaxSubscribersCount(request.getMaxSubscribersCount());
 
         tour.setAgency(
-                agencyRepository.findById(request.getAgencyId()).get()
+                utilsService.getLoggedInUserAgency()
         );
 
         tour.setStartDate(request.getStartDate());
@@ -90,18 +92,6 @@ public class TourServiceImpl implements TourService {
 
         tourRepository.save(tour);
     }
-
-//    @Override
-//    public void bookUserForTour(Integer tourId, List<Integer> userIds) {
-//        Tour tour = tourRepository.findById(tourId)
-//                .orElseThrow(() -> new ResourceNotFoundException("Tour not found"));
-//
-//        for (Integer userId : userIds) {
-//            AppUser user = userService.getUserById(userId);
-//
-//            tour.getSubscribers().add(user);
-//        }
-//    }
 
     @Override
     public void deleteTour(Integer id) {

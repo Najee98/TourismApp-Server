@@ -1,5 +1,6 @@
 package com.spu.TourismApp.Shared.Dto.Tour;
 
+import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDetailsDto;
 import lombok.*;
 
 import java.util.*;
@@ -11,7 +12,7 @@ public class TourDto {
     private Integer id;
     private String tourName;
     private Integer agencyId;
-    private List<Integer> reservationIds;
+    private List<Integer> reservations;
     private Date startDate;
     private Date endDate;
 }

@@ -9,7 +9,6 @@ import java.util.*;
 @AllArgsConstructor
 public class CreateTourDto {
     private String tourName;
-    private Integer agencyId;
     private List<Integer> reservationIds;
     private Date startDate;
     private Date endDate;
