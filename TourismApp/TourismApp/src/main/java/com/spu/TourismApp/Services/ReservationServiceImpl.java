@@ -7,6 +7,7 @@ import com.spu.TourismApp.Models.Utils.ReservationDetail;
 import com.spu.TourismApp.Models.Utils.ReservationType;
 import com.spu.TourismApp.Repositories.AgencyRepository;
 import com.spu.TourismApp.Repositories.ReservationRepository;
+import com.spu.TourismApp.Services.Utils.UtilsService;
 import com.spu.TourismApp.Shared.Dto.Reservation.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ import java.util.List;
 public class ReservationServiceImpl implements ReservationService {
 
     private final ReservationRepository reservationRepository;
-    private final UserService userService;
+    private final UtilsService utilsService;
     private final HotelService hotelService;
     private final AttractionService attractionService;
     private final RestaurantService restaurantService;
@@ -138,8 +139,12 @@ public class ReservationServiceImpl implements ReservationService {
             reservation.setFromDate(request.getFromDate());
             reservation.setToDate(request.getToDate());
 
-//            reservation.setAgency(agencyRepository.findById(request.getAgencyId())
-//                    .orElseThrow(() -> new ResourceNotFoundException("Agency with id: " + request.getAgencyId() + " not found")));
+            Integer agencyId = utilsService.getLoggedInUserAgency().getId();
+
+            reservation.setAgency(agencyRepository.findById(
+                    agencyId
+                    )
+                    .orElseThrow(() -> new ResourceNotFoundException("Agency with id: " + agencyId + " not found")));
 
             reservationRepository.save(reservation);
 
@@ -148,44 +153,6 @@ public class ReservationServiceImpl implements ReservationService {
         }
 
     }
-
-
-//    @Override
-//    public Reservation createReservationByAgency(CreateReservationDto request) {
-//        Reservation reservation = new Reservation();
-//        ReservationDetail details = new ReservationDetail(
-//                request.getHotelRoomNumber(),
-//                request.getRestaurantTableNumber()
-//        );
-//
-//        //If agency id is present -> true : else -> false
-//        reservation.setAgencyReservation(request.getAgencyId() != null);
-//
-//        AppUser user = userService.getUserById(request.getReservationUserId());
-//        reservation.setUser(user);
-//
-//        reservation.setReservationType(request.getReservationType());
-//
-//
-//        switch (request.getReservationType()) {
-//            case HotelReservation -> reservation.setHotel(
-//                    hotelService.getHotel(request.getHotelId())
-//            );
-//            case RestaurantReservation -> reservation.setRestaurant(
-//                    restaurantService.getRestaurant(request.getRestaurantId())
-//            );
-//            case ATTRACTION_Reservation -> reservation.setAttraction(
-//                    attractionService.getTouristAttraction(request.getAttractionId())
-//            );
-//        }
-//
-//        reservation.setReservationDetail(details);
-//
-//        reservation.setFromDate(request.getFromDate());
-//        reservation.setToDate(request.getToDate());
-//
-//        return reservationRepository.save(reservation);
-//    }
 
     @Transactional
     @Override

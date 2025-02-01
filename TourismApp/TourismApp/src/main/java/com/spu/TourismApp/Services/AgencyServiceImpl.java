@@ -9,6 +9,7 @@ import com.spu.TourismApp.Repositories.AppUserRepository;
 import com.spu.TourismApp.Repositories.ReservationRepository;
 import com.spu.TourismApp.Repositories.TourRepository;
 import com.spu.TourismApp.Repositories.AgencyRepository;
+import com.spu.TourismApp.Services.Utils.UtilsService;
 import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDetailsDto;
 import com.spu.TourismApp.Shared.Dto.Agency.AgencyTourDto;
 import com.spu.TourismApp.Shared.Dto.Agency.AgencyDto;
@@ -29,7 +30,7 @@ public class AgencyServiceImpl implements AgencyService {
     private final TourRepository tourRepository;
     private final ReservationRepository reservationRepository;
     private final AppUserRepository userRepository;
-    private final UserService userService;
+    private final UtilsService utilsService;
 
     @Override
     public List<AgencyDto> getAllAgencies() {
@@ -55,7 +56,7 @@ public class AgencyServiceImpl implements AgencyService {
 
     public List<AgencyTourDto> getAgencyTours() {
         List<AgencyTourDto> tours = tourRepository.getAgencyTours(
-                getLoggedInUserAgency().getId()
+                utilsService.getLoggedInUserAgency().getId()
         );
 
         for (AgencyTourDto tour : tours) {
@@ -71,7 +72,8 @@ public class AgencyServiceImpl implements AgencyService {
 
     @Override
     public List<ReservationDetailsDto> getAgencyReservations() {
-        Agency requetedAgency = getLoggedInUserAgency();
+        Agency requetedAgency = utilsService.getLoggedInUserAgency();
+
 
         List<Reservation> reservations = reservationRepository.getAgencyReservations(requetedAgency.getId());
 
@@ -230,10 +232,5 @@ public class AgencyServiceImpl implements AgencyService {
                 reservation.getFromDate(),
                 reservation.getToDate()
         );
-    }
-
-    private Agency getLoggedInUserAgency(){
-        AppUser agencyManager = userService.getUserFromLogin();
-        return agencyManager.getAgency();
     }
 }
