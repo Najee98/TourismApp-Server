@@ -61,7 +61,7 @@ public class RestaurantController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<ManagementUserDto>> getAllUsersForAgencies(){
+    public ResponseEntity<List<ManagementUserDto>> getAllUsersForRestaurants(){
         return new ResponseEntity<>(userService.getAllUsersForRestaurants(), HttpStatus.OK);
     }
 }

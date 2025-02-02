@@ -15,90 +15,81 @@ public enum Role {
 
     USER(
             Set.of(
-                    USER_LOGIN,
-                    USER_REGISTER,
-                    USER_VIEW_ATTRACTIONS,
-                    USER_CREATE_RESERVATION,
-                    USER_GET_RESERVATION,
-                    USER_VIEW_RESERVATIONS,
-                    USER_CANCEL_RESERVATION,
-                    HTL_MGR_VIEW_HOTELS,
-                    HTL_MGR_GET_HOTEL,
-                    RST_MGR_VIEW_RESTAURANTS,
-                    RST_MGR_GET_RESTAURANTS,
-                    AGN_MGR_VIEW_AGENCY_ATTRACTIONS,
-                    AGN_MGR_VIEW_AGENCIES,
-                    AGN_MGR_GET_AGENCY
-
+                    LOGIN,
+                    REGISTER,
+                    VIEW_USER_TOURS,
+                    VIEW_AGENCIES,
+                    VIEW_AGENCY_TOURS,
+                    ADD_USER_TO_TOUR,
+                    REMOVE_USER_FROM_TOUR,
+                    VIEW_ALL_TOURS, // user tours
+                    VIEW_TOUR_RESERVATIONS,
+                    GET_RESERVATION //details
             )
     ),
 
     RESTAURANT_MANAGER(
             Set.of(
-                    USER_LOGIN,
-                    USER_REGISTER,
-
-                    RST_MGR_VIEW_RESTAURANTS,
-                    RST_MGR_GET_RESTAURANTS,
-                    RST_MGR_CREATE_RESTAURANT,
-                    RST_MGR_UPDATE_RESTAURANT,
-                    RST_MGR_DELETE_RESTAURANT
+                    LOGIN,
+                    GET_RESTAURANT,
+                    UPDATE_RESTAURANT,
+                    DELETE_RESTAURANT,
+                    VIEW_RESTAURANT_RESERVATIONS,
+                    GET_RESERVATION
             )
     ),
     HOTEL_MANAGER(
             Set.of(
-                    USER_LOGIN,
-                    USER_REGISTER,
-
-                    HTL_MGR_VIEW_HOTELS,
-                    HTL_MGR_GET_HOTEL,
-                    HTL_MGR_CREATE_HOTEL,
-                    HTL_MGR_UPDATE_HOTEL,
-                    HTL_MGR_DELETE_HOTEL
+                    LOGIN,
+                    GET_HOTEL,
+                    UPDATE_HOTEL,
+                    DELETE_HOTEL,
+                    VIEW_HOTEL_RESERVATIONS,
+                    GET_RESERVATION
             )
     ),
     AGENCY_MANAGER(
             Set.of(
-                    USER_LOGIN,
-                    USER_REGISTER,
+                    LOGIN,
+                    UPDATE_AGENCY,
+                    DELETE_AGENCY,
+                    VIEW_RESTAURANTS,
+                    GET_RESTAURANT, //details
+                    VIEW_HOTELS,
+                    GET_HOTEL, //details
+                    VIEW_ATTRACTIONS,
+                    GET_ATTRACTION, //details
+                    CREATE_RESERVATION,
+                    CREATE_TOUR,
+                    UPDATE_TOUR,
+                    DELETE_TOUR,
+                    VIEW_TOUR_RESERVATIONS,
+                    GET_RESERVATION //details
 
-                    AGN_MGR_VIEW_AGENCIES,
-                    AGN_MGR_GET_AGENCY,
-                    AGN_MGR_VIEW_AGENCY_ATTRACTIONS,
-                    AGN_MGR_CREATE_AGENCY,
-                    AGN_MGR_UPDATE_AGENCY,
-                    AGN_MGR_DELETE_AGENCY
             )
     ),
     ADMIN(
             Set.of(
-                    USER_LOGIN,
-                    USER_REGISTER,
+                    LOGIN,
+                    REGISTER,
+                    GET_LOGGED_IN_USER_ID,
+                    VIEW_USERS_FOR_AGENCIES,
+                    CREATE_AGENCY,
+                    VIEW_AGENCIES,
+                    GET_AGENCY,
+                    VIEW_AGENCY_TOURS,
+                    GET_TOUR,
+                    VIEW_USERS_FOR_HOTELS,
+                    CREATE_HOTEL,
+                    VIEW_HOTELS,
+                    VIEW_USERS_FOR_RESTAURANTS,
+                    CREATE_RESTAURANT,
+                    VIEW_RESTAURANTS,
 
-                    USER_VIEW_ATTRACTIONS,
-                    USER_CREATE_RESERVATION,
-                    USER_GET_RESERVATION,
-                    USER_VIEW_RESERVATIONS,
-                    USER_CANCEL_RESERVATION,
+                    CREATE_ATTRACTION,
 
-                    RST_MGR_VIEW_RESTAURANTS,
-                    RST_MGR_GET_RESTAURANTS,
-                    RST_MGR_CREATE_RESTAURANT,
-                    RST_MGR_UPDATE_RESTAURANT,
-                    RST_MGR_DELETE_RESTAURANT,
-
-                    HTL_MGR_VIEW_HOTELS,
-                    HTL_MGR_GET_HOTEL,
-                    HTL_MGR_CREATE_HOTEL,
-                    HTL_MGR_UPDATE_HOTEL,
-                    HTL_MGR_DELETE_HOTEL,
-
-                    AGN_MGR_VIEW_AGENCIES,
-                    AGN_MGR_GET_AGENCY,
-                    AGN_MGR_VIEW_AGENCY_ATTRACTIONS,
-                    AGN_MGR_CREATE_AGENCY,
-                    AGN_MGR_UPDATE_AGENCY,
-                    AGN_MGR_DELETE_AGENCY
+                    UPDATE_ATTRACTION,
+                    DELETE_ATTRACTION
             ))
     ;
 
