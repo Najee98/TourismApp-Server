@@ -21,7 +21,7 @@ public class AuthenticationController {
     private final UserService userService;
 
     @PostMapping("/register")
-    @PreAuthorize("hasAuthority('auth:register')")
+    //@PreAuthorize("hasAuthority('auth:register')")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody RegisterRequest request
     ){
@@ -29,7 +29,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    @PreAuthorize("hasAuthority('auth:login')")
+   // @PreAuthorize("hasAnyRole('ADMIN','USER')")
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody AuthenticationRequest request
     ){
@@ -37,7 +37,7 @@ public class AuthenticationController {
     }
 
     @GetMapping("/user-id")
-    @PreAuthorize("hasAuthority('auth:getLoggedInUser')")
+    //@PreAuthorize("hasAuthority('auth:getLoggedInUser')")
     public ResponseEntity<Object> getUserIdFromLogin(){
         return new ResponseEntity<>(userService.getUserFromLogin(), HttpStatus.ACCEPTED);
     }

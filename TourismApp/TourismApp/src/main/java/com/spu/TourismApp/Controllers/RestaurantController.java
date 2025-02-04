@@ -28,46 +28,46 @@ public class RestaurantController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('restaurants:viewRestaurants')")
+ //   @PreAuthorize("hasAuthority('restaurants:viewRestaurants')")
     public ResponseEntity<List<RestaurantDto>> getAllRestaurants() {
         return ResponseEntity.ok(restaurantService.getAllRestaurants());
     }
 
     @GetMapping("/{restaurantId}")
-    @PreAuthorize("hasAuthority('restaurants:getRestaurant')")
+  //  @PreAuthorize("hasAuthority('restaurants:getRestaurant')")
     public ResponseEntity<RestaurantDto> getRestaurantDetails(@PathVariable Integer restaurantId) {
         return ResponseEntity.ok(restaurantService.getRestaurantDetails(restaurantId));
     }
 
     @GetMapping("/reservations")
-    @PreAuthorize("hasAuthority('restaurants:getAllRestaurantReservations')")
+  //  @PreAuthorize("hasAuthority('restaurants:getAllRestaurantReservations')")
     public ResponseEntity<List<RestaurantReservationDto>> getRestaurantReservations() {
         return new ResponseEntity<>(restaurantService.getRestaurantReservations(), HttpStatus.OK);
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('restaurants:createRestaurant')")
+  //  @PreAuthorize("hasAuthority('restaurants:createRestaurant')")
     public ResponseEntity<Object> createRestaurant(@RequestBody CreateRestaurantDto request) {
         restaurantService.createRestaurant(request);
         return new ResponseEntity<>("{ \"message\": \" Created successfully  \" }", HttpStatus.CREATED);
     }
 
     @PutMapping()
-    @PreAuthorize("hasAuthority('restaurants:updateRestaurant')")
+  //  @PreAuthorize("hasAuthority('restaurants:updateRestaurant')")
     public ResponseEntity<Object> updateRestaurant(@RequestBody RestaurantDto request) {
         restaurantService.updateRestaurant(request);
         return new ResponseEntity<>("{ \"message\": \" Updated successfully  \" }", HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{restaurantId}")
-    @PreAuthorize("hasAuthority('restaurants:deleteRestaurant')")
+  //  @PreAuthorize("hasAuthority('restaurants:deleteRestaurant')")
     public ResponseEntity<Object> deleteRestaurant(@PathVariable Integer restaurantId) {
         restaurantService.deleteRestaurant(restaurantId);
         return new ResponseEntity<>("{ \"message\": \" Deleted successfully  \" }", HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/users")
-    @PreAuthorize("hasAuthority('restaurants:getAllUsersForRestaurant')")
+ //   @PreAuthorize("hasAuthority('restaurants:getAllUsersForRestaurant')")
     public ResponseEntity<List<ManagementUserDto>> getAllUsersForRestaurants(){
         return new ResponseEntity<>(userService.getAllUsersForRestaurants(), HttpStatus.OK);
     }

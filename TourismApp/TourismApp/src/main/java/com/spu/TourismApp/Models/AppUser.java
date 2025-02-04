@@ -72,13 +72,13 @@ public class AppUser implements UserDetails {
         return true;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             name = "user_tours",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "tour_id"))
     @JsonManagedReference
-    List<Tour> tours;
+    List<Tour> tours = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Agency agency;
