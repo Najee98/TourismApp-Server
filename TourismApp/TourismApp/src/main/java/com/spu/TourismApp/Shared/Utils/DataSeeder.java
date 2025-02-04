@@ -105,8 +105,8 @@ public class DataSeeder implements CommandLineRunner {
                     "The greatest attraction in the east",
                     "Santa Claws street",
                     "099 654321",
-                    "testImage5",
-                    userRepository.findById(1).get()
+                    "testImage5"
+                   // userRepository.findById(1).get()
                     ));
 
             attractionRepository.save(new Attraction(
@@ -115,8 +115,8 @@ public class DataSeeder implements CommandLineRunner {
                     "The greatest place in F.R.I.E.N.D.S",
                     "Friends street",
                     "088 555444",
-                    "testImage6",
-                    userRepository.findById(2).get()
+                    "testImage6"
+                 //   userRepository.findById(2).get()
                     ));
         }
 

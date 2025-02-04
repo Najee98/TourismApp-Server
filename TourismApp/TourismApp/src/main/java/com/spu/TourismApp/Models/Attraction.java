@@ -21,6 +21,4 @@ public class Attraction {
     String phone;
     String imageUrl;
 
-    @OneToOne(fetch = FetchType.EAGER, optional = false)
-    AppUser manager;
 }

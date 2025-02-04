@@ -30,10 +30,10 @@ public class UtilsService {
         return agencyManager.getRestaurant();
     }
 
-    public Attraction getLoggedInUserAttraction() {
-        AppUser agencyManager = userService.getUserFromLogin();
-        return agencyManager.getAttraction();
-    }
+//    public Attraction getLoggedInUserAttraction() {
+//        AppUser agencyManager = userService.getUserFromLogin();
+//        return agencyManager.getAttraction();
+//    }
 
     public AgencyDto mapAgencyToDto(Agency agency) {
         return new AgencyDto(

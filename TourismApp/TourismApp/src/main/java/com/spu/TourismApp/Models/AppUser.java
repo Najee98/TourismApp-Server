@@ -89,9 +89,6 @@ public class AppUser implements UserDetails {
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Restaurant restaurant;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    Attraction attraction;
-
     @Override
     public String toString() {
         return "AppUser{" +
