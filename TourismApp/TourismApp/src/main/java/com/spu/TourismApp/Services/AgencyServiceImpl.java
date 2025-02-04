@@ -154,15 +154,7 @@ public class AgencyServiceImpl implements AgencyService {
         agencyRepository.deleteById(id);
     }
 
-    private CreateAgencyDto toDto(Agency agency) {
-        return new CreateAgencyDto(
-                agency.getName(),
-                agency.getAddress(),
-                agency.getPhone(),
-                agency.getImageUrl(),
-                userRepository.findById(agency.getId()).get().getId()
-        );
-    }
+
 
     private Agency toEntity(CreateAgencyDto dto) {
         return new Agency(
@@ -174,32 +166,6 @@ public class AgencyServiceImpl implements AgencyService {
                 userRepository.findById(dto.getManagerId()).get()
         );
     }
-
-//    private List<ReservationDto> mapReservationToDto(List<Reservation> reservations) {
-//
-//        List<ReservationDto> reservationDtos = new ArrayList<>();
-//
-//        for (Reservation reservation : reservations) {
-//            ReservationDto dto = new ReservationDto();
-//
-//            dto.setReservationId(reservation.getId());
-//            dto.setReservationUserName(reservation.getUser().getFirstName() + " " + reservation.getUser().getLastName());
-//            dto.setReservationType(reservation.getReservationType());
-//
-//            dto.setAttractionId(reservation.getAttraction().getId());
-//            dto.setAttractionName(reservation.getAttraction().getName());
-//
-//            dto.setHotelId(reservation.getHotel().getId());
-//            dto.setHotelName(reservation.getHotel().getName());
-//
-//            dto.setRestaurantId(reservation.getRestaurant().getId());
-//            dto.setRestaurantName(reservation.getRestaurant().getName());
-//
-//            reservationDtos.add(dto);
-//        }
-//
-//        return reservationDtos;
-//    }
 
     private List<Reservation> fetchReservationsByTourId(Integer tourId) {
         return reservationRepository.findAllByTourId(tourId);
@@ -233,4 +199,5 @@ public class AgencyServiceImpl implements AgencyService {
                 reservation.getToDate()
         );
     }
+
 }

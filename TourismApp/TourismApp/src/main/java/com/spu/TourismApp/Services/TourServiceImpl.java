@@ -8,7 +8,6 @@ import com.spu.TourismApp.Repositories.TourRepository;
 import com.spu.TourismApp.Repositories.AgencyRepository;
 import com.spu.TourismApp.Services.Utils.UtilsService;
 import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDetailsDto;
-import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDto;
 import com.spu.TourismApp.Shared.Dto.Tour.CreateTourDto;
 import com.spu.TourismApp.Shared.Dto.Tour.TourDto;
 import jakarta.transaction.Transactional;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -134,38 +132,6 @@ public class TourServiceImpl implements TourService {
 
         List<ReservationDetailsDto> response = convertToDetailsDto(reservations);
 
-//        for(Reservation reservation : reservations) {
-//            ReservationDetailsDto reservationDto = new ReservationDetailsDto();
-//
-//            reservationDto.setReservationId(reservation.getId());
-//            reservationDto.setReservationType(reservation.getReservationType());
-//            reservationDto.setAgencyId(
-//                    agencyRepository.findById(reservation.getAgency().getId()).orElse(null).getId()
-//            );
-//
-//            reservationDto.setReservationType(reservation.getReservationType());
-//
-//            if (reservation.getHotel() != null) {
-//                reservationDto.setRelatedId(reservation.getHotel().getId());
-//                reservationDto.setRelatedName(reservation.getHotel().getName());
-//            }
-//
-//            if (reservation.getRestaurant() != null) {
-//                reservationDto.setRelatedId(reservation.getRestaurant().getId());
-//                reservationDto.setRelatedName(reservation.getRestaurant().getName());
-//            }
-//
-//            if (reservation.getAttraction() != null) {
-//                reservationDto.setRelatedId(reservation.getAttraction().getId());
-//                reservationDto.setRelatedName(reservation.getAttraction().getName());
-//            }
-//
-//            reservationDto.setFromDate(reservation.getFromDate());
-//            reservationDto.setToDate(reservation.getToDate());
-//
-//            response.add(reservationDto);
-//        }
-
         return response;
     }
 
@@ -191,7 +157,7 @@ public class TourServiceImpl implements TourService {
         return new TourDto(
             tour.getId(),
             tour.getName(),
-            tour.getAgency().getId(),
+            utilsService.mapAgencyToDto(tour.getAgency()),
             convertToDetailsDto(tour.getReservations()),
             tour.getStartDate(),
             tour.getEndDate()
