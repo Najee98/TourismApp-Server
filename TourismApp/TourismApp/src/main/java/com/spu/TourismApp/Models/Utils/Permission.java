@@ -8,6 +8,7 @@ public enum Permission {
 
     REGISTER("auth:register"),
     LOGIN("auth:login"),
+    GET_LOGGED_IN_USER_ID("auth:getLoggedInUserId"),
 
     VIEW_ATTRACTIONS("attractions:viewAttractions"),
     GET_ATTRACTION("attractions:getAttractions"),
@@ -15,10 +16,10 @@ public enum Permission {
     UPDATE_ATTRACTION("attractions:updateAttraction"),
     DELETE_ATTRACTION("attractions:deleteAttraction"),
 
-    VIEW_RESERVATIONS("reservations:viewReservations"),
     GET_RESERVATION("reservations:getReservation"),
-
-    GET_LOGGED_IN_USER_ID("auth:getLoggedInUserId"),
+    CREATE_RESERVATION("reservations:createReservation"),
+    UPDATE_RESERVATION("reservations:updateReservation"),
+    DELETE_RESERVATION("reservations:deleteReservation"),
 
     VIEW_AGENCIES("agencies:viewAgencies"),
     VIEW_AGENCY_ATTRACTIONS("agencies:viewAgencyAttractions"),
@@ -26,9 +27,9 @@ public enum Permission {
     CREATE_AGENCY("agencies:createAgency"),
     UPDATE_AGENCY("agencies:updateAgency"),
     DELETE_AGENCY("agencies:deleteAgency"),
-    CREATE_RESERVATION("reservations:createReservation"),
     VIEW_USERS_FOR_AGENCIES("agencies:getAllUsersForAgencies"),
     VIEW_AGENCY_TOURS("agencies:viewAgencyTours"),
+    VIEW_AGENCY_RESERVATIONS("agencies:viewAgencyReservations"),
 
     VIEW_ALL_TOURS("tours:viewTours"),
     GET_TOUR("tours:getTour"),
@@ -54,7 +55,7 @@ public enum Permission {
     UPDATE_RESTAURANT("restaurants:updateRestaurant"),
     DELETE_RESTAURANT("restaurants:deleteRestaurant"),
     VIEW_USERS_FOR_RESTAURANTS("restaurants:getAllUsersForRestaurant"),
-    VIEW_RESTAURANT_RESERVATIONS("restaurants:getAllReservationsForRestaurant"),
+    VIEW_RESTAURANT_RESERVATIONS("restaurants:getAllRestaurantReservations"),
 
 
 

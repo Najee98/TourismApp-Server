@@ -1,7 +1,6 @@
 package com.spu.TourismApp.Controllers;
 
 import com.spu.TourismApp.Services.AuthenticationService;
-import com.spu.TourismApp.Services.AuthenticationServiceImpl;
 import com.spu.TourismApp.Services.UserService;
 import com.spu.TourismApp.Shared.Dto.Authentication.AuthenticationRequest;
 import com.spu.TourismApp.Shared.Dto.Authentication.AuthenticationResponse;
@@ -22,6 +21,7 @@ public class AuthenticationController {
     private final UserService userService;
 
     @PostMapping("/register")
+    @PreAuthorize("hasAuthority('auth:register')")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody RegisterRequest request
     ){
@@ -29,6 +29,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
+    @PreAuthorize("hasAuthority('auth:login')")
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody AuthenticationRequest request
     ){
@@ -36,6 +37,7 @@ public class AuthenticationController {
     }
 
     @GetMapping("/user-id")
+    @PreAuthorize("hasAuthority('auth:getLoggedInUser')")
     public ResponseEntity<Object> getUserIdFromLogin(){
         return new ResponseEntity<>(userService.getUserFromLogin(), HttpStatus.ACCEPTED);
     }

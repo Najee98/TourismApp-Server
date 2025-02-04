@@ -38,6 +38,7 @@ public enum Role {
                     GET_RESERVATION
             )
     ),
+
     HOTEL_MANAGER(
             Set.of(
                     LOGIN,
@@ -64,10 +65,11 @@ public enum Role {
                     UPDATE_TOUR,
                     DELETE_TOUR,
                     VIEW_TOUR_RESERVATIONS,
+                    VIEW_AGENCY_RESERVATIONS,
                     GET_RESERVATION //details
-
             )
     ),
+
     ADMIN(
             Set.of(
                     LOGIN,

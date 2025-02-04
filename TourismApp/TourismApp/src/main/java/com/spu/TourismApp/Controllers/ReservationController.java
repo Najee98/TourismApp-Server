@@ -1,14 +1,12 @@
 package com.spu.TourismApp.Controllers;
 
-import com.spu.TourismApp.Models.Reservation;
 import com.spu.TourismApp.Services.ReservationService;
 import com.spu.TourismApp.Shared.Dto.Reservation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/reservations")
@@ -21,20 +19,22 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('reservations:getReservation')")
     public ResponseEntity<ReservationDetailsDto> getReservationById(@PathVariable Integer id) {
         ReservationDetailsDto reservation = reservationService.getReservationById(id);
         return ResponseEntity.ok(reservation);
     }
 
     @PostMapping()
+    @PreAuthorize("hasAuthority('reservations:createReservation')")
     public ResponseEntity<Object> createReservation(@RequestBody ReservationDto request) {
         reservationService.createReservation(request);
         return new ResponseEntity<>("{ \"message\": \" created successfully  \" }", HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('reservations:updateReservation')")
     public ResponseEntity<Object> updateReservation(
             @PathVariable Integer id, 
             @RequestBody ReservationDto request) {
@@ -44,6 +44,7 @@ public class ReservationController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('reservations:deleteReservation')")
     public ResponseEntity<Object> deleteReservation(@PathVariable Integer id) {
         reservationService.deleteReservation(id);
         return new ResponseEntity<>("{ \"message\": \" deleted successfully  \" }", HttpStatus.NO_CONTENT);
