@@ -96,7 +96,7 @@ public class ReservationServiceImpl implements ReservationService {
         }
 
         response.setFromDate(reservation.getFromDate());
-        reservation.setToDate(reservation.getToDate());
+        response.setToDate(reservation.getToDate());
 
         return response;
     }
