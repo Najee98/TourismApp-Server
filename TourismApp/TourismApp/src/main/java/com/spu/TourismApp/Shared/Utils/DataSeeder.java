@@ -12,8 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-import static com.spu.TourismApp.Models.Utils.Role.ADMIN;
-import static com.spu.TourismApp.Models.Utils.Role.USER;
+import static com.spu.TourismApp.Models.Utils.Role.*;
 
 @Component
 @RequiredArgsConstructor
@@ -33,6 +32,7 @@ public class DataSeeder implements CommandLineRunner {
         // Seed Admin User
         if (userRepository.findByEmail("admin@admin.com").isEmpty()
             && userRepository.findByEmail("user@user.com").isEmpty()) {
+
             AppUser admin = new AppUser();
             admin.setFirstName("admin");
             admin.setLastName("admin");
@@ -47,8 +47,40 @@ public class DataSeeder implements CommandLineRunner {
             user.setPassword(passwordEncoder.encode("user1234"));
             user.setRole(USER);
 
+            AppUser firstAgency = new AppUser();
+            firstAgency.setFirstName("agency1");
+            firstAgency.setLastName("agency1");
+            firstAgency.setEmail("agency1@agency1.com");
+            firstAgency.setPassword(passwordEncoder.encode("agency1234"));
+            firstAgency.setRole(AGENCY_MANAGER);
+
+            AppUser secondAgency = new AppUser();
+            secondAgency.setFirstName("agency2");
+            secondAgency.setLastName("agency2");
+            secondAgency.setEmail("agency2@agency2.com");
+            secondAgency.setPassword(passwordEncoder.encode("agency1234"));
+            secondAgency.setRole(AGENCY_MANAGER);
+
+            AppUser hotel = new AppUser();
+            hotel.setFirstName("hotel");
+            hotel.setLastName("hotel");
+            hotel.setEmail("hotel@hotel.com");
+            hotel.setPassword(passwordEncoder.encode("hotel1234"));
+            hotel.setRole(HOTEL_MANAGER);
+
+            AppUser restaurant = new AppUser();
+            restaurant.setFirstName("restaurant");
+            restaurant.setLastName("restaurant");
+            restaurant.setEmail("restaurant@restaurant.com");
+            restaurant.setPassword(passwordEncoder.encode("restaurant1234"));
+            restaurant.setRole(RESTAURANT_MANAGER);
+
             userRepository.save(admin);
             userRepository.save(user);
+            userRepository.save(firstAgency);
+            userRepository.save(secondAgency);
+            userRepository.save(hotel);
+            userRepository.save(restaurant);
         }
 
         // Seed Hotels
@@ -122,22 +154,39 @@ public class DataSeeder implements CommandLineRunner {
 
         // Seed Agencies
         if(agencyRepository.count() == 0) {
-            agencyRepository.save(new Agency(
+
+            AppUser user = userRepository.findById(3).get();
+
+            Agency agency = new Agency(
                     null,
                     "The greatest agency in the west",
                     "West-side yo",
                     "011 123456",
                     "testImage7",
-                    userRepository.findById(1).orElse(null)
-                    ));
-            agencyRepository.save(new Agency(
+                    user
+            );
+            agencyRepository.save(agency);
+
+
+            user.setAgency(agency);
+
+            userRepository.save(user);
+
+            user = userRepository.findById(4).get();
+
+            agency = new Agency(
                     null,
                     "The greatest agency in the east",
                     "East-siiiide",
                     "099 654321",
                     "testImage8",
-                    userRepository.findById(2).orElse(null)
-            ));
+                    user
+            );
+            agencyRepository.save(agency);
+
+            user.setAgency(agency);
+
+            userRepository.save(user);
         }
     }
 }
