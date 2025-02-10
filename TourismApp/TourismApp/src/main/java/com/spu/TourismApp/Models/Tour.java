@@ -1,12 +1,15 @@
 package com.spu.TourismApp.Models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +18,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class Tour {
 
     @Id
@@ -33,22 +35,26 @@ public class Tour {
     @JoinColumn(name = "agency_id", nullable = false)
     Agency agency;
 
-    @ManyToMany(mappedBy = "tours")
-    @JsonBackReference
-    List<AppUser> subscribers;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "user_tours",
+            joinColumns = @JoinColumn(name = "tour_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @JsonManagedReference
+    List<AppUser> subscribers = new ArrayList<>();
 
     private Date startDate;
 
     private Date endDate;
 
-//    @Override
-//    public String toString() {
-//        return "Tour{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", maxSubscribersCount=" + maxSubscribersCount +
-//                ", startDate=" + startDate +
-//                ", endDate=" + endDate +
-//                '}';
-//    }
+    public void addUserToTour(AppUser user) {
+        subscribers.add(user);
+        user.getTours().add(this);
+    }
+
+    public void removeUserFromTour(AppUser user) {
+        subscribers.remove(user);
+        user.getTours().remove(this);
+    }
+
 }

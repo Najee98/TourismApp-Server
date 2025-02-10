@@ -12,6 +12,7 @@ import com.spu.TourismApp.Shared.Dto.Tour.CreateTourDto;
 import com.spu.TourismApp.Shared.Dto.Tour.TourDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -96,6 +97,21 @@ public class TourServiceImpl implements TourService {
         tourRepository.deleteById(id);
     }
 
+//    @Transactional
+//    @Override
+//    public void addUserToTour(Integer tourId) {
+//        AppUser tourUser = userService.getUserFromLogin();
+//
+//        Tour tour = tourRepository.findById(tourId)
+//                .orElseThrow(() -> new ResourceNotFoundException("Tour not found"));
+//
+//        tour.getSubscribers().add(tourUser);
+//        tourUser.getTours().add(tour);
+//
+//        userService.saveUser(tourUser);
+//        tourRepository.save(tour);
+//    }
+
     @Transactional
     @Override
     public void addUserToTour(Integer tourId) {
@@ -104,12 +120,25 @@ public class TourServiceImpl implements TourService {
         Tour tour = tourRepository.findById(tourId)
                 .orElseThrow(() -> new ResourceNotFoundException("Tour not found"));
 
-        tour.getSubscribers().add(tourUser);
-        tourUser.getTours().add(tour);
+        tour.addUserToTour(tourUser);
 
-        userService.saveUser(tourUser);
         tourRepository.save(tour);
     }
+
+//    @Transactional
+//    @Override
+//    public void removeUserFromTour(Integer tourId) {
+//        AppUser tourUser = userService.getUserFromLogin();
+//
+//        Tour tour = tourRepository.findById(tourId)
+//                .orElseThrow(() -> new ResourceNotFoundException("Tour not found"));
+//
+//        tour.getSubscribers().remove(tourUser);
+//        tourUser.getTours().remove(tour);
+//
+//        userService.saveUser(tourUser);
+//        tourRepository.save(tour);
+//    }
 
     @Transactional
     @Override
@@ -119,12 +148,25 @@ public class TourServiceImpl implements TourService {
         Tour tour = tourRepository.findById(tourId)
                 .orElseThrow(() -> new ResourceNotFoundException("Tour not found"));
 
-        tour.getSubscribers().remove(tourUser);
-        tourUser.getTours().remove(tour);
+        tour.removeUserFromTour(tourUser);
 
-        userService.saveUser(tourUser);
         tourRepository.save(tour);
     }
+
+//    @Override
+//    public void removeUserFromTour(Integer tourId) {
+//        AppUser tourUser = userService.getUserFromLogin();
+//
+//        Tour tour = tourRepository.findById(tourId)
+//                .orElseThrow(() -> new ResourceNotFoundException("Tour not found"));
+//
+//        tour.getSubscribers().remove(tourUser);
+//        tourUser.getTours().remove(tour);
+//
+//        userService.saveUser(tourUser);
+//        tourRepository.save(tour);
+//    }
+
 
     @Override
     public List<ReservationDetailsDto> getTourReservations(Integer tourId) {
