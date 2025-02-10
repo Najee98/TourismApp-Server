@@ -20,21 +20,21 @@ public class ReservationController {
     }
 
     @GetMapping("/{id}")
-   // @PreAuthorize("hasAuthority('reservations:getReservation')")
+    @PreAuthorize("hasAnyAuthority('reservations:getReservation')")
     public ResponseEntity<ReservationDetailsDto> getReservationById(@PathVariable Integer id) {
         ReservationDetailsDto reservation = reservationService.getReservationById(id);
         return ResponseEntity.ok(reservation);
     }
 
     @PostMapping()
-   // @PreAuthorize("hasAuthority('reservations:createReservation')")
+    @PreAuthorize("hasAnyAuthority('reservations:createReservation')")
     public ResponseEntity<Object> createReservation(@RequestBody ReservationDto request) {
         reservationService.createReservation(request);
         return new ResponseEntity<>("{ \"message\": \" created successfully  \" }", HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-  //  @PreAuthorize("hasAuthority('reservations:updateReservation')")
+    @PreAuthorize("hasAnyAuthority('reservations:updateReservation')")
     public ResponseEntity<Object> updateReservation(
             @PathVariable Integer id, 
             @RequestBody ReservationDto request) {
@@ -44,7 +44,7 @@ public class ReservationController {
     }
 
     @DeleteMapping("/{id}")
-  //  @PreAuthorize("hasAuthority('reservations:deleteReservation')")
+    @PreAuthorize("hasAnyAuthority('reservations:deleteReservation')")
     public ResponseEntity<Object> deleteReservation(@PathVariable Integer id) {
         reservationService.deleteReservation(id);
         return new ResponseEntity<>("{ \"message\": \" deleted successfully  \" }", HttpStatus.NO_CONTENT);

@@ -23,33 +23,33 @@ public class AttractionController {
     }
 
     @GetMapping
-    //@PreAuthorize("hasAuthority('attractions:viewAttractions')")
+    @PreAuthorize("hasAnyAuthority('attractions:viewAttractions')")
     public ResponseEntity<List<AttractionDto>> getAllAttractions() {
         return ResponseEntity.ok(attractionService.getAllTouristAttractions());
     }
 
     @GetMapping("/{attractionId}")
-    //@PreAuthorize("hasAuthority('attractions:getAttractions')")
+    @PreAuthorize("hasAnyAuthority('attractions:getAttractions')")
     public ResponseEntity<AttractionDto> getAttractionById(@PathVariable Integer attractionId) {
         return ResponseEntity.ok(attractionService.getTouristAttractionDetails(attractionId));
     }
 
     @PostMapping
-    //@PreAuthorize("hasAuthority('attractions:createAttraction')")
+    @PreAuthorize("hasAnyAuthority('attractions:createAttraction')")
     public ResponseEntity<String> createAttraction(@RequestBody CreateAttractionDto request) {
         attractionService.createTouristAttraction(request);
         return new ResponseEntity<>("{ \"message\": \" Created successfully  \" }", HttpStatus.CREATED);
     }
 
     @PutMapping
-   // @PreAuthorize("hasAuthority('attractions:updateAttraction')")
+    @PreAuthorize("hasAnyAuthority('attractions:updateAttraction')")
     public ResponseEntity<String> updateAttraction(@RequestBody AttractionDto request) {
         attractionService.updateTouristAttraction(request);
         return new ResponseEntity<>("{ \"message\": \" Updated successfully  \" }", HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{id}")
-  //  @PreAuthorize("hasAuthority('attractions:deleteAttraction')")
+    @PreAuthorize("hasAnyAuthority('attractions:deleteAttraction')")
     public ResponseEntity<String> deleteAttraction(@PathVariable Integer id) {
         attractionService.deleteTouristAttraction(id);
         return new ResponseEntity<>("{ \"message\": \" Deleted successfully  \" }", HttpStatus.NO_CONTENT);

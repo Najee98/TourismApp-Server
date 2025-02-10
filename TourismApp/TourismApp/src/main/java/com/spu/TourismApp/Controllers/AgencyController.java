@@ -47,34 +47,34 @@ public class AgencyController {
     }
 
     @PostMapping
-    //@PreAuthorize("hasAnyRole('agencies:createAgency')")
+    @PreAuthorize("hasAnyAuthority('agencies:createAgency')")
     public ResponseEntity<String> createAgency(@RequestBody CreateAgencyDto request) {
         agencyService.createAgency(request);
         return new ResponseEntity<>("{ \"message\": \" Created successfully  \" }", HttpStatus.CREATED);
     }
 
     @PutMapping
-    //@PreAuthorize("hasAuthority('agencies:updateAgency')")
+    @PreAuthorize("hasAnyAuthority('agencies:updateAgency')")
     public ResponseEntity<String> updateAgency(@RequestBody AgencyDto request) {
         agencyService.updateAgency(request);
         return new ResponseEntity<>("{ \"message\": \" Updated successfully  \" }", HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{id}")
-    //@PreAuthorize("hasAuthority('agencies:deleteAgency')")
+    @PreAuthorize("hasAnyAuthority('agencies:deleteAgency')")
     public ResponseEntity<String> deleteAgency(@PathVariable Integer id) {
         agencyService.deleteAgency(id);
         return new ResponseEntity<>("{ \"message\": \" Deleted successfully  \" }", HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/reservations")
-    //@PreAuthorize("hasAuthority('agencies:viewAgencyReservations')")
+    @PreAuthorize("hasAnyAuthority('agencies:viewAgencyReservations')")
     public ResponseEntity<List<ReservationDetailsDto>> getAgencyReservations() {
         return new ResponseEntity<>(agencyService.getAgencyReservations(), HttpStatus.OK);
     }
 
     @GetMapping("/users")
-    //@PreAuthorize("hasAuthority('agencies:getAllUsersForAgencies')")
+    @PreAuthorize("hasAnyAuthority('agencies:getAllUsersForAgencies')")
     public ResponseEntity<List<ManagementUserDto>> getAllUsersForAgencies(){
         return new ResponseEntity<>(userService.getAllUsersForAgencies(), HttpStatus.OK);
     }
