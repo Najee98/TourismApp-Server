@@ -1,6 +1,7 @@
 package com.spu.TourismApp.Services;
 
 import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundException;
+import com.spu.TourismApp.Models.AppUser;
 import com.spu.TourismApp.Models.Restaurant;
 import com.spu.TourismApp.Repositories.ReservationRepository;
 import com.spu.TourismApp.Repositories.RestaurantRepository;
@@ -70,6 +71,7 @@ public class RestaurantServiceImpl implements RestaurantService{
     @Override
     public void createRestaurant(CreateRestaurantDto request) {
         Restaurant restaurant = new Restaurant();
+        AppUser restaurantManager = userService.getUserById(request.getManagerId());
 
         restaurant.setName(request.getName());
         restaurant.setDescription(request.getDescription());
@@ -77,9 +79,9 @@ public class RestaurantServiceImpl implements RestaurantService{
         restaurant.setPhone(request.getPhone());
         restaurant.setImageUrl(request.getImageUrl());
         restaurant.setAvailableTables(request.getAvailableTables());
-        restaurant.setManager(
-                userService.getUserById(request.getManagerId())
-        );
+        restaurant.setManager(restaurantManager);
+
+        restaurantManager.setRestaurant(restaurant);
 
         restaurantRepository.save(restaurant);
     }

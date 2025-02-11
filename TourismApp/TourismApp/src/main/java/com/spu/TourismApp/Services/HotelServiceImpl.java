@@ -1,6 +1,7 @@
 package com.spu.TourismApp.Services;
 
 import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundException;
+import com.spu.TourismApp.Models.AppUser;
 import com.spu.TourismApp.Models.Hotel;
 import com.spu.TourismApp.Models.Reservation;
 import com.spu.TourismApp.Repositories.HotelRepository;
@@ -70,6 +71,7 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public Hotel createHotel(CreateHotelDto request) {
         Hotel hotel = new Hotel();
+        AppUser hotelManager = userService.getUserById(request.getManagerId());
 
         hotel.setName(request.getName());
         hotel.setAddress(request.getAddress());
@@ -77,10 +79,9 @@ public class HotelServiceImpl implements HotelService {
         hotel.setDescription(request.getDescription());
         hotel.setImageUrl(request.getImageUrl());
         hotel.setAvailableRooms(request.getAvailableRooms());
-        hotel.setManager(
-                userService.getUserById(request.getManagerId())
-        );
-//        hotel = mapDtoToHotel(hotel, request);
+        hotel.setManager(hotelManager);
+
+        hotelManager.setHotel(hotel);
 
         return hotelRepository.save(hotel);
     }
