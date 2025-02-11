@@ -18,6 +18,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Tour {
 
     @Id
@@ -35,25 +36,25 @@ public class Tour {
     @JoinColumn(name = "agency_id", nullable = false)
     Agency agency;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "user_tours",
             joinColumns = @JoinColumn(name = "tour_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    @JsonManagedReference
-    List<AppUser> subscribers = new ArrayList<>();
+//    @JsonBackReference
+    public List<AppUser> subscribers = new ArrayList<>();
 
     private Date startDate;
 
     private Date endDate;
 
     public void addUserToTour(AppUser user) {
-        subscribers.add(user);
+        this.subscribers.add(user);
         user.getTours().add(this);
     }
 
     public void removeUserFromTour(AppUser user) {
-        subscribers.remove(user);
+        this.subscribers.remove(user);
         user.getTours().remove(this);
     }
 

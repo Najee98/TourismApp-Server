@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -36,7 +37,7 @@ public class TourServiceImpl implements TourService {
         for (Tour tour : tours) {
             TourDto dto = new TourDto();
 
-            dto = convertToDto(tour);
+            dto = utilsService.convertTourToDto(tour);
 
             response.add(dto);
         }
@@ -47,7 +48,7 @@ public class TourServiceImpl implements TourService {
     public TourDto getTourById(Integer id) {
         Tour tour = tourRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Tour not found"));
-        return convertToDto(tour);
+        return utilsService.convertTourToDto(tour);
     }
 
     @Override
@@ -97,21 +98,6 @@ public class TourServiceImpl implements TourService {
         tourRepository.deleteById(id);
     }
 
-//    @Transactional
-//    @Override
-//    public void addUserToTour(Integer tourId) {
-//        AppUser tourUser = userService.getUserFromLogin();
-//
-//        Tour tour = tourRepository.findById(tourId)
-//                .orElseThrow(() -> new ResourceNotFoundException("Tour not found"));
-//
-//        tour.getSubscribers().add(tourUser);
-//        tourUser.getTours().add(tour);
-//
-//        userService.saveUser(tourUser);
-//        tourRepository.save(tour);
-//    }
-
     @Transactional
     @Override
     public void addUserToTour(Integer tourId) {
@@ -125,54 +111,31 @@ public class TourServiceImpl implements TourService {
         tourRepository.save(tour);
     }
 
-//    @Transactional
-//    @Override
-//    public void removeUserFromTour(Integer tourId) {
-//        AppUser tourUser = userService.getUserFromLogin();
-//
-//        Tour tour = tourRepository.findById(tourId)
-//                .orElseThrow(() -> new ResourceNotFoundException("Tour not found"));
-//
-//        tour.getSubscribers().remove(tourUser);
-//        tourUser.getTours().remove(tour);
-//
-//        userService.saveUser(tourUser);
-//        tourRepository.save(tour);
-//    }
-
     @Transactional
     @Override
     public void removeUserFromTour(Integer tourId) {
         AppUser tourUser = userService.getUserFromLogin();
 
-        Tour tour = tourRepository.findById(tourId)
-                .orElseThrow(() -> new ResourceNotFoundException("Tour not found"));
-
-        tour.removeUserFromTour(tourUser);
-
-        tourRepository.save(tour);
-    }
-
-//    @Override
-//    public void removeUserFromTour(Integer tourId) {
-//        AppUser tourUser = userService.getUserFromLogin();
-//
 //        Tour tour = tourRepository.findById(tourId)
 //                .orElseThrow(() -> new ResourceNotFoundException("Tour not found"));
-//
-//        tour.getSubscribers().remove(tourUser);
-//        tourUser.getTours().remove(tour);
-//
-//        userService.saveUser(tourUser);
-//        tourRepository.save(tour);
-//    }
 
+//        Tour tour = tourRepository.findTourWithUsers(tourId);
+
+        Optional<Tour> tour = Optional.ofNullable(
+                tourRepository.findById(tourId)
+                        .orElseThrow(() -> new ResourceNotFoundException("Tour not found"))
+        );
+
+        tour.get().removeUserFromTour(tourUser);
+
+        tourRepository.save(tour.get());
+    }
 
     @Override
     public List<ReservationDetailsDto> getTourReservations(Integer tourId) {
         List<Reservation> reservations = reservationService.getTourReservations(tourId);
 
-        List<ReservationDetailsDto> response = convertToDetailsDto(reservations);
+        List<ReservationDetailsDto> response = utilsService.convertToDetailsDto(reservations);
 
         return response;
     }
@@ -187,59 +150,11 @@ public class TourServiceImpl implements TourService {
 
         for (Tour tour : tours) {
             TourDto dto = new TourDto();
-            dto = convertToDto(tour);
+            dto = utilsService.convertTourToDto(tour);
             response.add(dto);
         }
 
         return response;
-    }
-
-    private TourDto convertToDto(Tour tour) {
-
-        return new TourDto(
-            tour.getId(),
-            tour.getName(),
-            utilsService.mapAgencyToDto(tour.getAgency()),
-            convertToDetailsDto(tour.getReservations()),
-            tour.getStartDate(),
-            tour.getEndDate()
-        );
-    }
-
-    private List<ReservationDetailsDto> convertToDetailsDto (List<Reservation> reservations) {
-
-        List<ReservationDetailsDto> reservationDetailsList = new ArrayList<>();
-
-        for(Reservation reservation : reservations) {
-            ReservationDetailsDto dto = new ReservationDetailsDto();
-
-            dto.setReservationId(reservation.getId());
-            dto.setReservationType(reservation.getReservationType());
-            dto.setAgencyId(reservation.getAgency().getId());
-
-            if (reservation.getHotel() != null) {
-                dto.setRelatedId(reservation.getHotel().getId());
-                dto.setRelatedName(reservation.getHotel().getName());
-            }
-
-            if (reservation.getRestaurant() != null) {
-                dto.setRelatedId(reservation.getRestaurant().getId());
-                dto.setRelatedName(reservation.getRestaurant().getName());
-            }
-
-            if (reservation.getAttraction() != null) {
-                dto.setRelatedId(reservation.getAttraction().getId());
-                dto.setRelatedName(reservation.getAttraction().getName());
-            }
-
-            dto.setFromDate(reservation.getFromDate());
-            dto.setToDate(reservation.getToDate());
-
-            reservationDetailsList.add(dto);
-
-        }
-
-        return reservationDetailsList;
     }
 
 }

@@ -23,7 +23,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     @Query("select new com.spu.TourismApp.Shared.Dto.Hotel.HotelReservationDto(" +
             "r.id," +
             "h.id," +
-//            "r.user.firstName," +
             "h.name," +
             "r.fromDate," +
             "r.toDate)" +
@@ -34,7 +33,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     @Query("select new com.spu.TourismApp.Shared.Dto.Restaurant.RestaurantReservationDto(" +
             "rs.id," +
             "rt.id," +
-//            "rs.user.firstName," +
             "rt.name," +
             "rs.fromDate," +
             "rs.toDate)" +
@@ -50,26 +48,5 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 
     @Query("select r from Reservation r join r.agency a where a.id = :agencyId")
     List<Reservation> getAgencyReservations(@Param("agencyId") Integer agencyId);
-
-//    @Query("select new com.spu.TourismApp.Shared.Dto.Reservation.ReservationDto( " +
-//            "r.id, " +
-//            "r.user.firstName, " +
-//            "r.reservationType, " +
-//            "r.attractions, " +
-//            "r.restaurants, " +
-//            "r.hotels) " +
-//            "from Reservation r")
-//    List<ReservationDto> findAllReservations();
-//
-//    @Query("select new com.spu.TourismApp.Shared.Dto.Reservation.ReservationDto( " +
-//            "r.id, " +
-//            "r.user.firstName, " +
-//            "r.reservationType, " +
-//            "r.attractions, " +
-//            "r.restaurants, " +
-//            "r.hotels) " +
-//            "from Reservation r " +
-//            "where r.id = :id")
-//    ReservationDto findReservationById(@Param("id") Integer id);
 
 }

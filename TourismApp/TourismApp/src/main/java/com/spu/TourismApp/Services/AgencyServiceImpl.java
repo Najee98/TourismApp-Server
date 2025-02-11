@@ -4,6 +4,7 @@ import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundExc
 import com.spu.TourismApp.Models.AppUser;
 import com.spu.TourismApp.Models.Reservation;
 import com.spu.TourismApp.Models.Agency;
+import com.spu.TourismApp.Models.Tour;
 import com.spu.TourismApp.Models.Utils.Role;
 import com.spu.TourismApp.Repositories.AppUserRepository;
 import com.spu.TourismApp.Repositories.ReservationRepository;
@@ -14,6 +15,7 @@ import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDetailsDto;
 import com.spu.TourismApp.Shared.Dto.Agency.AgencyTourDto;
 import com.spu.TourismApp.Shared.Dto.Agency.AgencyDto;
 import com.spu.TourismApp.Shared.Dto.Agency.CreateAgencyDto;
+import com.spu.TourismApp.Shared.Dto.Tour.TourDto;
 import lombok.AllArgsConstructor;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
@@ -54,26 +56,41 @@ public class AgencyServiceImpl implements AgencyService {
         return response;
     }
 
-    public List<AgencyTourDto> getAgencyTours() {
-        List<AgencyTourDto> tours = tourRepository.getAgencyTours(
+    public List<TourDto> getAgencyTours() {
+
+        List<Tour> tours = tourRepository.findAllToursByAgency(
                 utilsService.getLoggedInUserAgency().getId()
         );
 
-        for (AgencyTourDto tour : tours) {
-            List<Reservation> reservations = fetchReservationsByTourId(tour.getTourId());
-            List<ReservationDetailsDto> reservationDtos = reservations.stream()
-                    .map(this::mapReservationToDto)
-                    .collect(Collectors.toList());
-            tour.setReservations(reservationDtos);
-        }
+        List<TourDto> response = new ArrayList<>();
 
-        return tours;
+        for (Tour tour : tours) {
+            TourDto dto = new TourDto();
+
+            dto = utilsService.convertTourToDto(tour);
+
+            response.add(dto);
+        }
+        return response;
+
+//        List<AgencyTourDto> tours = tourRepository.getAgencyTours(
+//                utilsService.getLoggedInUserAgency().getId()
+//        );
+//
+//        for (AgencyTourDto tour : tours) {
+//            List<Reservation> reservations = fetchReservationsByTourId(tour.getTourId());
+//            List<ReservationDetailsDto> reservationDtos = reservations.stream()
+//                    .map(this::mapReservationToDto)
+//                    .collect(Collectors.toList());
+//            tour.setReservations(reservationDtos);
+//        }
+//
+//        return tours;
     }
 
     @Override
     public List<ReservationDetailsDto> getAgencyReservations() {
         Agency requetedAgency = utilsService.getLoggedInUserAgency();
-
 
         List<Reservation> reservations = reservationRepository.getAgencyReservations(requetedAgency.getId());
 

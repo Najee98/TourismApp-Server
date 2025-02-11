@@ -7,6 +7,7 @@ import com.spu.TourismApp.Shared.Dto.Agency.AgencyTourDto;
 import com.spu.TourismApp.Shared.Dto.Agency.CreateAgencyDto;
 import com.spu.TourismApp.Shared.Dto.Agency.AgencyDto;
 import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDetailsDto;
+import com.spu.TourismApp.Shared.Dto.Tour.TourDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +43,7 @@ public class AgencyController {
 
     @GetMapping("/tours")
     //@PreAuthorize("hasAuthority('agencies:viewAgencyTours')")
-    public ResponseEntity<List<AgencyTourDto>> getAgencyTours() {
+    public ResponseEntity<List<TourDto>> getAgencyTours() {
         return new ResponseEntity<>(agencyService.getAgencyTours(), HttpStatus.OK);
     }
 

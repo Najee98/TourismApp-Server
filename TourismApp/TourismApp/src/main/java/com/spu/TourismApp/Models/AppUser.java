@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.spu.TourismApp.Models.Utils.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@ToString
 @Table(name = "users")
 public class AppUser implements UserDetails {
 
@@ -73,9 +71,9 @@ public class AppUser implements UserDetails {
         return true;
     }
 
-    @ManyToMany(mappedBy = "subscribers", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JsonBackReference
-    List<Tour> tours = new ArrayList<>();
+    @ManyToMany(mappedBy = "subscribers", cascade = CascadeType.ALL)
+//    @JsonManagedReference
+    public List<Tour> tours = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Agency agency;
@@ -85,15 +83,4 @@ public class AppUser implements UserDetails {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Restaurant restaurant;
-
-    @Override
-    public String toString() {
-        return "AppUser{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
-
 }

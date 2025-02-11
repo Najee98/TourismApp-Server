@@ -28,22 +28,27 @@ public interface TourRepository extends JpaRepository<Tour, Integer> {
 //            "WHERE t.agency.id = :agencyId")
 //    List<AgencyTourDbResult> getAgencyTours(@Param("agencyId") Integer agencyId);
 
-    @Query("SELECT new com.spu.TourismApp.Shared.Dto.Agency.AgencyTourDto(" +
-            "t.id, " +
-            "t.agency.id, " +
-            "t.agency.name, " +
-            "t.name, " +
-            "t.startDate, " +
-            "t.endDate) " +
-            "FROM Tour t " +
-            "WHERE t.agency.id = :agencyId")
-    List<AgencyTourDto> getAgencyTours(@Param("agencyId") Integer agencyId);
+//    @Query("SELECT new com.spu.TourismApp.Shared.Dto.Tour.TourDto(" +
+//            "t.id," +
+//            "t.name," +
+//            ")" +
+//            "FROM Tour t " +
+//            "WHERE t.agency.id = :agencyId")
+//    List<AgencyTourDto> getAgencyTours(@Param("agencyId") Integer agencyId);
 
     @Query("select t " +
             "from Tour t " +
             "join t.subscribers u " +
             "where u.id = :userId")
     List<Tour> findAllByUser(@Param("userId") Integer userId);
+
+    @Query("select t from Tour t " +
+            "join fetch t.subscribers " +
+            "where t.id = :tourId")
+    Tour findTourWithUsers(@Param("tourId") Integer tourId);
+
+    @Query("select t from Tour t where t.agency.id = :agencyId")
+    List<Tour> findAllToursByAgency(@Param("agencyId") Integer agencyId);
 
 
 //    @Query("select new com.spu.TourismApp.Shared.Dto.TravellingAgency.AgencyTourDto(" +
