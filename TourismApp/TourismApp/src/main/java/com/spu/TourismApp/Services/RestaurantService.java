@@ -1,6 +1,7 @@
 package com.spu.TourismApp.Services;
 
 import com.spu.TourismApp.Models.Restaurant;
+import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDetailsDto;
 import com.spu.TourismApp.Shared.Dto.Restaurant.CreateRestaurantDto;
 import com.spu.TourismApp.Shared.Dto.Restaurant.RestaurantDto;
 import com.spu.TourismApp.Shared.Dto.Restaurant.RestaurantReservationDto;
@@ -21,5 +22,5 @@ public interface RestaurantService {
 
     void deleteRestaurant(Integer id);
 
-    List<RestaurantReservationDto> getRestaurantReservations();
+    List<ReservationDetailsDto> getRestaurantReservations();
 }

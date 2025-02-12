@@ -6,6 +6,7 @@ import com.spu.TourismApp.Shared.Dto.Agency.ManagementUserDto;
 import com.spu.TourismApp.Shared.Dto.Hotel.CreateHotelDto;
 import com.spu.TourismApp.Shared.Dto.Hotel.HotelDto;
 import com.spu.TourismApp.Shared.Dto.Hotel.HotelReservationDto;
+import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDetailsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,7 @@ public class HotelController {
 
     @GetMapping("/reservations")
  //   @PreAuthorize("hasAuthority('hotels:getAllHotelReservations')")
-    public ResponseEntity<List<HotelReservationDto>> getHotelReservations() {
+    public ResponseEntity<List<ReservationDetailsDto>> getHotelReservations() {
         return new ResponseEntity<>(hotelService.getHotelReservations(), HttpStatus.OK);
     }
 

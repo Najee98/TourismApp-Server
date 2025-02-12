@@ -14,6 +14,7 @@ public class RestaurantReservationDto implements Serializable {
 
     Integer reservationId;
     Integer restaurantId;
+    Integer agencyId;
 //    String reservationUser;
     String restaurantName;
     Date fromDate;

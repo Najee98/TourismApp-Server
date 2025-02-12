@@ -5,6 +5,7 @@ import com.spu.TourismApp.Shared.Dto.Agency.ManagementUserDto;
 import com.spu.TourismApp.Shared.Dto.Hotel.CreateHotelDto;
 import com.spu.TourismApp.Shared.Dto.Hotel.HotelDto;
 import com.spu.TourismApp.Shared.Dto.Hotel.HotelReservationDto;
+import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDetailsDto;
 
 import java.util.List;
 
@@ -22,6 +23,6 @@ public interface HotelService {
 
     void deleteHotel(Integer id);
 
-    List<HotelReservationDto> getHotelReservations();
+    List<ReservationDetailsDto> getHotelReservations();
 
 }

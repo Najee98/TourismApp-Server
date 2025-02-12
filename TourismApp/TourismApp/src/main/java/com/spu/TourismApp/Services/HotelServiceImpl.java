@@ -4,6 +4,7 @@ import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundExc
 import com.spu.TourismApp.Models.AppUser;
 import com.spu.TourismApp.Models.Hotel;
 import com.spu.TourismApp.Models.Reservation;
+import com.spu.TourismApp.Models.Utils.ReservationType;
 import com.spu.TourismApp.Repositories.HotelRepository;
 import com.spu.TourismApp.Repositories.ReservationRepository;
 import com.spu.TourismApp.Services.Utils.UtilsService;
@@ -11,6 +12,7 @@ import com.spu.TourismApp.Shared.Dto.Agency.ManagementUserDto;
 import com.spu.TourismApp.Shared.Dto.Hotel.CreateHotelDto;
 import com.spu.TourismApp.Shared.Dto.Hotel.HotelDto;
 import com.spu.TourismApp.Shared.Dto.Hotel.HotelReservationDto;
+import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDetailsDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -62,10 +64,28 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public List<HotelReservationDto> getHotelReservations() {
+    public List<ReservationDetailsDto> getHotelReservations() {
 
         Integer hotelId = utilsService.getLoggedInUserHotel().getId();
-        return reservationRepository.getHotelReservations(hotelId);
+
+        List<HotelReservationDto> hotelReservationsList = reservationRepository.getHotelReservations(hotelId);
+
+        List<ReservationDetailsDto> response = new ArrayList<>();
+
+        for (HotelReservationDto reservation : hotelReservationsList) {
+            ReservationDetailsDto dto = new ReservationDetailsDto();
+
+            dto.setReservationType(ReservationType.HOTEL_RESERVATION);
+            dto.setReservationId(reservation.getReservationId());
+            dto.setRelatedName(reservation.getHotelName());
+            dto.setRelatedId(reservation.getHotelId());
+            dto.setAgencyId(reservation.getAgencyId());
+            dto.setFromDate(reservation.getFromDate());
+            dto.setToDate(reservation.getToDate());
+
+            response.add(dto);
+        }
+        return response;
     }
 
     @Override

@@ -72,20 +72,6 @@ public class AgencyServiceImpl implements AgencyService {
             response.add(dto);
         }
         return response;
-
-//        List<AgencyTourDto> tours = tourRepository.getAgencyTours(
-//                utilsService.getLoggedInUserAgency().getId()
-//        );
-//
-//        for (AgencyTourDto tour : tours) {
-//            List<Reservation> reservations = fetchReservationsByTourId(tour.getTourId());
-//            List<ReservationDetailsDto> reservationDtos = reservations.stream()
-//                    .map(this::mapReservationToDto)
-//                    .collect(Collectors.toList());
-//            tour.setReservations(reservationDtos);
-//        }
-//
-//        return tours;
     }
 
     @Override

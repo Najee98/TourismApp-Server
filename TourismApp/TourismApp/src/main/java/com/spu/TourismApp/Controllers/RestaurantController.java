@@ -3,6 +3,7 @@ package com.spu.TourismApp.Controllers;
 import com.spu.TourismApp.Services.RestaurantService;
 import com.spu.TourismApp.Services.UserService;
 import com.spu.TourismApp.Shared.Dto.Agency.ManagementUserDto;
+import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDetailsDto;
 import com.spu.TourismApp.Shared.Dto.Restaurant.CreateRestaurantDto;
 import com.spu.TourismApp.Shared.Dto.Restaurant.RestaurantDto;
 import com.spu.TourismApp.Shared.Dto.Restaurant.RestaurantReservationDto;
@@ -42,7 +43,7 @@ public class RestaurantController {
 
     @GetMapping("/reservations")
     @PreAuthorize("hasAnyAuthority('restaurants:getAllRestaurantReservations')")
-    public ResponseEntity<List<RestaurantReservationDto>> getRestaurantReservations() {
+    public ResponseEntity<List<ReservationDetailsDto>> getRestaurantReservations() {
         return new ResponseEntity<>(restaurantService.getRestaurantReservations(), HttpStatus.OK);
     }
 
