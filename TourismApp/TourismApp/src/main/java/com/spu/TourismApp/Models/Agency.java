@@ -24,7 +24,9 @@ public class Agency {
     String phone;
     String imageUrl;
 
-    @OneToOne(fetch = FetchType.EAGER, optional = false)
+    @OneToOne
     AppUser manager;
 
+    @OneToMany(mappedBy = "agency", cascade = CascadeType.ALL)
+    List<Tour> tour;
 }

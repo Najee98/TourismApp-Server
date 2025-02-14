@@ -17,5 +17,7 @@ public interface UserService {
 
     List<ManagementUserDto> getAllUsersForRestaurants();
 
+    AppUser getUserWithTours(Integer userId);
+
     void saveUser(AppUser user);
 }

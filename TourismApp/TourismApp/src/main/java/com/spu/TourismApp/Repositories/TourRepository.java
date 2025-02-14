@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface TourRepository extends JpaRepository<Tour, Integer> {
@@ -42,10 +43,8 @@ public interface TourRepository extends JpaRepository<Tour, Integer> {
             "where u.id = :userId")
     List<Tour> findAllByUser(@Param("userId") Integer userId);
 
-    @Query("select t from Tour t " +
-            "join fetch t.subscribers " +
-            "where t.id = :tourId")
-    Tour findTourWithUsers(@Param("tourId") Integer tourId);
+    @Query("SELECT t FROM Tour t JOIN FETCH t.subscribers WHERE t.id = :tourId")
+    Optional<Tour> findByIdWithUsers(@Param("tourId") Integer tourId);
 
     @Query("select t from Tour t where t.agency.id = :agencyId")
     List<Tour> findAllToursByAgency(@Param("agencyId") Integer agencyId);

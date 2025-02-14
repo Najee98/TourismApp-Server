@@ -4,6 +4,7 @@ import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundExc
 import com.spu.TourismApp.Models.AppUser;
 import com.spu.TourismApp.Repositories.AppUserRepository;
 import com.spu.TourismApp.Shared.Dto.Agency.ManagementUserDto;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
@@ -97,9 +99,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public AppUser getUserWithTours(Integer userId) {
+        return userRepository.findByIdWithTours(userId).get();
+    }
+
+    @Override
     public void saveUser(AppUser user) {
         userRepository.save(user);
     }
+
+
 
 
 }

@@ -4,6 +4,7 @@ import com.spu.TourismApp.Models.AppUser;
 import com.spu.TourismApp.Models.Utils.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,4 +23,7 @@ public interface AppUserRepository extends JpaRepository<AppUser, Integer> {
 
     @Query("select a from AppUser a where a.role = 'RESTAURANT_MANAGER' ")
     List<AppUser> getAllUsersForRestaurants();
+
+    @Query("SELECT u FROM AppUser u JOIN FETCH u.tours WHERE u.id = :userId")
+    Optional<AppUser> findByIdWithTours(@Param("userId") Integer userId);
 }

@@ -10,9 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Data
 @Builder
@@ -30,6 +28,7 @@ public class AppUser implements UserDetails {
     String lastName;
     String imageUrl;
     String email;
+    @JsonIgnore
     String password;
 
     @Enumerated(EnumType.STRING)
@@ -71,9 +70,13 @@ public class AppUser implements UserDetails {
         return true;
     }
 
-    @ManyToMany(mappedBy = "subscribers", cascade = CascadeType.ALL)
-//    @JsonManagedReference
-    public List<Tour> tours = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "user_tours",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "tour_id")
+    )
+    public Set<Tour> tours = new HashSet<>();
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Agency agency;

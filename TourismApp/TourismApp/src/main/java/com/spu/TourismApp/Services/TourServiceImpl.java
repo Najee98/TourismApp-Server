@@ -12,7 +12,6 @@ import com.spu.TourismApp.Shared.Dto.Tour.CreateTourDto;
 import com.spu.TourismApp.Shared.Dto.Tour.TourDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class TourServiceImpl implements TourService {
 
@@ -52,7 +52,6 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    @Transactional
     public void createTour(CreateTourDto request) {
         Tour tour = new Tour();
 
@@ -98,37 +97,31 @@ public class TourServiceImpl implements TourService {
         tourRepository.deleteById(id);
     }
 
-    @Transactional
     @Override
     public void addUserToTour(Integer tourId) {
-        AppUser tourUser = userService.getUserFromLogin();
+        Integer tourUserId = userService.getUserFromLogin().getId();
 
-        Tour tour = tourRepository.findById(tourId)
-                .orElseThrow(() -> new ResourceNotFoundException("Tour not found"));
+        AppUser tourUser = userService.getUserById(tourUserId);
+        Tour tour = tourRepository.findById(tourId).get();
 
-        tour.addUserToTour(tourUser);
+        tourUser.tours.add(tour);
+        tour.subscribers.add(tourUser);
 
+        userService.saveUser(tourUser);
         tourRepository.save(tour);
     }
 
-    @Transactional
     @Override
     public void removeUserFromTour(Integer tourId) {
         AppUser tourUser = userService.getUserFromLogin();
-
-//        Tour tour = tourRepository.findById(tourId)
-//                .orElseThrow(() -> new ResourceNotFoundException("Tour not found"));
-
-//        Tour tour = tourRepository.findTourWithUsers(tourId);
 
         Optional<Tour> tour = Optional.ofNullable(
                 tourRepository.findById(tourId)
                         .orElseThrow(() -> new ResourceNotFoundException("Tour not found"))
         );
 
-        tour.get().removeUserFromTour(tourUser);
-
-        tourRepository.save(tour.get());
+        userService.saveUser(tourUser);
+        tourUser.getTours().remove(tour.get());
     }
 
     @Override

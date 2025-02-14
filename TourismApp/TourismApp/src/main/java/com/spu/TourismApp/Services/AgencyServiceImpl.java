@@ -166,7 +166,8 @@ public class AgencyServiceImpl implements AgencyService {
                 dto.getAddress(),
                 dto.getPhone(),
                 dto.getImageUrl(),
-                userRepository.findById(dto.getManagerId()).get()
+                userRepository.findById(dto.getManagerId()).get(),
+                null
         );
     }
 

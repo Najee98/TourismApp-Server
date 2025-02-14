@@ -163,7 +163,8 @@ public class DataSeeder implements CommandLineRunner {
                     "West-side yo",
                     "011 123456",
                     "testImage7",
-                    user
+                    user,
+                    null
             );
             agencyRepository.save(agency);
 
@@ -180,7 +181,8 @@ public class DataSeeder implements CommandLineRunner {
                     "East-siiiide",
                     "099 654321",
                     "testImage8",
-                    user
+                    user,
+                    null
             );
             agencyRepository.save(agency);
 

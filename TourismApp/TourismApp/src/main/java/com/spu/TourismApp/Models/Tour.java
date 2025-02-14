@@ -9,9 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "tours")
@@ -36,26 +34,11 @@ public class Tour {
     @JoinColumn(name = "agency_id", nullable = false)
     Agency agency;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_tours",
-            joinColumns = @JoinColumn(name = "tour_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-//    @JsonBackReference
-    public List<AppUser> subscribers = new ArrayList<>();
+    @ManyToMany(mappedBy = "tours", cascade = CascadeType.ALL)
+    public Set<AppUser> subscribers = new HashSet<>();
 
     private Date startDate;
 
     private Date endDate;
-
-    public void addUserToTour(AppUser user) {
-        this.subscribers.add(user);
-        user.getTours().add(this);
-    }
-
-    public void removeUserFromTour(AppUser user) {
-        this.subscribers.remove(user);
-        user.getTours().remove(this);
-    }
 
 }
