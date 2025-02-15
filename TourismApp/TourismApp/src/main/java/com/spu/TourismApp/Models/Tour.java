@@ -1,8 +1,6 @@
 package com.spu.TourismApp.Models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +15,7 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Tour {
 
     @Id
@@ -27,14 +26,16 @@ public class Tour {
 
     int maxSubscribersCount;
 
-    @OneToMany(mappedBy = "tour", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "tour", cascade = CascadeType.PERSIST)
     List<Reservation> reservations;
 
-    @ManyToOne
-    @JoinColumn(name = "agency_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "agency_id")
+//    @JsonManagedReference
+    @JsonIgnore
     Agency agency;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_tours",
             joinColumns = @JoinColumn(name = "tour_id"),

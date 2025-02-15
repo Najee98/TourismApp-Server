@@ -1,6 +1,7 @@
 package com.spu.TourismApp.Services;
 
 import com.spu.TourismApp.ExceptionHandling.CustomExceptions.ResourceNotFoundException;
+import com.spu.TourismApp.Models.Agency;
 import com.spu.TourismApp.Models.AppUser;
 import com.spu.TourismApp.Models.Reservation;
 import com.spu.TourismApp.Models.Tour;
@@ -10,6 +11,8 @@ import com.spu.TourismApp.Services.Utils.UtilsService;
 import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDetailsDto;
 import com.spu.TourismApp.Shared.Dto.Tour.CreateTourDto;
 import com.spu.TourismApp.Shared.Dto.Tour.TourDto;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,6 +30,10 @@ public class TourServiceImpl implements TourService {
     private final AgencyRepository agencyRepository;
     private final UserService userService;
     private final UtilsService utilsService;
+
+//    @PersistenceContext
+//    private EntityManager entityManager;
+
 
     @Override
     public List<TourDto> getAllTours() {
@@ -50,6 +57,7 @@ public class TourServiceImpl implements TourService {
         return utilsService.convertTourToDto(tour);
     }
 
+    @Transactional
     @Override
     public void createTour(CreateTourDto request) {
         Tour tour = new Tour();
@@ -60,6 +68,11 @@ public class TourServiceImpl implements TourService {
         tour.setAgency(
                 utilsService.getLoggedInUserAgency()
         );
+
+//        Agency agency = utilsService.getLoggedInUserAgency();
+//        Agency attachedAgency = entityManager.find(Agency.class, agency.getId());
+
+       // tour.setAgency(attachedAgency);
 
         tour.setStartDate(request.getStartDate());
         tour.setEndDate(request.getEndDate());
@@ -91,9 +104,33 @@ public class TourServiceImpl implements TourService {
         tourRepository.save(tour);
     }
 
+    @Transactional
     @Override
     public void deleteTour(Integer id) {
-        tourRepository.deleteById(id);
+        Optional<Tour> tourOptional = tourRepository.findById(id);
+
+        if (tourOptional.isPresent()){
+            Tour tour = tourOptional.get();
+
+            Agency tourAgency = tour.getAgency();
+            if (tourAgency != null) {
+                tour.setAgency(null);
+                tourRepository.save(tour);
+            }
+            List<Reservation> tourReservations = tour.getReservations();
+            if (tourReservations != null) {
+                for (Reservation reservation : tourReservations) {
+                    reservation.setTour(null);
+                    reservationService.saveReservation(reservation);
+                }
+                tour.setReservations(null);
+                tourRepository.save(tour);
+            }
+
+            tourRepository.delete(tour);
+        } else {
+            throw new ResourceNotFoundException("Agency not found with id: " + id);
+        }
     }
 
     @Override

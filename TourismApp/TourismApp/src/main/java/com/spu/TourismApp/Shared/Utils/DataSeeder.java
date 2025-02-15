@@ -30,49 +30,49 @@ public class DataSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // Seed Admin User
-        if (userRepository.findByEmail("admin@admin.com").isEmpty()
-            && userRepository.findByEmail("user@user.com").isEmpty()) {
+        if (userRepository.findByEmail("admin@tourism.com").isEmpty()
+            && userRepository.findByEmail("user@tourism.com").isEmpty()) {
 
             AppUser admin = new AppUser();
             admin.setFirstName("admin");
             admin.setLastName("admin");
-            admin.setEmail("admin@admin.com");
-            admin.setPassword(passwordEncoder.encode("admin1234")); // No-op encoding for plain text (use a proper encoder in production)
+            admin.setEmail("admin@tourism.com");
+            admin.setPassword(passwordEncoder.encode("123456")); // No-op encoding for plain text (use a proper encoder in production)
             admin.setRole(ADMIN);
 
             AppUser user = new AppUser();
             user.setFirstName("user");
             user.setLastName("user");
-            user.setEmail("user@user.com");
-            user.setPassword(passwordEncoder.encode("user1234"));
+            user.setEmail("user@tourism.com");
+            user.setPassword(passwordEncoder.encode("123456"));
             user.setRole(USER);
 
             AppUser firstAgency = new AppUser();
             firstAgency.setFirstName("agency1");
             firstAgency.setLastName("agency1");
-            firstAgency.setEmail("agency1@agency1.com");
-            firstAgency.setPassword(passwordEncoder.encode("agency1234"));
+            firstAgency.setEmail("agency1@tourism.com");
+            firstAgency.setPassword(passwordEncoder.encode("123456"));
             firstAgency.setRole(AGENCY_MANAGER);
 
             AppUser secondAgency = new AppUser();
             secondAgency.setFirstName("agency2");
             secondAgency.setLastName("agency2");
-            secondAgency.setEmail("agency2@agency2.com");
-            secondAgency.setPassword(passwordEncoder.encode("agency1234"));
+            secondAgency.setEmail("agency2@tourism.com");
+            secondAgency.setPassword(passwordEncoder.encode("123456"));
             secondAgency.setRole(AGENCY_MANAGER);
 
             AppUser hotel = new AppUser();
             hotel.setFirstName("hotel");
             hotel.setLastName("hotel");
-            hotel.setEmail("hotel@hotel.com");
-            hotel.setPassword(passwordEncoder.encode("hotel1234"));
+            hotel.setEmail("hotel@tourism.com");
+            hotel.setPassword(passwordEncoder.encode("123456"));
             hotel.setRole(HOTEL_MANAGER);
 
             AppUser restaurant = new AppUser();
             restaurant.setFirstName("restaurant");
             restaurant.setLastName("restaurant");
-            restaurant.setEmail("restaurant@restaurant.com");
-            restaurant.setPassword(passwordEncoder.encode("restaurant1234"));
+            restaurant.setEmail("restaurant@tourism.com");
+            restaurant.setPassword(passwordEncoder.encode("123456"));
             restaurant.setRole(RESTAURANT_MANAGER);
 
             userRepository.save(admin);

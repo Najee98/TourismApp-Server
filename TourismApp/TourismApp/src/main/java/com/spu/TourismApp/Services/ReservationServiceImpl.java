@@ -243,4 +243,9 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationRepository.getTourReservations(tourId);
     }
 
+    @Override
+    public void saveReservation(Reservation reservation) {
+        reservationRepository.save(reservation);
+    }
+
 }

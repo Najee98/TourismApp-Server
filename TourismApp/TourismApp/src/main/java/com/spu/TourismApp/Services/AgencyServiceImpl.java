@@ -76,11 +76,12 @@ public class AgencyServiceImpl implements AgencyService {
         return response;
     }
 
+    @Transactional
     @Override
     public List<ReservationDetailsDto> getAgencyReservations() {
-        Agency requetedAgency = utilsService.getLoggedInUserAgency();
+        Agency requestedAgency = utilsService.getLoggedInUserAgency();
 
-        List<Reservation> reservations = reservationRepository.getAgencyReservations(requetedAgency.getId());
+        List<Reservation> reservations = reservationRepository.getAgencyReservations(requestedAgency.getId());
 
         List<ReservationDetailsDto> response = new ArrayList<>();
 

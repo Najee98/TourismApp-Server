@@ -19,4 +19,6 @@ public interface ReservationService {
     List<Reservation> findReservationsForTour(List<Integer> reservationIds);
 
     List<Reservation> getTourReservations(Integer tourId);
+
+    void saveReservation(Reservation reservation);
 }

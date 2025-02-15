@@ -1,8 +1,6 @@
 package com.spu.TourismApp.Models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import com.spu.TourismApp.Models.Utils.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,6 +17,7 @@ import java.util.*;
 @Entity
 @ToString
 @Table(name = "users")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class AppUser implements UserDetails {
 
     @Id
@@ -70,12 +69,12 @@ public class AppUser implements UserDetails {
         return true;
     }
 
-    @ManyToMany(mappedBy = "subscribers", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "subscribers", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
     @JsonBackReference
     private Set<Tour> tours = new HashSet<>();
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonIgnore
     Agency agency;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

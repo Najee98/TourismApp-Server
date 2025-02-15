@@ -46,70 +46,7 @@ public class Reservation {
     Date fromDate;
     Date toDate;
 
-//    @JsonIgnore
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "user_id")
-//    AppUser user;
-
     @ManyToOne
     @JoinColumn(name = "tour_id")
     Tour tour;
 }
-
-
-//@Entity
-//@Table(name = "reservations")
-//@Data
-//@AllArgsConstructor
-//@NoArgsConstructor
-//public class Reservation {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    Integer id;
-//
-//    ReservationType reservationType;
-//    Date fromDate;
-//    Date toDate;
-//
-//    boolean agencyReservation;
-//
-//    @Embedded
-//    ReservationDetail reservationDetail;
-//
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "reservation_attractions",
-//            joinColumns = @JoinColumn(name = "reservation_id"),
-//            inverseJoinColumns = @JoinColumn(name = "attraction_id"))
-//    List<TouristAttraction> attractions;
-//
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "reservation_restaurants",
-//            joinColumns = @JoinColumn(name = "reservation_id"),
-//            inverseJoinColumns = @JoinColumn(name = "restaurant_id"))
-//    List<Restaurant> restaurants;
-//
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "reservations_hotels",
-//            joinColumns = @JoinColumn(name = "reservation_id"),
-//            inverseJoinColumns = @JoinColumn(name = "hotel_id"))
-//    List<Hotel> hotels;
-//
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "reservation_agency",
-//            joinColumns = @JoinColumn(name = "reservation_id"),
-//            inverseJoinColumns = @JoinColumn(name = "agency_id"))
-//    List<TravellingAgency> agencies;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    AppUser user;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "tour_id")
-//    Tour tour;
-//}

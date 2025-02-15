@@ -6,6 +6,8 @@ import com.spu.TourismApp.Shared.Dto.Agency.AgencyDto;
 import com.spu.TourismApp.Shared.Dto.Agency.CreateAgencyDto;
 import com.spu.TourismApp.Shared.Dto.Reservation.ReservationDetailsDto;
 import com.spu.TourismApp.Shared.Dto.Tour.TourDto;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +20,17 @@ public class UtilsService {
 
     private final UserService userService;
 
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public Agency getLoggedInUserAgency() {
         AppUser agencyManager = userService.getUserFromLogin();
-        return agencyManager.getAgency();
+        if (agencyManager == null || agencyManager.getAgency() == null) {
+            throw new IllegalStateException("User is not assigned to any agency");
+        }
+
+        return entityManager.merge(agencyManager.getAgency());
+//        return agencyManager.getAgency();
     }
 
     public Hotel getLoggedInUserHotel() {
