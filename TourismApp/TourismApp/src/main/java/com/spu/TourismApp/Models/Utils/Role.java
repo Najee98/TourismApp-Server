@@ -20,11 +20,17 @@ public enum Role {
                     VIEW_USER_TOURS,
                     VIEW_AGENCIES,
                     VIEW_AGENCY_TOURS,
+                    VIEW_HOTELS,
+                    GET_HOTEL,
+                    VIEW_RESTAURANTS,
+                    GET_RESTAURANT,
+                    VIEW_ATTRACTIONS,
+                    GET_ATTRACTION,
                     ADD_USER_TO_TOUR,
                     REMOVE_USER_FROM_TOUR,
-                    VIEW_ALL_TOURS, // user tours
+                    VIEW_ALL_TOURS,
                     VIEW_TOUR_RESERVATIONS,
-                    GET_RESERVATION //details
+                    GET_RESERVATION
             )
     ),
 
