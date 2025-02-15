@@ -103,7 +103,11 @@ public class HotelServiceImpl implements HotelService {
 
         hotelManager.setHotel(hotel);
 
-        return hotelRepository.save(hotel);
+        hotelRepository.save(hotel);
+
+        hotelManager.setHotel(hotel);
+
+        return hotel;
     }
 
     @Override

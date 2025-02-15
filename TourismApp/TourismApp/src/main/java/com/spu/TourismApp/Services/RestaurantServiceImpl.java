@@ -105,6 +105,8 @@ public class RestaurantServiceImpl implements RestaurantService{
         restaurantManager.setRestaurant(restaurant);
 
         restaurantRepository.save(restaurant);
+
+        restaurantManager.setRestaurant(restaurant);
     }
 
     @Override

@@ -55,6 +55,7 @@ public enum Role {
                     GET_RESERVATION
             )
     ),
+
     AGENCY_MANAGER(
             Set.of(
                     LOGIN,
@@ -75,7 +76,7 @@ public enum Role {
                     DELETE_TOUR,
                     VIEW_TOUR_RESERVATIONS,
                     VIEW_AGENCY_RESERVATIONS,
-                    GET_RESERVATION //details
+                    GET_RESERVATION
             )
     ),
 
