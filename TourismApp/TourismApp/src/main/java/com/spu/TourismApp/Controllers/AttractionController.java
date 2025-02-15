@@ -32,7 +32,7 @@ public class AttractionController {
      * @return ResponseEntity containing a list of AttractionDto objects.
      */
     @GetMapping
-//    @PreAuthorize("hasAnyAuthority('attractions:viewAttractions')") // Access control for viewing attractions.
+    @PreAuthorize("hasAnyAuthority('attractions:viewAttractions')") // Access control for viewing attractions.
     public ResponseEntity<List<AttractionDto>> getAllAttractions() {
         return ResponseEntity.ok(attractionService.getAllTouristAttractions());
     }
@@ -44,7 +44,7 @@ public class AttractionController {
      * @return ResponseEntity containing the AttractionDto object.
      */
     @GetMapping("/{attractionId}")
-//    @PreAuthorize("hasAnyAuthority('attractions:getAttractions')") // Access control for fetching attraction details.
+    @PreAuthorize("hasAnyAuthority('attractions:getAttractions')") // Access control for fetching attraction details.
     public ResponseEntity<AttractionDto> getAttractionById(@PathVariable Integer attractionId) {
         return ResponseEntity.ok(attractionService.getTouristAttractionDetails(attractionId));
     }
@@ -56,7 +56,7 @@ public class AttractionController {
      * @return ResponseEntity with a success message and HTTP status 201 (Created).
      */
     @PostMapping
-//    @PreAuthorize("hasAnyAuthority('attractions:createAttraction')") // Access control for creating attractions.
+    @PreAuthorize("hasAnyAuthority('attractions:createAttraction')") // Access control for creating attractions.
     public ResponseEntity<String> createAttraction(@RequestBody CreateAttractionDto request) {
         attractionService.createTouristAttraction(request);
         return new ResponseEntity<>("{ \"message\": \"Created successfully\" }", HttpStatus.CREATED);
@@ -69,7 +69,7 @@ public class AttractionController {
      * @return ResponseEntity with a success message and HTTP status 204 (No Content).
      */
     @PutMapping
-//    @PreAuthorize("hasAnyAuthority('attractions:updateAttraction')") // Access control for updating attractions.
+    @PreAuthorize("hasAnyAuthority('attractions:updateAttraction')") // Access control for updating attractions.
     public ResponseEntity<String> updateAttraction(@RequestBody AttractionDto request) {
         attractionService.updateTouristAttraction(request);
         return new ResponseEntity<>("{ \"message\": \"Updated successfully\" }", HttpStatus.NO_CONTENT);
@@ -82,7 +82,7 @@ public class AttractionController {
      * @return ResponseEntity with a success message and HTTP status 204 (No Content).
      */
     @DeleteMapping("/{id}")
-//    @PreAuthorize("hasAnyAuthority('attractions:deleteAttraction')") // Access control for deleting attractions.
+    @PreAuthorize("hasAnyAuthority('attractions:deleteAttraction')") // Access control for deleting attractions.
     public ResponseEntity<String> deleteAttraction(@PathVariable Integer id) {
         attractionService.deleteTouristAttraction(id);
         return new ResponseEntity<>("{ \"message\": \"Deleted successfully\" }", HttpStatus.NO_CONTENT);

@@ -25,7 +25,7 @@ public class TourController {
      * @return ResponseEntity containing a list of TourDto objects.
      */
     @GetMapping
-//    @PreAuthorize("hasAnyAuthority('tours:viewTours')") // Ensures only authorized users can access this endpoint.
+    @PreAuthorize("hasAnyAuthority('tours:viewTours')") // Ensures only authorized users can access this endpoint.
     public ResponseEntity<List<TourDto>> getAllTours() {
         return ResponseEntity.ok(tourService.getAllTours());
     }
@@ -37,7 +37,7 @@ public class TourController {
      * @return ResponseEntity containing the tour details.
      */
     @GetMapping("/{id}")
-//    @PreAuthorize("hasAnyAuthority('tours:getTour')")
+    @PreAuthorize("hasAnyAuthority('tours:getTour')")
     public ResponseEntity<TourDto> getTourById(@PathVariable Integer id) {
         return ResponseEntity.ok(tourService.getTourById(id));
     }
@@ -49,7 +49,7 @@ public class TourController {
      * @return ResponseEntity with a success message and HTTP 201 status.
      */
     @PostMapping
-//    @PreAuthorize("hasAnyAuthority('tours:createTour')")
+    @PreAuthorize("hasAnyAuthority('tours:createTour')")
     public ResponseEntity<Object> createTour(@RequestBody CreateTourDto request) {
         tourService.createTour(request);
         return new ResponseEntity<>("{ \"message\": \" created successfully  \" }", HttpStatus.CREATED);
@@ -63,7 +63,7 @@ public class TourController {
      * @return ResponseEntity with a success message and HTTP 200 status.
      */
     @PutMapping("/{id}")
-//    @PreAuthorize("hasAnyAuthority('tours:updateTour')")
+    @PreAuthorize("hasAnyAuthority('tours:updateTour')")
     public ResponseEntity<Object> updateTour(@PathVariable Integer id, @RequestBody CreateTourDto request) {
         tourService.updateTour(id, request);
         return new ResponseEntity<>("{ \"message\": \" updated successfully  \" }", HttpStatus.OK);
@@ -76,7 +76,7 @@ public class TourController {
      * @return ResponseEntity with a success message and HTTP 204 status.
      */
     @DeleteMapping("/{id}")
-//    @PreAuthorize("hasAnyAuthority('tours:deleteTour')")
+    @PreAuthorize("hasAnyAuthority('tours:deleteTour')")
     public ResponseEntity<Object> deleteTour(@PathVariable Integer id) {
         tourService.deleteTour(id);
         return new ResponseEntity<>("{ \"message\": \" deleted successfully  \" }", HttpStatus.NO_CONTENT);
@@ -89,7 +89,7 @@ public class TourController {
      * @return ResponseEntity with a success message and HTTP 200 status.
      */
     @PostMapping("/users/add")
-//    @PreAuthorize("hasAnyAuthority('tours:addUserToTour')")
+    @PreAuthorize("hasAnyAuthority('tours:addUserToTour')")
     public ResponseEntity<Object> addUserToTour(@RequestParam Integer tourId){
         tourService.addUserToTour(tourId);
         return new ResponseEntity<>("{ \"message\": \" user is now added to the tour.  \" }", HttpStatus.OK);
@@ -102,7 +102,7 @@ public class TourController {
      * @return ResponseEntity with a success message and HTTP 200 status.
      */
     @PostMapping("/users/remove")
-//    @PreAuthorize("hasAnyAuthority('tours:removeUserFromTour')")
+    @PreAuthorize("hasAnyAuthority('tours:removeUserFromTour')")
     public ResponseEntity<Object> removeUserFromTour(@RequestParam Integer tourId){
         tourService.removeUserFromTour(tourId);
         return new ResponseEntity<>("{ \"message\": \" user is now removed from the tour.  \" }", HttpStatus.OK);
@@ -114,7 +114,7 @@ public class TourController {
      * @return ResponseEntity containing a list of TourDto objects.
      */
     @GetMapping("/user-tours")
-//    @PreAuthorize("hasAnyAuthority('tours:viewUserTours')")
+    @PreAuthorize("hasAnyAuthority('tours:viewUserTours')")
     public ResponseEntity<List<TourDto>> getAllUserTours() {
         return new ResponseEntity<>(tourService.getAllUserTours(), HttpStatus.OK);
     }
@@ -126,7 +126,7 @@ public class TourController {
      * @return ResponseEntity containing a list of ReservationDetailsDto objects.
      */
     @GetMapping("/reservations")
-//    @PreAuthorize("hasAnyAuthority('tours:viewTourReservations')")
+    @PreAuthorize("hasAnyAuthority('tours:viewTourReservations')")
     public ResponseEntity<List<ReservationDetailsDto>> getTourReservations(@RequestParam Integer tourId){
         return new ResponseEntity<>(tourService.getTourReservations(tourId), HttpStatus.OK);
     }

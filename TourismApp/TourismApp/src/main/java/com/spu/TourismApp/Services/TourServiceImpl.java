@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class TourServiceImpl implements TourService {
 
@@ -98,30 +97,35 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
+    @Transactional
     public void addUserToTour(Integer tourId) {
         Integer tourUserId = userService.getUserFromLogin().getId();
 
         AppUser tourUser = userService.getUserById(tourUserId);
-        Tour tour = tourRepository.findById(tourId).get();
 
-        tourUser.tours.add(tour);
-        tour.subscribers.add(tourUser);
+        Optional<Tour> tourOptional = tourRepository.findById(tourId);
 
-        userService.saveUser(tourUser);
-        tourRepository.save(tour);
+        if (tourOptional.isPresent() && tourUser != null) {
+            Tour tour = tourOptional.get();
+
+            tourUser.addTour(tour);
+            userService.saveUser(tourUser);
+        }
     }
 
     @Override
+    @Transactional
     public void removeUserFromTour(Integer tourId) {
         AppUser tourUser = userService.getUserFromLogin();
 
-        Optional<Tour> tour = Optional.ofNullable(
-                tourRepository.findById(tourId)
-                        .orElseThrow(() -> new ResourceNotFoundException("Tour not found"))
-        );
+        Optional<Tour> tourOptional = tourRepository.findById(tourId);
 
-        userService.saveUser(tourUser);
-        tourUser.getTours().remove(tour.get());
+        if (tourOptional.isPresent() && tourUser != null) {
+            Tour tour = tourOptional.get();
+
+            tourUser.removeTour(tour);
+            userService.saveUser(tourUser);
+        }
     }
 
     @Override

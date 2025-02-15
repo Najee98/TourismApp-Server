@@ -70,13 +70,9 @@ public class AppUser implements UserDetails {
         return true;
     }
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_tours",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "tour_id")
-    )
-    public Set<Tour> tours = new HashSet<>();
+    @ManyToMany(mappedBy = "subscribers", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JsonBackReference
+    private Set<Tour> tours = new HashSet<>();
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Agency agency;
@@ -86,4 +82,27 @@ public class AppUser implements UserDetails {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Restaurant restaurant;
+
+    public void addTour(Tour tour) {
+        this.tours.add(tour);
+        tour.getSubscribers().add(this);
+    }
+
+    public void removeTour(Tour tour) {
+        this.tours.remove(tour);
+        tour.getSubscribers().remove(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AppUser appUser = (AppUser) o;
+        return Objects.equals(id, appUser.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

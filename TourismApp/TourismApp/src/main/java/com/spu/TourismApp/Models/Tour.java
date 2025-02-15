@@ -34,11 +34,39 @@ public class Tour {
     @JoinColumn(name = "agency_id", nullable = false)
     Agency agency;
 
-    @ManyToMany(mappedBy = "tours", cascade = CascadeType.ALL)
-    public Set<AppUser> subscribers = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "user_tours",
+            joinColumns = @JoinColumn(name = "tour_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    @JsonManagedReference
+    private Set<AppUser> subscribers = new HashSet<>();
 
     private Date startDate;
 
     private Date endDate;
 
+    public void addUser(AppUser user) {
+        this.subscribers.add(user);
+        user.getTours().add(this);
+    }
+
+    public void removeUser(AppUser user) {
+        this.subscribers.remove(user);
+        user.getTours().remove(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tour tour = (Tour) o;
+        return Objects.equals(id, tour.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

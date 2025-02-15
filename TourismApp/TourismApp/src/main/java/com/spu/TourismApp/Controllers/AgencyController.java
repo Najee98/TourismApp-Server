@@ -41,7 +41,7 @@ public class AgencyController {
      * @return ResponseEntity containing a list of AgencyDto objects.
      */
     @GetMapping
-//    @PreAuthorize("hasAnyAuthority('agencies:viewAgencies')") // Restricts access based on user permissions.
+    @PreAuthorize("hasAnyAuthority('agencies:viewAgencies')") // Restricts access based on user permissions.
     public ResponseEntity<List<AgencyDto>> getAllAgencies() {
         return ResponseEntity.ok(agencyService.getAllAgencies());
     }
@@ -53,7 +53,7 @@ public class AgencyController {
      * @return ResponseEntity containing the AgencyDto object.
      */
     @GetMapping("/{agencyId}")
-//    @PreAuthorize("hasAnyAuthority('agencies:getAgency')")
+    @PreAuthorize("hasAnyAuthority('agencies:getAgency')")
     public ResponseEntity<AgencyDto> getAgencyById(@PathVariable Integer agencyId) {
         return ResponseEntity.ok(agencyService.getAgency(agencyId));
     }
@@ -64,7 +64,7 @@ public class AgencyController {
      * @return ResponseEntity containing a list of TourDto objects.
      */
     @GetMapping("/tours")
-//    @PreAuthorize("hasAnyAuthority('agencies:viewAgencyTours')")
+    @PreAuthorize("hasAnyAuthority('agencies:viewAgencyTours')")
     public ResponseEntity<List<TourDto>> getAgencyTours() {
         return new ResponseEntity<>(agencyService.getAgencyTours(), HttpStatus.OK);
     }
@@ -76,7 +76,7 @@ public class AgencyController {
      * @return ResponseEntity with a success message and HTTP status 201 (Created).
      */
     @PostMapping
-//    @PreAuthorize("hasAnyAuthority('agencies:createAgency')")
+    @PreAuthorize("hasAnyAuthority('agencies:createAgency')")
     public ResponseEntity<String> createAgency(@RequestBody CreateAgencyDto request) {
         agencyService.createAgency(request);
         return new ResponseEntity<>("{ \"message\": \"Created successfully\" }", HttpStatus.CREATED);
@@ -89,7 +89,7 @@ public class AgencyController {
      * @return ResponseEntity with a success message and HTTP status 204 (No Content).
      */
     @PutMapping
-//    @PreAuthorize("hasAnyAuthority('agencies:updateAgency')")
+    @PreAuthorize("hasAnyAuthority('agencies:updateAgency')")
     public ResponseEntity<String> updateAgency(@RequestBody AgencyDto request) {
         agencyService.updateAgency(request);
         return new ResponseEntity<>("{ \"message\": \"Updated successfully\" }", HttpStatus.NO_CONTENT);
@@ -102,7 +102,7 @@ public class AgencyController {
      * @return ResponseEntity with a success message and HTTP status 204 (No Content).
      */
     @DeleteMapping("/{id}")
-//    @PreAuthorize("hasAnyAuthority('agencies:deleteAgency')")
+    @PreAuthorize("hasAnyAuthority('agencies:deleteAgency')")
     public ResponseEntity<String> deleteAgency(@PathVariable Integer id) {
         agencyService.deleteAgency(id);
         return new ResponseEntity<>("{ \"message\": \"Deleted successfully\" }", HttpStatus.NO_CONTENT);
@@ -125,7 +125,7 @@ public class AgencyController {
      * @return ResponseEntity containing a list of ManagementUserDto objects.
      */
     @GetMapping("/users")
-//    @PreAuthorize("hasAnyAuthority('agencies:getAllUsersForAgencies')")
+    @PreAuthorize("hasAnyAuthority('agencies:getAllUsersForAgencies')")
     public ResponseEntity<List<ManagementUserDto>> getAllUsersForAgencies() {
         return new ResponseEntity<>(userService.getAllUsersForAgencies(), HttpStatus.OK);
     }

@@ -29,46 +29,46 @@ public class HotelController {
     }
 
     @GetMapping
-//    @PreAuthorize("hasAnyAuthority('hotels:viewHotels')")
+    @PreAuthorize("hasAnyAuthority('hotels:viewHotels')")
     public ResponseEntity<List<HotelDto>> getAllHotels() {
         return ResponseEntity.ok(hotelService.getAllHotels());
     }
 
     @GetMapping("/{hotelId}")
-//    @PreAuthorize("hasAnyAuthority('hotels:getHotel')")
+    @PreAuthorize("hasAnyAuthority('hotels:getHotel')")
     public ResponseEntity<HotelDto> getHotelDetails(@PathVariable Integer hotelId) {
         return ResponseEntity.ok(hotelService.getHotelDetails(hotelId));
     }
 
     @GetMapping("/reservations")
-//    @PreAuthorize("hasAnyAuthority('hotels:getAllHotelReservations')")
+    @PreAuthorize("hasAnyAuthority('hotels:getAllHotelReservations')")
     public ResponseEntity<List<ReservationDetailsDto>> getHotelReservations() {
         return new ResponseEntity<>(hotelService.getHotelReservations(), HttpStatus.OK);
     }
 
     @PostMapping
-//    @PreAuthorize("hasAnyAuthority('hotels:createHotel')")
+    @PreAuthorize("hasAnyAuthority('hotels:createHotel')")
     public ResponseEntity<Object> createHotel(@RequestBody CreateHotelDto request) {
         hotelService.createHotel(request);
         return new ResponseEntity<>("{ \"message\": \" Created successfully  \" }", HttpStatus.CREATED);
     }
 
     @PutMapping()
-//    @PreAuthorize("hasAnyAuthority('hotels:updateHotel')")
+    @PreAuthorize("hasAnyAuthority('hotels:updateHotel')")
     public ResponseEntity<String> updateHotel(@RequestBody HotelDto request) {
         hotelService.updateHotel(request);
         return new ResponseEntity<>("{ \"message\": \" Updated successfully  \" }", HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{hotelId}")
-//    @PreAuthorize("hasAnyAuthority('hotels:deleteHotel')")
+    @PreAuthorize("hasAnyAuthority('hotels:deleteHotel')")
     public ResponseEntity<String> deleteHotel(@PathVariable Integer hotelId) {
         hotelService.deleteHotel(hotelId);
         return new ResponseEntity<>("{ \"message\": \" Deleted successfully  \" }", HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/users")
-//    @PreAuthorize("hasAnyAuthority('hotels:getAllUsersForHotel')")
+    @PreAuthorize("hasAnyAuthority('hotels:getAllUsersForHotel')")
     public ResponseEntity<List<ManagementUserDto>> getAllUsersForHotels(){
         return new ResponseEntity<>(userService.getAllUsersForHotels(), HttpStatus.OK);
     }
