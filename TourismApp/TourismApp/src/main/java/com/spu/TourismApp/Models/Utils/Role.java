@@ -68,6 +68,7 @@ public enum Role {
                     GET_ATTRACTION, //details
                     CREATE_RESERVATION,
                     VIEW_ALL_TOURS,
+                    VIEW_AGENCY_TOURS,
                     GET_TOUR,
                     CREATE_TOUR,
                     UPDATE_TOUR,
