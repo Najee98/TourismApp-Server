@@ -75,6 +75,7 @@ public class AppUser implements UserDetails {
     private Set<Tour> tours = new HashSet<>();
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonBackReference
     Agency agency;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

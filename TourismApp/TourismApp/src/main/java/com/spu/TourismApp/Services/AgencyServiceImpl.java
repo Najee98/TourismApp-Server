@@ -16,12 +16,14 @@ import com.spu.TourismApp.Shared.Dto.Agency.AgencyTourDto;
 import com.spu.TourismApp.Shared.Dto.Agency.AgencyDto;
 import com.spu.TourismApp.Shared.Dto.Agency.CreateAgencyDto;
 import com.spu.TourismApp.Shared.Dto.Tour.TourDto;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -149,12 +151,26 @@ public class AgencyServiceImpl implements AgencyService {
         agencyRepository.save(existingAgency);
     }
 
+    @Transactional
     @Override
     public void deleteAgency(Integer id) {
-        if (!agencyRepository.existsById(id)) {
+        Optional<Agency> agencyOptional = agencyRepository.findById(id);
+
+        if (agencyOptional.isPresent()){
+            Agency agency = agencyOptional.get();
+
+            // Unlink the manager from the agency
+            AppUser manager = agency.getManager();
+            if (manager != null) {
+                manager.setAgency(null);
+                userRepository.save(manager);
+            }
+
+            // Now delete the agency
+            agencyRepository.delete(agency);
+        } else {
             throw new ResourceNotFoundException("Agency not found with id: " + id);
         }
-        agencyRepository.deleteById(id);
     }
 
 
