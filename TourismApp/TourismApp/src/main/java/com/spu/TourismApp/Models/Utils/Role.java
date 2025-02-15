@@ -41,7 +41,9 @@ public enum Role {
                     UPDATE_RESTAURANT,
                     DELETE_RESTAURANT,
                     VIEW_RESTAURANT_RESERVATIONS,
-                    GET_RESERVATION
+                    GET_RESERVATION,
+                    VIEW_AGENCIES,
+                    GET_AGENCY
             )
     ),
 
@@ -52,7 +54,9 @@ public enum Role {
                     UPDATE_HOTEL,
                     DELETE_HOTEL,
                     VIEW_HOTEL_RESERVATIONS,
-                    GET_RESERVATION
+                    GET_RESERVATION,
+                    VIEW_AGENCIES,
+                    GET_AGENCY
             )
     ),
 
