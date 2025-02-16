@@ -58,6 +58,7 @@ public class AgencyServiceImpl implements AgencyService {
         return response;
     }
 
+    @Transactional
     public List<TourDto> getAgencyTours() {
 
         List<Tour> tours = tourRepository.findAllToursByAgency(
