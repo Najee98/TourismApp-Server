@@ -7,13 +7,19 @@
 	},
 	"item": [
 		{
-			"name": "TouristAttractionsAPIs",
+			"name": "AttractionsAPIs",
 			"item": [
 				{
 					"name": "getAllAttractions",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNzMzMjQ2NDY4LCJpYXQiOjE3MzMyNDUwMjh9.ncMi0oqpmabbcJqDbalb3RjrMQctILC92uMTp3fhI8M",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/api/attractions",
 							"host": [
@@ -50,7 +56,13 @@
 					"name": "createAttraction",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNzM1OTUyMTA3LCJpYXQiOjE3MzU5NTA2Njd9.1XPvStbO0pD8VFj4WgudB38fi779--sDiPqSfSsyRiI",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"name\": \"test\",\r\n    \"address\": \"test\",\r\n    \"phone\": \"123\",\r\n    \"imageUrl\": \"test\"\r\n}",
@@ -122,13 +134,19 @@
 			]
 		},
 		{
-			"name": "TravellingAgenciesAPIs",
+			"name": "AgenciesAPIs",
 			"item": [
 				{
 					"name": "getAllAgencies",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJleHAiOjE3MzczOTY0OTcsImlhdCI6MTczNzM5NTA1N30.PfRrv83jEH-rbY88pVgnngMtV3Mm2VYqAfKqo0KS5Dk",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/api/agencies",
 							"host": [
@@ -165,10 +183,16 @@
 					"name": "createAgency",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNzM4Njg4OTc1LCJpYXQiOjE3Mzg2ODc1MzV9.4Vc4PjLC2c92_GrZEVyM3LsklRiXYyqwGQZwduSdx0Q",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"test\",\r\n    \"address\": \"test\",\r\n    \"phone\": \"123\",\r\n    \"imageUrl\": \"test\"\r\n}",
+							"raw": "{\r\n    \"name\": \"test\",\r\n    \"address\": \"test\",\r\n    \"phone\": \"123\",\r\n    \"imageUrl\": \"test\",\r\n    \"managerId\": 3\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -233,11 +257,36 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "getUsersForAgencies",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJleHAiOjE3MzgwOTA2MjUsImlhdCI6MTczODA4OTE4NX0.eODX3L_cR8RqpPSGp3sfWhf9B1CFFrZkxcdEFlPIQ-Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/agencies/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"agencies",
+								"users"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
 		{
-			"name": "AuthenticationAPIs",
+			"name": "Authentication & Users",
 			"item": [
 				{
 					"name": "Login",
@@ -246,7 +295,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \" \",\r\n    \"password\": \" \"\r\n}",
+							"raw": "{\r\n    \"email\": \"agency1@tourism.com\",\r\n    \"password\": \"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -274,7 +323,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"test user\",\r\n    \"lastName\": \"test last name\",\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"123456\",\r\n    \"role\": \"USER\"\r\n}",
+							"raw": "{\r\n    \"firstName\": \"test user 1\",\r\n    \"lastName\": \"test last name\",\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"123456\",\r\n    \"role\": \"USER\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -296,6 +345,841 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "HotelAPIs",
+			"item": [
+				{
+					"name": "getAllHotels",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJob3RlbEB1c2VyLmNvbSIsImV4cCI6MTczODQ1NDU5NSwiaWF0IjoxNzM4NDUzMTU1fQ.mYrB3aY6xQAzFT20b8uzL5YfQd-f1Ia-1EH--m7-O8E",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/hotels",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"hotels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getHotelById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/hotels/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"hotels",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createHotel",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJleHAiOjE3MzczOTY0OTcsImlhdCI6MTczNzM5NTA1N30.PfRrv83jEH-rbY88pVgnngMtV3Mm2VYqAfKqo0KS5Dk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"test\",\r\n    \"description\": \"test\",\r\n    \"address\": \"test\",\r\n    \"phone\": \"123456\",\r\n    \"imageUrl\": \"test\",\r\n    \"availableRooms\": 3,\r\n    \"managerId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/hotels",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"hotels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateHotel",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNzM1MzM1Njc5LCJpYXQiOjE3MzUzMzQyMzl9.4pFxAZWKKV_dL7xWq_9NUrSjiauDQ6j-vfKWaGqak9o",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"new name\",\r\n    \"description\": \"test\",\r\n    \"address\": \"test\",\r\n    \"phone\": \"123456\",\r\n    \"imageUrl\": \"test\",\r\n    \"availableRooms\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/hotels",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"hotels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteHotel",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNzM1MzM1Njc5LCJpYXQiOjE3MzUzMzQyMzl9.4pFxAZWKKV_dL7xWq_9NUrSjiauDQ6j-vfKWaGqak9o",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/hotels/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"hotels",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getHotelReservations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/hotels/reservations",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"hotels",
+								"reservations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllUsersForHotels",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJob3RlbEB1c2VyLmNvbSIsImV4cCI6MTczODQ1NDU5NSwiaWF0IjoxNzM4NDUzMTU1fQ.mYrB3aY6xQAzFT20b8uzL5YfQd-f1Ia-1EH--m7-O8E",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/hotels/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"hotels",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ReservationAPIs",
+			"item": [
+				{
+					"name": "getReservationDetails",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJleHAiOjE3MzY1MjM3OTMsImlhdCI6MTczNjUyMjM1M30.lfUzYRWd1_wp1goHriHO6wqH3B8we2xNhIuv2AWbiak",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/reservations/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"reservations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createReservation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJleHAiOjE3Mzg0MTkwOTAsImlhdCI6MTczODQxNzY1MH0.Mg7ToE7mWFM1jObnbLweAQfpqWw8kEt1IYqVvpqaMag",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reservationType\": \"HOTEL_RESERVATION\",\r\n    \"reservationRelatedId\": 1,\r\n    \"tableOrRoomNumber\": 3,\r\n    \"fromDate\": \"2024-01-01\",\r\n    \"toDate\": \"2024-01-05\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/reservations",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"reservations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateReservation",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJleHAiOjE3Mzc1NzAwNTMsImlhdCI6MTczNzU2ODYxM30.eUyBoLtR2vx-NpCKZOh3ECoEM7T74sYseQCdqhZLRh8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"agencyId\": 1,\r\n    \"reservationType\": \"HOTEL_RESERVATION\",\r\n    \"reservationRelatedId\": 1,\r\n    \"tableOrRoomNumber\": 2,\r\n    \"fromDate\": \"2024-01-15\",\r\n    \"toDate\": \"2024-01-25\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/reservations/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"reservations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteReservation",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJleHAiOjE3MzY1MjM3OTMsImlhdCI6MTczNjUyMjM1M30.lfUzYRWd1_wp1goHriHO6wqH3B8we2xNhIuv2AWbiak",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/reservations/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"reservations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTourReservations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJleHAiOjE3Mzc5MTU3MzcsImlhdCI6MTczNzkxNDI5N30.z9dxnb1POW4lB9byXpVPF2GuTHXCU7eWztQtWpQGeCU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/tours/reservations?tourId=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tours",
+								"reservations"
+							],
+							"query": [
+								{
+									"key": "tourId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAgencyReservations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJleHAiOjE3Mzg0MTkwOTAsImlhdCI6MTczODQxNzY1MH0.Mg7ToE7mWFM1jObnbLweAQfpqWw8kEt1IYqVvpqaMag",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/agencies/reservations",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"agencies",
+								"reservations"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RestaurantAPIs",
+			"item": [
+				{
+					"name": "getAllRestaurants",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNzM1NTIzNTg5LCJpYXQiOjE3MzU1MjIxNDl9.y4v_8giQlPntmjNwpPJRSfhbquVA9AM98MGiAr8YIck",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/restaurants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"restaurants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createRestaurant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNzM1NTI0MDYwLCJpYXQiOjE3MzU1MjI2MjB9.bqDZV6xwNUPu_Stl9lRqJOtGnQ4fjq1egVUAPPUsw6c",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"test\",\r\n    \"description\": \"test\",\r\n    \"address\": \"test\",\r\n    \"phone\": \"1234\",\r\n    \"imageUrl\": \"test\",\r\n    \"availableTables\": 5,\r\n    \"managerId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/restaurants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"restaurants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateRestaurant",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNzM1NTI0MDYwLCJpYXQiOjE3MzU1MjI2MjB9.bqDZV6xwNUPu_Stl9lRqJOtGnQ4fjq1egVUAPPUsw6c",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \" new test\",\r\n    \"description\": \"test\",\r\n    \"address\": \"test\",\r\n    \"phone\": \"1234\",\r\n    \"imageUrl\": \"test\",\r\n    \"availableTables\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/restaurants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"restaurants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRestaurantById",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNzM1NTI0MDYwLCJpYXQiOjE3MzU1MjI2MjB9.bqDZV6xwNUPu_Stl9lRqJOtGnQ4fjq1egVUAPPUsw6c",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/restaurants/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"restaurants",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteRestaurant",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNzM1NTI0MDYwLCJpYXQiOjE3MzU1MjI2MjB9.bqDZV6xwNUPu_Stl9lRqJOtGnQ4fjq1egVUAPPUsw6c",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/restaurants/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"restaurants",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRestaurantReservations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/restaurants/reservations",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"restaurants",
+								"reservations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllUsersForRestaurants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/restaurants/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"restaurants",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TourAPIs",
+			"item": [
+				{
+					"name": "getAllTours",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJleHAiOjE3Mzc4MDQ1NjgsImlhdCI6MTczNzgwMzEyOH0.6AN0e-onaCtVrgI0p-zj9mQ6ptUN-v41kvycWfHvlN8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/tours",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tours"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTourDetails",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/tours/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tours",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createTour",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZ2VuY3kxQGFnZW5jeTEuY29tIiwiZXhwIjoxNzM5MjEzMDc3LCJpYXQiOjE3MzkyMTE2Mzd9._60zfpP56h3IJRMVT4OunDmQS3qafCANM7UxxtSeJ6Y",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tourName\": \"test\",\r\n    \"reservationIds\": [1,2],\r\n    \"startDate\": \"2024-01-01\",\r\n    \"endDate\": \"2024-02-01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/tours",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tours"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateTour",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tourName\": \"test\",\r\n    \"agencyId\": 1,\r\n    \"reservationIds\": [1,2,3],\r\n    \"startDate\": \"\",\r\n    \"endDate\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/tours/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tours",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteTour",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/tours/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tours",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addUserToTour",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQHRvdXJpc20uY29tIiwiZXhwIjoxNzM5NzI3ODA3LCJpYXQiOjE3Mzk3MjYzNjd9.-B_ojZWq9PyEiP6C-LL7LjK6dgyhU7fVg8nQOqInCfI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/tours/users/add?tourId=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tours",
+								"users",
+								"add"
+							],
+							"query": [
+								{
+									"key": "tourId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserTours",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJleHAiOjE3Mzc4MDY4NDQsImlhdCI6MTczNzgwNTQwNH0.K0fdUp8z-aHp0Dxxe8eq4ONWppQRJDsJAUYXUxgLJbI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/tours/user-tours",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tours",
+								"user-tours"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeUserFromTour",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJleHAiOjE3Mzc4MTA3MTEsImlhdCI6MTczNzgwOTI3MX0.GGjkvIEqho2TJZAsCALaDiWgW9a-Ob10SM9tsRHD2Ts",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/tours/users/remove?tourId=4",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tours",
+								"users",
+								"remove"
+							],
+							"query": [
+								{
+									"key": "tourId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAgencyTours",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZ2VuY3lAdXNlci5jb20iLCJleHAiOjE3MzgzNDUyODAsImlhdCI6MTczODM0Mzg0MH0.YGTDgffoTBwAaZuFRYCYGzDmjNcxiSKbauH2aUcWIX4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/agencies/tours",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"agencies",
+								"tours"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "inherit"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }

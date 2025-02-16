@@ -80,7 +80,8 @@ public enum Role {
                     DELETE_TOUR,
                     VIEW_TOUR_RESERVATIONS,
                     VIEW_AGENCY_RESERVATIONS,
-                    GET_RESERVATION
+                    GET_RESERVATION,
+                    DELETE_RESERVATION
             )
     ),
 
@@ -101,11 +102,12 @@ public enum Role {
                     VIEW_USERS_FOR_RESTAURANTS,
                     CREATE_RESTAURANT,
                     VIEW_RESTAURANTS,
-
                     CREATE_ATTRACTION,
-
                     UPDATE_ATTRACTION,
-                    DELETE_ATTRACTION
+                    DELETE_ATTRACTION,
+                    GET_HOTEL,
+                    GET_ATTRACTION,
+                    GET_RESTAURANT
             ))
     ;
 
