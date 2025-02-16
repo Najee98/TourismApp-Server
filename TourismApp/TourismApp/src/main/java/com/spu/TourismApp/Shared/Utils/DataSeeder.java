@@ -84,111 +84,111 @@ public class DataSeeder implements CommandLineRunner {
         }
 
         // Seed Hotels
-        if (hotelRepository.count() == 0) {
-            hotelRepository.save(new Hotel(
-                    null,
-                    "Hotel California",
-                    "The greatest hotel in the west",
-                    "Hotel street",
-                    "011 123456",
-                    "testImage1",
-                    15,
-                    userRepository.findById(1).get()));
-
-            hotelRepository.save(new Hotel(
-                    null,
-                    "Hotel New York",
-                    "The greatest hotel in the east",
-                    "Hotelllay street",
-                    "099 654321",
-                    "testImage2",
-                    25,
-                    userRepository.findById(2).get()));
-        }
-
-        // Seed Restaurants
-        if (restaurantRepository.count() == 0) {
-            restaurantRepository.save(new Restaurant(
-                    null,
-                    "RestauRast",
-                    "The greatest restaurant in the west",
-                    "Restaurant street",
-                    "011 12356",
-                    "testImage3",
-                    12,
-                    userRepository.findById(1).get()));
-
-            restaurantRepository.save(new Restaurant(
-                    null,
-                    "RestauRastaaaayyyyy",
-                    "The greatest restaurant in the east",
-                    "Restaurant streetaaaayyyy",
-                    "099 654321",
-                    "testImage4",
-                    33,
-                    userRepository.findById(2).get()));
-        }
-
-        // Seed Attractions
-        if (attractionRepository.count() == 0) {
-            attractionRepository.save(new Attraction(
-                    null,
-                    "Central Park",
-                    "The greatest attraction in the east",
-                    "Santa Claws street",
-                    "099 654321",
-                    "testImage5"
-                   // userRepository.findById(1).get()
-                    ));
-
-            attractionRepository.save(new Attraction(
-                    null,
-                    "Central Peeeeerk",
-                    "The greatest place in F.R.I.E.N.D.S",
-                    "Friends street",
-                    "088 555444",
-                    "testImage6"
-                 //   userRepository.findById(2).get()
-                    ));
-        }
-
-        // Seed Agencies
-        if(agencyRepository.count() == 0) {
-
-            AppUser user = userRepository.findById(3).get();
-
-            Agency agency = new Agency(
-                    null,
-                    "The greatest agency in the west",
-                    "West-side yo",
-                    "011 123456",
-                    "testImage7",
-                    user,
-                    null
-            );
-            agencyRepository.save(agency);
-
-
-            user.setAgency(agency);
-
-            userRepository.save(user);
-
-            user = userRepository.findById(4).get();
-
-            agency = new Agency(
-                    null,
-                    "The greatest agency in the east",
-                    "East-siiiide",
-                    "099 654321",
-                    "testImage8",
-                    user,
-                    null
-            );
-            agencyRepository.save(agency);
-
-            user.setAgency(agency);
-
-            userRepository.save(user);
-        }
+//        if (hotelRepository.count() == 0) {
+//            hotelRepository.save(new Hotel(
+//                    null,
+//                    "Hotel California",
+//                    "The greatest hotel in the west",
+//                    "Hotel street",
+//                    "011 123456",
+//                    "testImage1",
+//                    15,
+//                    userRepository.findById(1).get()));
+//
+//            hotelRepository.save(new Hotel(
+//                    null,
+//                    "Hotel New York",
+//                    "The greatest hotel in the east",
+//                    "Hotelllay street",
+//                    "099 654321",
+//                    "testImage2",
+//                    25,
+//                    userRepository.findById(2).get()));
+//        }
+//
+//        // Seed Restaurants
+//        if (restaurantRepository.count() == 0) {
+//            restaurantRepository.save(new Restaurant(
+//                    null,
+//                    "RestauRast",
+//                    "The greatest restaurant in the west",
+//                    "Restaurant street",
+//                    "011 12356",
+//                    "testImage3",
+//                    12,
+//                    userRepository.findById(1).get()));
+//
+//            restaurantRepository.save(new Restaurant(
+//                    null,
+//                    "RestauRastaaaayyyyy",
+//                    "The greatest restaurant in the east",
+//                    "Restaurant streetaaaayyyy",
+//                    "099 654321",
+//                    "testImage4",
+//                    33,
+//                    userRepository.findById(2).get()));
+//        }
+//
+//        // Seed Attractions
+//        if (attractionRepository.count() == 0) {
+//            attractionRepository.save(new Attraction(
+//                    null,
+//                    "Central Park",
+//                    "The greatest attraction in the east",
+//                    "Santa Claws street",
+//                    "099 654321",
+//                    "testImage5"
+//                   // userRepository.findById(1).get()
+//                    ));
+//
+//            attractionRepository.save(new Attraction(
+//                    null,
+//                    "Central Peeeeerk",
+//                    "The greatest place in F.R.I.E.N.D.S",
+//                    "Friends street",
+//                    "088 555444",
+//                    "testImage6"
+//                 //   userRepository.findById(2).get()
+//                    ));
+//        }
+//
+//        // Seed Agencies
+//        if(agencyRepository.count() == 0) {
+//
+//            AppUser user = userRepository.findById(3).get();
+//
+//            Agency agency = new Agency(
+//                    null,
+//                    "The greatest agency in the west",
+//                    "West-side yo",
+//                    "011 123456",
+//                    "testImage7",
+//                    user,
+//                    null
+//            );
+//            agencyRepository.save(agency);
+//
+//
+//            user.setAgency(agency);
+//
+//            userRepository.save(user);
+//
+//            user = userRepository.findById(4).get();
+//
+//            agency = new Agency(
+//                    null,
+//                    "The greatest agency in the east",
+//                    "East-siiiide",
+//                    "099 654321",
+//                    "testImage8",
+//                    user,
+//                    null
+//            );
+//            agencyRepository.save(agency);
+//
+//            user.setAgency(agency);
+//
+//            userRepository.save(user);
+//        }
     }
 }
